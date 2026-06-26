@@ -89,3 +89,6 @@
 /* 폼 정책 링크 + 리드폼 노랑 강조 */
 .lf__policy{ color:#000; font-weight:400; font-size:13px; text-decoration:underline; }
 .leadform__hl{ color:#ffe600; font-weight:700; }
+
+/* 후기 더보기 버튼 */
+.ts__more{ font-size:14px; font-weight:700; }
