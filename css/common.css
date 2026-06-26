@@ -251,7 +251,7 @@ blockquote.ts__quote{ background:#fff; border:1px solid #e8eef6; padding:clamp(1
    섹션 6 · 리드폼 (.leadform)   배경 오버레이는 premium.css
 ===================================================================== */
 .section.leadform{ position:relative; padding-block:clamp(72px,10vw,120px); isolation:isolate; text-align:center; }
-.leadform__wrap{ width:min(1100px,92vw); margin-inline:auto; }
+.leadform__wrap{ width:min(700px,92vw); margin-inline:auto; }
 .leadform__card{ background:#fff; border-radius:var(--radius-lg); margin-inline:auto; box-shadow:var(--shadow-lg); border:1px solid rgba(255,255,255,.08); }
 .lf__grid{ display:grid; grid-template-columns:1fr; gap:14px 16px; padding:clamp(16px,3.2vw,22px); }
 .lf__field{ display:flex; flex-direction:column; text-align:left; }
