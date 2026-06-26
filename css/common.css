@@ -24,7 +24,7 @@ html{
 }
 body{
   margin:0; font-family:var(--font-body); color:var(--neutral-900);
-  background:var(--page-bg); width:100%; overflow-x:hidden;
+  background:var(--page-bg); width:100%; overflow-x:clip;
 }
 img{ max-width:100%; display:block; }
 body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤 잠금 */
