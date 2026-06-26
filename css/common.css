@@ -174,10 +174,10 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 
 /* 본문: 박스 없이 평평하게, 기본 5줄 말줄임(펼치면 전체) — PC·모바일 공통 */
 blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; }
-.ts__quote{ display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; max-height:calc(5 * 1.75em); }
-.ts__quote.is-expanded{ display:block; -webkit-line-clamp:unset; overflow:visible; max-height:none; }
+.ts__quote{ display:-webkit-box; -webkit-line-clamp:4; line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; max-height:calc(5 * 1.75em); }
+.ts__quote.is-expanded{ display:block; -webkit-line-clamp:unset; line-clamp:unset; overflow:visible; max-height:none; }
 
-.ts__right{ --ts-chart-h:clamp(240px,34vw,320px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,18px); align-items:stretch; justify-items:center; }
+.ts__right{ --ts-chart-h:clamp(240px,40vw,600px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,18px); align-items:stretch; justify-items:center; }
 .ts__photoWrap{ height:var(--ts-chart-h); display:flex; flex-direction:column; min-width:0; min-height:0; }
 .ts__photo{ width:100%; height:var(--ts-chart-h); object-fit:cover; border-radius:var(--radius-lg); box-shadow:0 8px 18px rgba(11,37,64,.08); display:block; }
 /* 두 번째 이미지 임시 회색 자리 (실제 이미지 넣으면 그 위로 채워짐) */
@@ -194,8 +194,10 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; }
 
 /* 모바일: 사이즈만 미세 조정 (구조는 PC와 동일) */
 @media (max-width:980px){
-  .ts__right{ --ts-chart-h:clamp(200px,46vw,280px); gap:12px; }
+  .ts__right{ --ts-chart-h:clamp(200px,40vw,600px); gap:12px; }
   .ts__photo, .ts__photoWrap--ph{ border-radius:14px; }
+  .ts__quote{ -webkit-line-clamp:5; line-clamp:5; max-height:calc(5 * 1.75em); }
+
 }
 
 /* =====================================================================
