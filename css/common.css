@@ -173,7 +173,7 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 .ts__meta strong{ color:var(--neutral-900); }
 
 /* 본문: 박스 없이 평평하게, 기본 5줄 말줄임(펼치면 전체) — PC·모바일 공통 */
-blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; font-size:16px;}
+blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; font-size:18px;}
 .ts__quote{ display:-webkit-box; -webkit-line-clamp:3; line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; max-height:calc(5 * 1.75em); }
 .ts__quote.is-expanded{ display:block; -webkit-line-clamp:unset; line-clamp:unset; overflow:visible; max-height:none; }
 
