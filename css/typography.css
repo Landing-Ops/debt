@@ -19,7 +19,7 @@
 
 /* 히어로 리드 안의 강조 라인들 (기존 인라인 style 대체) */
 .hero-lead-lg     { font-size:24px; }
-.hero-lead-accent { font-size:20px; color:var(--primary); font-weight:700; }
+.hero-lead-accent { font-size:24px; color:var(--primary); font-weight:700; }
 .bullet strong    { color:var(--neutral-900); }
 
 /* ---------- Footer ---------- */
