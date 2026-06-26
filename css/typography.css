@@ -1,0 +1,91 @@
+/* =====================================================================
+   typography.css  —  타이포(폰트 종류·크기·굵기·색·행간·자간)만 + 강조 유틸
+   레이아웃/배경/보더는 일절 없음.
+===================================================================== */
+
+/* ---------- 강조 유틸 (nude 6종 중 이 페이지가 쓰는 것) ---------- */
+.highlight-text        { color:var(--color-highlight-text); font-weight:700; }
+.highlight-strong-text { color:var(--color-highlight-strong-text); font-weight:800; }
+.highlight-bg          { background:var(--color-highlight-bg); border-radius:6px; padding:1px 3px; display:inline; line-height:normal; }
+
+/* ---------- 네비 ---------- */
+.nav__logo{ color:#fff; font-weight:900; letter-spacing:.2px; font-size:clamp(18px,2.2vw,26px); text-decoration:none; }
+.nav__link{ color:#fff; font-weight:800; font-size:clamp(14px,1.6vw,18px); text-decoration:none; }
+
+/* ---------- Hero ---------- */
+.kicker{ color:var(--primary-text); font-weight:700; font-size:12px; letter-spacing:.02em; }
+.hero .title{ color:var(--primary); font-weight:900; font-size:clamp(36px,4.5vw,64px); line-height:1.05; letter-spacing:-.01em; }
+.hero .lead{ color:var(--neutral-600); font-weight:400; font-size:clamp(16px,1.6vw,18px); line-height:1.7; }
+
+/* 히어로 리드 안의 강조 라인들 (기존 인라인 style 대체) */
+.hero-lead-lg     { font-size:24px; }
+.hero-lead-accent { font-size:20px; color:var(--primary); font-weight:700; }
+.bullet strong    { color:var(--neutral-900); }
+
+/* ---------- Footer ---------- */
+.footer__logo-en{ color:var(--primary); font-weight:900; font-size:clamp(22px,3vw,36px); letter-spacing:.2px; }
+.footer__logo-ko{ color:var(--neutral-500); font-weight:800; font-size:clamp(15px,1.6vw,20px); }
+.footer__slogan{ color:var(--neutral-600); line-height:1.7; font-size:clamp(14px,1.6vw,17px); }
+.footer__item{ font-size:clamp(14px,1.5vw,16px); color:var(--neutral-700); }
+.footer__copy{ color:#617089; font-size:13px; }
+
+/* ---------- 모달 ---------- */
+.privacy-modal__title{ font-size:15px; font-weight:bold; }
+.privacy-modal__body{ font-size:13px; letter-spacing:-.5px; line-height:1.6; }
+
+/* =====================================================================
+   섹션 공통 제목/설명
+===================================================================== */
+.section__title{ font-weight:900; letter-spacing:-.01em; }
+.section__desc{ line-height:1.7; }
+
+/* 후기 */
+.section.testimonials .section__title{ color:var(--primary); font-size:clamp(28px,4.5vw,64px); }
+.section.testimonials .section__desc{ margin-top:10px; color:var(--neutral-600); font-size:clamp(15px,1.8vw,20px); }
+
+/* 성과 (배경 어두움 → 흰 글자) */
+.section.success{ color:#fff; }
+.section.success .section__title{ font-size:clamp(28px,4vw,42px); margin-bottom:12px; }
+.section.success .section__desc{ font-size:clamp(15px,1.6vw,18px); margin-bottom:40px; opacity:.9; }
+.success__card{ color:var(--primary-bright); }
+.success__num{ display:block; font-size:clamp(28px,4vw,40px); font-weight:900; margin-bottom:8px; }
+.success__label{ font-size:22px; font-weight:600; color:#444; }
+.success__label2{ font-size:28px; font-weight:600; color:#444; }
+.success__footer h3{ font-size:clamp(18px,2.5vw,22px); font-weight:800; margin-bottom:10px; }
+.success__footer p{ font-size:clamp(14px,1.6vw,17px); line-height:1.7; opacity:.95; }
+
+/* 업종 */
+.section.industries .section__title{ color:var(--neutral-900); font-size:clamp(26px,3.6vw,44px); }
+.section.industries .section__desc{ margin-top:10px; color:var(--neutral-600); font-size:clamp(15px,1.6vw,20px); }
+.ind__name{ font-size:clamp(14px,1.6vw,32px); color:var(--neutral-800); font-weight:800; letter-spacing:-.01em; }
+.ind__cap{ color:#fff; font-weight:800; font-size:clamp(14px,1.4vw,32px); letter-spacing:.01em; }
+.ind__cap b{ font-size:1.05em; }
+@media (max-width:1024px){ .section.industries .ind__name{ font-size:18px; } .section.industries .ind__cap{ font-size:16px; } }
+@media (max-width:560px){
+  .section.industries .section__title{ font-size:clamp(26px,6.2vw,34px) !important; }
+  .section.industries .section__desc{ font-size:clamp(15px,4.2vw,18px) !important; }
+  .section.industries .ind__name{ font-size:19px; } .section.industries .ind__cap{ font-size:17px; }
+}
+
+/* 절차 */
+.section.promises .section__title{ color:var(--neutral-900); font-size:clamp(28px,4.2vw,48px); letter-spacing:-.02em; }
+.section.promises .section__desc{ margin-top:10px; color:var(--neutral-600); font-size:clamp(14px,1.6vw,18px); }
+.promise__title{ font-weight:900; font-size:clamp(18px,2.4vw,26px); color:var(--neutral-900); margin:6px 0 10px; letter-spacing:-.01em; }
+.promise__desc{ color:#46566e; line-height:1.7; font-size:clamp(14px,1.7vw,18px); }
+
+/* 리드폼 (배경 어두움 → 흰 글자, 카드 안은 진한 글자) */
+.section.leadform{ color:#fff; }
+.leadform__card{ color:var(--neutral-900); }
+.leadform__count{ margin:0 0 8px; font-size:clamp(14px,1.4vw,18px); opacity:.9; }
+.leadform__count strong{ font-weight:900; color:#74ffb4; }
+.leadform__title{ margin:4px 0 10px; font-weight:900; font-size:clamp(26px,3.8vw,40px); letter-spacing:-.01em; }
+.leadform__desc{ margin:0 0 10px; opacity:.9; line-height:1.65; font-size:clamp(14px,1.6vw,18px); }
+.lf__label{ font-size:13px; color:#4b5a6b; margin:0 0 6px; font-weight:700; }
+.lf__input, .lf__select, .lf__textarea{ font-size:15px; }
+.lf__input::placeholder, .lf__textarea::placeholder{ color:var(--neutral-400); }
+.lf__check{ font-size:14px; color:#334; }
+.lf__submit{ font-weight:900; }
+
+/* 폼 정책 링크 + 리드폼 노랑 강조 */
+.lf__policy{ color:#000; font-weight:400; font-size:13px; text-decoration:underline; }
+.leadform__hl{ color:#ffe600; font-weight:700; }

@@ -1,102 +1,124 @@
 <!DOCTYPE html>
-<html lang="ko" data-color-pattern="1">
+<html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>2026년 채무탕감 법원제도 개인회생 솔루션</title>
 
-  <!-- 폰트: Noto Sans KR (기존 유지) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <!-- Tailwind: 레이아웃 전용 (초기 제작용 CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 외부 CSS -->
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="css/ionicons.min.css"  /> <!--개인정보 팝업 닫기버튼-->
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
 
-  <!-- 역할별 CSS: 토큰 → 컴포넌트 스킨 → 타이포 → 효과 -->
-  <link rel="stylesheet" href="./css/brand.css">
-  <link rel="stylesheet" href="./css/common.css">
-  <link rel="stylesheet" href="./css/typography.css">
-  <link rel="stylesheet" href="./css/premium.css">
 </head>
 
-<body data-industry="legal" data-source="인덱스">
+<body>
+  <!--HTML 헤더,메뉴바-->
+<header class="site-nav" role="navigation" aria-label="주요 메뉴"> 
+  <div class="container nav__inner">
+    <!-- 좌측 로고 -->
+    <a href="#hero" class="nav__logo" aria-label="사업자 홈">
+      <strong>윤동헌 법무사</strong>
+    </a>
 
-  <!-- ============ 헤더 / 네비 ============ -->
-  <header class="site-nav" role="navigation" aria-label="주요 메뉴">
-    <div class="nav__inner">
-      <a href="#hero" class="nav__logo" aria-label="윤동헌 법무사 홈"><strong>윤동헌 법무사</strong></a>
+    <!-- 모바일 햄버거 -->
+    <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
+      <span class="nav__bar"></span>
+      <span class="nav__bar"></span>
+      <span class="nav__bar"></span>
+    </button>
 
-      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
-        <span class="nav__bar"></span><span class="nav__bar"></span><span class="nav__bar"></span>
-      </button>
+    <!-- 우측 메뉴 -->
+    <nav id="nav-menu" class="nav__menu" aria-label="상단 메뉴">
+      <a class="nav__link" href="#testimonial">성공사례</a>
+      <a class="nav__link" href="#proccess">간편절차</a>
+      <a class="nav__link" href="#contact">무료상담</a>
+    </nav>
+  </div>
+</header>
 
-      <nav id="nav-menu" class="nav__menu" aria-label="상단 메뉴">
-        <a class="nav__link" href="#testimonial">성공사례</a>
-        <a class="nav__link" href="#proccess">간편절차</a>
-        <a class="nav__link" href="#contact">무료상담</a>
-      </nav>
-    </div>
-  </header>
+  <!-- 섹션1 - Hero -->
+  <main class="hero" id="hero">
+    <div class="container hero-inner">
+      <!-- 좌측: 비주얼 -->
+      <figure class="hero-visual" aria-label="정책자금 안내 비주얼">
+        <img src="./img/hero001.png" alt="정부정책자금 비주얼 이미지" />
+      </figure>
 
-  <main id="page">
+      <!-- 우측: 카피 & CTA -->
+      <div class="hero-copy">
+        <span class="kicker">
+          <svg class="spark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          개인·법인 사업자 업종별 정책자금 활용 솔루션
+        </span>
 
-    <!-- ============ 섹션 1 · Hero ============ -->
-    <section class="hero" id="hero">
-      <div class="mx-auto w-[min(1200px,92vw)] grid items-center grid-cols-1 min-[981px]:grid-cols-[1.15fr_1fr] gap-[18px] min-[981px]:gap-6 pt-7 pb-14">
-
-        <!-- 좌: 비주얼 -->
-        <figure class="hero-visual min-h-[340px] min-[981px]:min-h-[420px]" aria-label="개인회생 안내 비주얼">
-          <img src="./img/hero001.png" alt="개인회생 안내 비주얼 이미지" />
-        </figure>
-
-        <!-- 우: 카피 -->
-        <div class="hero-copy px-1 py-2">
-          <span class="kicker inline-flex items-center gap-2.5 px-3 py-1.5">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            개인·법인 사업자 업종별 정책자금 활용 솔루션
-          </span>
-
-          <h1 class="title mt-3.5 mb-2.5">2026년 법원제도로 빚을 합법적으로 탕감하세요</h1>
-
-          <div class="lead mt-2.5 mb-4.5">
-            <span class="hero-lead-lg">원금 최대 <b>95% 탕감</b></span><br>
-            <span class="hero-lead-lg">이자 <b>100% 전액 탕감</b></span><br>
-            <span class="hero-lead-lg"><b>신용회복</b> &amp; 경제적 재기 기회!</span><br><br>
-            <span class="hero-lead-accent"><b>혹시 아래와 같은 상황에 계시나요?</b></span>
-
-            <div class="bullets grid gap-2.5 mt-4.5 mb-[26px]" role="list">
-              <div class="bullet flex gap-3 items-start px-3.5 py-3" role="listitem">
-                <svg class="shrink-0 w-[18px] mt-0.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div>모르는 번호 <strong>독촉 전화</strong> 더 이상 받기 싫다</div>
-              </div>
-              <div class="bullet flex gap-3 items-start px-3.5 py-3" role="listitem">
-                <svg class="shrink-0 w-[18px] mt-0.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div>우편함에 쌓인 <strong>빨간 고지서</strong> 뜯어볼 엄두도 안 난다</div>
-              </div>
-              <div class="bullet flex gap-3 items-start px-3.5 py-3" role="listitem">
-                <svg class="shrink-0 w-[18px] mt-0.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div>카드 <strong>돌려막기</strong> 이제 정말 그만두고 싶다</div>
-              </div>
-              <div class="bullet flex gap-3 items-start px-3.5 py-3" role="listitem">
-                <svg class="shrink-0 w-[18px] mt-0.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div>더 이상 가족·지인에게 <strong>손 벌리기</strong> 싫다</div>
-              </div>
-              <div class="bullet flex gap-3 items-start px-3.5 py-3" role="listitem">
-                <svg class="shrink-0 w-[18px] mt-0.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div><strong>가족에게 들킬까봐</strong> 매일이 조마조마하다</div>
-              </div>
+        <h1 class="title">2026년 법원제도로 빚을 합법적으로 탕감하세요</h1><br>
+        <p class="lead">
+          <span style="font-size:24px;">원금 최대 <b>95% 탕감</b></span><br>
+          <span style="font-size:24px;">이자<b>100% 전액 탕감</b></span><br>
+          <span style="font-size:24px;"><b>신용회복</b>&경제적 재기 기회!</span><br><br>
+          <span style="font-size: 20px; color:#1f5fae;"><b>혹시 아래와 같은 상황에 계시나요 ? </b><br></span>
+        
+          <div class="bullets" role="list">
+            <div class="bullet" role="listitem">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>모르는 번호 <strong>독촉 전화</strong> 더 이상 받기 싫다</div>
             </div>
+            <div class="bullet" role="listitem">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>우편함에 쌓인 <strong>빨간 고지서</strong> 뜯어볼 엄두도 안 난다</div>
+            </div>
+            <div class="bullet" role="listitem">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>카드 <strong>돌려막기</strong> 이제 정말 그만두고 싶다.</div>
+            </div>
+            <div class="bullet" role="listitem">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>더 이상 가족·지인에게<strong> 손 벌리기</strong> 싫다</div>
+            </div>
+            <div class="bullet" role="listitem">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div><strong>가족에게 들킬까봐</strong> 매일이 조마조마 하다</div>
+            </div>
+          </div><br>
+            <span style="font-size: 24px;">
+            무거운 채무로 인해 일상에 지장이 생기고 있다면 2026년 채무탕감 법원제도를 통해 <strong style="color:#1f5fae;">합법적으로 채무를 줄이세요</strong>
+            </span>
+          </p>
+        
 
-            <span class="hero-lead-lg">무거운 채무로 일상에 지장이 생기고 있다면 2026년 채무탕감 법원제도를 통해 <strong class="highlight-text">합법적으로 채무를 줄이세요</strong></span>
-          </div>
+        <!--<div class="ctas">
+          <button class="btn btn-primary" id="reqConsult">무료 상담 요청</button>
+          <button class="btn btn-ghost" id="seeMore">자세히 보기</button>
         </div>
-      </div>
-    </section>
 
-    <section class="section testimonials" id="testimonial" aria-label="성공 사례">
+        <div class="chips" aria-label="주요 혜택">
+          <span class="chip">연 2%~4%대</span>
+          <span class="chip">최대 5억 한도</span>
+          <span class="chip">만 20세 이상</span>
+        </div>-->
+      </div>
+    </div>
+
+  <!--섹션2 시작 -->
+  <section class="section testimonials" id="testimonial" aria-label="성공 사례">
   <div class="section__head">
     <h1 class="section__title">수많은 기업이 신뢰하고 있는<br>정책자금 컨설팅<br></h1>
     <p class="section__desc">정책자금 활용으로 성장한<br>대표님들의 실제 이야기를 확인해보세요</p>
@@ -533,8 +555,10 @@ OOOO에서 통장도 문제없이 그대로 쓰고 직장에도 안 알려진다
     <button class="ts__dot" role="tab" aria-selected="false" aria-controls="slide-10"><span class="sr-only">10번 후기</span></button>
   </div>
 </section>
-
-    <section class="section success" aria-labelledby="success-title">
+<!--섹션2 끝 -->
+<!--섹션3 시작 -->
+<!-- Section 4 : Success Rate -->
+<section class="section success" aria-labelledby="success-title">
   <div class="section__head">
     <h2 id="success-title" class="section__title">5,234건 이상의 기업이 선택한<br>정책자금으로 컨설팅</h2>
     <p class="section__desc">15년 이상 축적된 경험으로 기업 맞춤 자금 컨설팅의 성과를 검증해왔습니다.</p>
@@ -566,8 +590,10 @@ OOOO에서 통장도 문제없이 그대로 쓰고 직장에도 안 알려진다
     </p>
   </div>
 </section>
-
-    <section class="section industries" aria-labelledby="industries-title">
+<!--섹션3 끝 -->
+<!--섹션4 시작 -->
+<!-- Section 5 : 진행 업종 -->
+<section class="section industries" aria-labelledby="industries-title">
   <div class="section__head">
     <h2 id="industries-title" class="section__title">업종에 따라 달라지는<br>정책자금 범위와 활용전략</h2>
     <p class="section__desc">
@@ -666,13 +692,15 @@ OOOO에서 통장도 문제없이 그대로 쓰고 직장에도 안 알려진다
 </ul>
   </div>
   <div>
-    <p class="section__desc text-center">
+    <p class="section__desc" style="text-align: center;">
      <br>※금리·한도 등은 기업 규모와 정책별로 상이합니다.
     </p>
   </div>
 </section>
 
-    <section class="section promises"  id="proccess" aria-labelledby="promises-title">
+<!--섹션4 끝 -->
+<!--섹션5 시작 (신청절차)-->
+<section class="section promises"  id="proccess" aria-labelledby="promises-title">
   <div class="promises__bg" aria-hidden="true"></div>
   <div class="section__head">
     <h2 id="promises-title" class="section__title">정책자금 컨설팅 솔루션<br>간편한 절차</h2>
@@ -716,120 +744,56 @@ OOOO에서 통장도 문제없이 그대로 쓰고 직장에도 안 알려진다
     </ul>
   </div>
 </section>
+<!--섹션5 끝 -->
+<!--섹션6(입력폼) 시작 -->
+  <div id="form"></div>
+<!--섹션6 끝 -->
 
-    <!-- 섹션 6 · CTA + 입력폼 -->
-    <section class="section leadform" id="contact" aria-labelledby="leadform-title">
-      <div class="leadform__bg" aria-hidden="true"></div>
-      <div class="leadform__wrap">
-        <header class="leadform__head">
-          <p class="leadform__count">오늘 자금한도&amp;금리 무료진단 받으신 대표님 <strong id="today-count">0</strong>명</p>
-          <h2 id="leadform-title" class="leadform__title">2025년 하반기<br>기업 정책금융 컨설팅<br>무료상담 신청</h2>
-          <p class="leadform__desc">오랜 경력을 가진 전문 컨설턴트가<br>대표님 기업에 필요한 <b class="leadform__hl">한도·금리 조건</b>을 비교 분석해<br>2025년 하반기 정책 활용 방안과<br><b class="leadform__hl">최적의 자금</b> 운용 전략을 제안드립니다.</p>
-        </header>
+</main>
+<!-- ===================== -->
+<!-- Footer -->
+<!-- ===================== -->
+<footer class="site-footer" aria-labelledby="footer-title">
+  <h2 id="footer-title" class="sr-only">사이트 정보</h2>
 
-        <form class="leadform__card" data-form="lead" novalidate>
-          <div class="lf__grid">
-            <div class="lf__field">
-              <label for="lf-name" class="lf__label">이름</label>
-              <input id="lf-name" data-field="name" class="lf__input" type="text" placeholder="이름" maxlength="4" autocomplete="name" required>
-            </div>
-            <div class="lf__field">
-              <label for="lf-phone" class="lf__label">연락처</label>
-              <input id="lf-phone" data-field="phone" class="lf__input" type="tel" inputmode="numeric" placeholder="숫자만 입력 (예: 01012345678)" maxlength="11" required>
-            </div>
-            <div class="lf__field">
-              <label for="lf-bizname" class="lf__label">사업자 상호</label>
-              <input id="lf-bizname" data-field="bizname" class="lf__input" type="text" placeholder="상호명 입력" autocomplete="organization" required>
-            </div>
-            <div class="lf__field">
-              <label for="lf-industry" class="lf__label">업종</label>
-              <select id="lf-industry" data-field="industry" class="lf__select" required>
-                <option value="" selected disabled>업종을 선택해주세요</option>
-                <option>도소매업</option><option>제조업</option><option>통신판매업</option><option>서비스업</option><option>음식점업</option><option>IT개발업</option><option>기타</option>
-              </select>
-            </div>
-            <div class="lf__field">
-              <label for="lf-region" class="lf__label">지역</label>
-              <select id="lf-region" data-field="region" class="lf__select" required>
-                <option value="" selected disabled>지역을 선택해주세요</option>
-                <option value="서울">서울</option><option value="경기도">경기도</option><option value="인천">인천</option>
-              </select>
-            </div>
-            <div class="lf__field">
-              <label for="lf-revenue" class="lf__label">연매출</label>
-              <select id="lf-revenue" data-field="revenue" class="lf__select" required>
-                <option value="" selected disabled>연매출을 선택해주세요</option>
-                <option>3천만원 미만</option><option>1억미만</option><option>1~3억</option><option>3~5억</option><option>5~10억</option><option>10~20억</option><option>30~50억</option><option>50억이상</option>
-              </select>
-            </div>
-            <div class="lf__field">
-              <label for="lf-fund" class="lf__label">필요자금</label>
-              <select id="lf-fund" data-field="fund" class="lf__select" required>
-                <option value="" selected disabled>필요자금을 선택해주세요</option>
-                <option>1~3천만원</option><option>3~6천만원</option><option>6~9천만원</option><option>1~2억</option><option>2~3억</option><option>3~4억</option><option>4~7억</option><option>7~10억</option><option>10억이상</option>
-              </select>
-            </div>
-            <div class="lf__field">
-              <label for="lf-arrears" class="lf__label">세금 체납/연체/결손 여부</label>
-              <select id="lf-arrears" data-field="arrears" class="lf__select" required>
-                <option value="" selected disabled>선택해주세요</option>
-                <option>O</option><option>X</option>
-              </select>
-            </div>
-
-            <div class="lf__agree lf__field--full">
-              <label class="lf__check" for="lf-agree">
-                <input id="lf-agree" data-field="agree" type="checkbox" checked required>
-                <span>개인정보처리방침에 동의합니다.</span>
-              </label>
-              <button type="button" class="lf__policy" data-evt="open_privacy">[자세히 보기]</button>
-            </div>
-
-            <button type="submit" data-field="submit" class="lf__submit btn-cta-main lf__field--full" disabled>무료지원하기</button>
-          </div>
-        </form>
+  <div class="container footer__inner">
+    <!-- 좌측: 로고/소개 -->
+    <div class="footer__brand">
+      <div class="footer__logo">
+        <span class="footer__logo-en">K-Biz</span>
+        <span class="footer__logo-ko">경영지원 그룹</span>
       </div>
-    </section>
 
-  </main>
-
-  <!-- ============ 푸터 ============ -->
-  <footer class="site-footer" aria-labelledby="footer-title">
-    <h2 id="footer-title" class="sr-only">사이트 정보</h2>
-
-    <div class="footer__top">
-      <div class="mx-auto w-[min(1200px,92vw)] grid gap-[clamp(20px,4vw,48px)] grid-cols-1 min-[981px]:grid-cols-[1.2fr_1fr] py-[clamp(28px,5vw,48px)]">
-        <div class="footer__brand">
-          <div class="footer__logo flex items-baseline gap-3.5 mb-2.5">
-            <span class="footer__logo-en">K-Biz</span>
-            <span class="footer__logo-ko">경영지원 그룹</span>
-          </div>
-          <p class="footer__slogan mt-2">업종별 한도·금리 요건을 분석해<br>정책자금 활용 전략을 제시하는 전문 컨설팅 그룹</p>
-        </div>
-
-        <div class="footer__org self-start" role="list">
-          <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">브랜드명</span><span class="v">K-Biz 경영지원 그룹</span></p>
-          <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">사업자등록번호</span><span class="v">366-03-03344</span></p>
-        </div>
-      </div>
+      <p class="footer__slogan">
+        업종별 한도·금리 요건을 분석해<br>
+        정책자금 활용 전략을 제시하는 전문 컨설팅 그룹
+      </p>
     </div>
 
-    <div class="footer__bar">
-      <div class="mx-auto w-[min(1200px,92vw)]">
-        <p class="footer__copy py-4">리코 코퍼레이션 © All Rights Reserved.</p>
-      </div>
+    <!-- 우측: 사업자 정보 -->
+    <div class="footer__org" role="list">
+      <p class="footer__item" role="listitem"><span class="k">브랜드명</span><span class="v">K-Biz 경영지원 그룹</span></p>
+      <p class="footer__item" role="listitem"><span class="k">사업자등록번호</span><span class="v">366-03-03344</span></p>
     </div>
-  </footer>
+  </div>
 
-  <!-- 개인정보 모달 -->
-  <div class="privacy-modal" data-modal="privacy" role="dialog" aria-modal="true" aria-label="개인정보취급방침">
-    <div class="privacy-modal__overlay" data-evt="close_privacy"></div>
-    <div class="privacy-modal__content w-[min(92vw,640px)] max-h-[80vh] flex flex-col">
-      <div class="privacy-modal__head shrink-0 h-11 px-4">
-        <span class="privacy-modal__title">개인정보취급방침</span>
-        <button class="privacy-modal__close text-xl leading-none" data-evt="close_privacy" aria-label="닫기">✕</button>
-      </div>
-      <div class="privacy-modal__body grow p-4">개인정보의 수집 및 이용 동의(필수)<br><br>
+  <!-- 하단 바 -->
+  <div class="footer__bar">
+    <div class="container">
+      <p class="footer__copy">리코 코퍼레이션 © All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!--개인정보처리방침-->
+<div id="privacy">
+        <div id="privacyContent">
+            <div class="titWrap">
+                    <span>개인정보취급방침</span>
+                <i style="margin-top:-14px !important" class="ion-close-circled closeBtn"></i>
+            </div>
+            <div style="line-height:1.2" class="conWrap">
+                개인정보의 수집 및 이용 동의(필수)<br><br>
 
                 1. 수집하는 개인정보의 항목 및 수집 목적<br><br>
 
@@ -865,41 +829,41 @@ OOOO에서 통장도 문제없이 그대로 쓰고 직장에도 안 알려진다
                 이용자가 회원탈퇴를 요청하거나 제공한 개인정보의 수집 및 이용에 대한 동의를 철회하는 경우, 또는 수집 및 이용목적이 달성되거나 보유 및 이용기간이 종료한 경우 해당 이용자의 개인정보는 지체 없이 파기되며 다음 정보에 대해서는 아래의 사유로 일정기간 동안 저장됩니다.<br>
                 전자상거래 등에서의 소비자보호에 관한 법률, 통신비밀보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관계법령에 따라 보존할 필요가 있는 경우 회사는 관계법령에서 정한 기간 동안 고객의 개인정보를 보유하며, 그 기간은 다음과 같습니다.<br><br>
 
-                <table class="privacy-table">
+                <table style="border: 1px solid black;">
                 <tr>
-                    <th>보존근거</th>
-                    <th>보존대상</th>
-                    <th>보존기간</th>
-                </tr>
-                <tr>
-                    <th> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
-                    <th> 대금결제 및 재화 등의 공급에 관한 기록 </th>
-                    <th> 5년 </th>
+                    <th style="border: 1px solid black;">보존근거</th>
+                    <th style="border: 1px solid black;">보존대상</th>
+                    <th style="border: 1px solid black;">보존기간</th>
                 </tr>
                 <tr>
-                    <th> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
-                    <th> 소비자의 불만 또는 분쟁처리에 관한 기록 </th>
-                    <th> 3년 </th>
+                    <th style="border: 1px solid black;"> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
+                    <th style="border: 1px solid black;"> 대금결제 및 재화 등의 공급에 관한 기록 </th>
+                    <th style="border: 1px solid black;"> 5년 </th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid black;"> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
+                    <th style="border: 1px solid black;"> 소비자의 불만 또는 분쟁처리에 관한 기록 </th>
+                    <th style="border: 1px solid black;"> 3년 </th>
                 </tr>
 		        <tr>
-                    <th> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
-                    <th> 표시, 광고에 관한 기록 </th>
-                    <th> 6개월 </th>
+                    <th style="border: 1px solid black;"> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
+                    <th style="border: 1px solid black;"> 표시, 광고에 관한 기록 </th>
+                    <th style="border: 1px solid black;"> 6개월 </th>
                 </tr>
 		        <tr>
-                    <th> 전자금융거래법 </th>
-                    <th> 전자금융 거래에 관한 기록 </th>
-                    <th> 5년 </th>
+                    <th style="border: 1px solid black;"> 전자금융거래법 </th>
+                    <th style="border: 1px solid black;"> 전자금융 거래에 관한 기록 </th>
+                    <th style="border: 1px solid black;"> 5년 </th>
                 </tr>
 		        <tr>
-                    <th> 통신비밀보호법 </th>
-                    <th> 서비스 방문기록, 접속로그,접속 아이피 </th>
-                    <th> 3개월 </th>
+                    <th style="border: 1px solid black;"> 통신비밀보호법 </th>
+                    <th style="border: 1px solid black;"> 서비스 방문기록, 접속로그,접속 아이피 </th>
+                    <th style="border: 1px solid black;"> 3개월 </th>
                 </tr>
 		        <tr>
-                    <th> 정보통신망 이용촉진 및 정보보호 등에 관한 법률 </th>
-                    <th> 본인 확인에 관한 기록 </th>
-                    <th> 6개월 </th>
+                    <th style="border: 1px solid black;"> 정보통신망 이용촉진 및 정보보호 등에 관한 법률 </th>
+                    <th style="border: 1px solid black;"> 본인 확인에 관한 기록 </th>
+                    <th style="border: 1px solid black;"> 6개월 </th>
                 </tr>
                 </table>
 
@@ -933,13 +897,276 @@ OOOO에서 통장도 문제없이 그대로 쓰고 직장에도 안 알려진다
                 1.개인분쟁조정위원회 (https://www.1336.or.kr/1336)<br>
                 2.정보보호마크인증위원회 (https://www.eprivacy.or.kr/02-580-0533~4)<br>
                 3.대검찰청 인터넷범죄수사센터 (02-3480-3600)<br>
-                4.경찰청 사이버테러대응센터 (https://www.ctrc.go.kr/02-392-0330)<br></div>
-    </div>
+                4.경찰청 사이버테러대응센터 (https://www.ctrc.go.kr/02-392-0330)<br>
+            </div>
+        </div>
   </div>
+<!--자바스크립트-->
+<!-- 헤더 메뉴바 (네비게이션) -->
+<script>
+// 네비 높이 변화에 따라 body padding-top 자동 보정
+(() => {
+  const nav = document.querySelector('.site-nav');
+  if(!nav) return;
+  const setPT = () => { document.body.style.paddingTop = nav.offsetHeight + 'px'; };
+  setPT(); window.addEventListener('resize', setPT);
+})();
 
-  <!-- ============ JS ============ -->
-  <script src="./js/form-core.js"></script>
-  <script src="./js/carousel.js"></script>
-  <script src="./js/ui.js"></script>
+// 기존 토글 훅을 확장: 열림 상태에서 본문 스크롤 잠금
+(() => {
+  const toggle = document.querySelector('.nav__toggle');
+  const menu   = document.getElementById('nav-menu');
+  if(!toggle || !menu) return;
+
+  const setOpen = (open) => {
+    toggle.setAttribute('aria-expanded', open);
+    menu.classList.toggle('is-open', open);
+    document.body.classList.toggle('nav-open', open);
+  };
+
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    setOpen(open);
+  });
+
+  // 메뉴 클릭 시 닫기
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+
+  // ESC로 닫기
+  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') setOpen(false); });
+})();
+
+// 스크롤 그림자 (이미 있다면 중복 제거해도 OK)
+(() => {
+  const head = document.querySelector('.site-nav');
+  if(!head) return;
+  const onScroll = () => head.classList.toggle('is-scrolled', window.scrollY > 6);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+})();
+</script>
+
+<!--섹션2. 슬라이드 JS-->
+<script>
+(() => {
+  const root = document.querySelector('.section.testimonials');
+  if (!root) return;
+
+  const track   = root.querySelector('.ts__track');
+  const slides  = Array.from(root.querySelectorAll('.ts__slide'));
+  const prevBtn = root.querySelector('.ts__nav--prev');
+  const nextBtn = root.querySelector('.ts__nav--next');
+  const dots    = Array.from(root.querySelectorAll('.ts__dot'));
+
+  let index = 0;
+  const DURATION = 5500;
+  let timer = null;
+  let isPaused = false;
+
+  /* ───────── 그래프 높이 계산 & 적용 ───────── */
+  function usableHeight(chartEl){
+    // 그래프 컨테이너의 내부 실사용 높이(패딩 제외)
+    const cs = getComputedStyle(chartEl);
+    const pt = parseFloat(cs.paddingTop)    || 0;
+    const pb = parseFloat(cs.paddingBottom) || 0;
+    return Math.max(0, chartEl.clientHeight - pt - pb);
+  }
+
+  function setBarsForSlide(slide){
+    const chart = slide.querySelector('.ts__miniChart');
+    if (!chart) return;
+
+    const useH = usableHeight(chart);
+
+    // 목표 비율 (필요하면 조정: before 낮게, after 높게)
+    const beforeRatio = 0.32;
+    const afterRatio  = 0.92;
+
+    const beforeBar = chart.querySelector('.ts__bar--before');
+    const afterBar  = chart.querySelector('.ts__bar--after');
+
+    // (안전) 먼저 0으로 리셋 → 다음 프레임에 목표값 적용해 애니메이션 유도
+    if (beforeBar) beforeBar.style.setProperty('--bar-h', '0px');
+    if (afterBar)  afterBar.style.setProperty('--bar-h',  '0px');
+
+    // 레이아웃 안정 후 적용 (Safari 대비 2프레임 확보)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (beforeBar) {
+          const h = Math.round(useH * beforeRatio);
+          beforeBar.style.setProperty('--bar-h', h + 'px');
+        }
+        if (afterBar) {
+          const h = Math.round(useH * afterRatio);
+          afterBar.style.setProperty('--bar-h', h + 'px');
+        }
+      });
+    });
+  }
+
+  function resetBars(slide){
+    // 비활성화 시 0으로 내려서 다음에 다시 올라가도록
+    slide.querySelectorAll('.ts__bar').forEach(b => {
+      b.style.setProperty('--bar-h', '0px');
+    });
+  }
+
+  /* ───────── 슬라이더 기본 동작 ───────── */
+  function activate(i){
+    slides.forEach((s, si) => {
+      s.classList.toggle('is-active', si === i);
+      if (si === i) setBarsForSlide(s);
+      else          resetBars(s);
+    });
+  }
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    track.style.transform = `translate3d(${-index * 100}%,0,0)`;
+    dots.forEach((d, di) => d.setAttribute('aria-selected', di === index ? 'true' : 'false'));
+    activate(index);
+  }
+  function next(){ goTo(index + 1); }
+  function prev(){ goTo(index - 1); }
+
+  function start(){ stop(); timer = setInterval(() => { if (!isPaused) next(); }, DURATION); }
+  function stop(){ if (timer) clearInterval(timer); }
+
+  nextBtn?.addEventListener('click', () => { next(); start(); });
+  prevBtn?.addEventListener('click', () => { prev(); start(); });
+  dots.forEach((d, di) => d.addEventListener('click', () => { goTo(di); start(); }));
+
+  root.addEventListener('mouseenter', () => { isPaused = true; });
+  root.addEventListener('mouseleave', () => { isPaused = false; });
+
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { next(); start(); }
+    if (e.key === 'ArrowLeft')  { prev(); start(); }
+  });
+  root.setAttribute('tabindex', '0');
+
+  // 터치 스와이프
+  let sx = 0, dx = 0;
+  root.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; dx = 0; }, {passive:true});
+  root.addEventListener('touchmove',  (e) => { dx = e.touches[0].clientX - sx; }, {passive:true});
+  root.addEventListener('touchend',   ()  => {
+    if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); start(); }
+  });
+
+  // 초기 진입: 섹션이 보이면 1번 슬라이드 활성화
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) {
+      goTo(0);
+      start();
+      io.disconnect();
+    }
+  }, {threshold: 0.2});
+  io.observe(root);
+
+  // 리사이즈/회전 시 현재 슬라이드 그래프 재계산
+  let resizeRaf = 0;
+  function onResize(){
+    cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => {
+      setBarsForSlide(slides[index]);
+    });
+  }
+  window.addEventListener('resize', onResize);
+  window.addEventListener('orientationchange', onResize);
+})();
+</script>
+
+<!--섹션4. JS, 카운트 -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const nums = document.querySelectorAll(".success__num");
+  const options = { threshold: 0.5 };
+
+  const animate = (el) => {
+    const target = parseFloat(el.dataset.target); // 소수점 포함 처리
+    let count = 0;
+
+    const isUnit = el.textContent.includes("건"); // "건" 단위
+    const isPercent = el.textContent.includes("%"); // "%" 단위
+
+    // step 계산 (소수는 더 정밀하게)
+    const step = target / 40;
+
+    const interval = setInterval(() => {
+      count += step;
+      if (count >= target) {
+        count = target;
+        clearInterval(interval);
+      }
+
+      if (isUnit) {
+        // 천 단위 콤마 + "건"
+        el.textContent = Math.floor(count).toLocaleString() + "건";
+      } else if (isPercent) {
+        // 소수점 첫째자리까지 + "%"
+        el.textContent = count.toFixed(1) + "%";
+      }
+    }, 25);
+  };
+
+  const observer = new IntersectionObserver((entries, io) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animate(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  nums.forEach(num => observer.observe(num));
+});
+</script>
+
+<!--섹션6. JS 투데이 신청자 -->
+<script>
+  // 오늘 날짜 기준으로 '매일 동일한 숫자' 생성
+  function getTodayCount() {
+    // 오늘 날짜 가져오기 (YYYY-MM-DD)
+    const today = new Date().toISOString().slice(0, 10);
+
+    // 날짜 문자열을 시드(seed) 값으로 변환
+    let seed = 0;
+    for (let i = 0; i < today.length; i++) {
+      seed += today.charCodeAt(i);
+    }
+
+    // 원하는 범위 (최소 ~ 최대)에서 숫자 생성
+    const min = 25;
+    const max = 60;
+
+    // 날짜마다 고정된 값 나오도록 seed를 활용
+    const count = (seed % (max - min + 1)) + min;
+
+    return count;
+  }
+
+  // DOM에 숫자 반영
+  document.addEventListener("DOMContentLoaded", function() {
+    const todayCountEl = document.getElementById("today-count");
+    if (todayCountEl) {
+      todayCountEl.textContent = getTodayCount();
+    }
+  });
+</script>
+
+<!--JS파일-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!--(필수)이 제이쿼리 코드 다음에 js코드가 와야함-->
+  <script src="./js/form-fund-row.js"></script>
+  <script src="js/validation-fund-row.js"></script>
+  <script src="js/personal.js"></script>
+  <script src="js/main.js" charset="euc-kr"></script>
+  <script src="js/wow.min.js"></script>
+
+  <script>
+  $('#form').attr("name","fm");
+  $('[name="entry.1767017674"]').val("인덱스");
+  $('#select_lic').css({"display":"none"});
+  </script>
+
 </body>
 </html>

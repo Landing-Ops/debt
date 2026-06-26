@@ -1,0 +1,60 @@
+/* =====================================================================
+   premium.css  —  효과 · 모션 · 질감(fx-*)만. 끄면 심플 ↔ 켜면 프리미엄.
+   ※ 기존 페이지에 "있던" hover 전환만 이식. 새 애니메이션은 추가하지 않음
+     (요구사항: 기능 유지 = 변환만).
+===================================================================== */
+:root{
+  --fx-duration-fast:140ms;
+  --fx-ease-soft:cubic-bezier(.25,.1,.25,1);
+}
+
+/* 카드 hover 들림 (구 .ind__circle / .promise 의 transform/box-shadow 전환 → 이 유틸로 통일.
+   2차·3차 섹션에서 사용) */
+.fx-raise{ transition:transform var(--fx-duration-fast) var(--fx-ease-soft),
+                      box-shadow var(--fx-duration-fast) var(--fx-ease-soft); }
+.fx-raise:hover{ transform:translateY(-2px); }
+
+/* 버튼 hover (구 .btn / .lf__submit 의 transform 전환) */
+.btn-cta-main{ transition:background var(--fx-duration-fast) var(--fx-ease-soft),
+                          transform var(--fx-duration-fast) var(--fx-ease-soft); }
+.btn-cta-main:hover{ transform:translateY(-1px); }
+
+/* =====================================================================
+   섹션 배경 오버레이 (사진 + 그라디언트)  —  효과 레이어
+   ※ 배경 이미지는 기존 외부 URL 그대로 유지(pixabay/unsplash/cardandbeyond).
+     운영 시 ./img 로 내려받아 교체 권장.
+===================================================================== */
+
+/* 성과: 파란 오버레이 + 사진 */
+.section.success::before{
+  content:""; position:absolute; inset:0; z-index:0; opacity:.9; filter:blur(.4px);
+  background:
+    linear-gradient(135deg, rgba(11,91,211,.99), rgba(31,95,174,.80)),
+    url('https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_1280.jpg') center/cover no-repeat;
+}
+
+/* 절차: 흰 오버레이 + 흐릿한 사진 */
+.section.promises .promises__bg{
+  position:absolute; inset:0; z-index:-1; filter:blur(2px); opacity:.9;
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,.92)),
+    url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+}
+
+/* 리드폼: 어두운 오버레이 + 사진 */
+.leadform__bg{
+  position:absolute; inset:0; z-index:-1; filter:saturate(105%);
+  background:
+    linear-gradient(to bottom, rgba(3,15,38,.9), rgba(4,24,68,.5)),
+    url('https://www.cardandbeyond.com/blog/wp-content/uploads/2022/09/businessman-giving-money-his-partner-while-making-contract.jpg') center/cover no-repeat;
+}
+
+/* =====================================================================
+   카드 / 버튼 hover (기존에 있던 전환만 이식)
+===================================================================== */
+.ind__circle, .ind__cap, .promise{ transition:transform .18s ease, box-shadow .18s ease; }
+.ind__item:hover .ind__circle{ transform:translateY(-2px); box-shadow:0 14px 36px rgba(11,37,64,.14); }
+.ind__item:hover .ind__cap{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(11,37,64,.16); }
+.promise:hover{ transform:translateY(-2px); box-shadow:0 14px 36px rgba(11,37,64,.12); }
+
+.lf__submit:hover:not(:disabled){ background:#0a4ec0; transform:translateY(-1px); }

@@ -1,0 +1,277 @@
+/* =====================================================================
+   common.css  —  컴포넌트 스킨(배경·보더·라운드·그림자) + 모양/질감 토큰 + 전역 base
+   규칙: padding/margin/gap/grid/flex/width/height 같은 "레이아웃 수치"는
+        전부 HTML의 Tailwind 유틸에서 제어. 여기선 "겉모습"만.
+        (예외: 네비는 커스텀 브레이크포인트 980px + 드롭다운 상태 때문에
+         레이아웃을 컴포넌트로 묶어 CSS에서 관리 — nude의 nav 컴포넌트와 동일한 취급)
+===================================================================== */
+
+/* ---------- 모양/질감 토큰 ---------- */
+:root{
+  --radius-sm:6px; --radius-md:10px; --radius-lg:14px;
+  --radius-xl:16px; --radius-2xl:22px; --radius-pill:999px;
+  --shadow-sm:0 4px 14px rgba(11,37,64,.08);
+  --shadow-md:0 8px 20px rgba(11,37,64,.10);
+  --shadow-lg:0 18px 60px rgba(0,0,0,.25);
+  --shadow-card:0 6px 18px rgba(11,37,64,.06);
+}
+
+/* ---------- 전역 base ---------- */
+*{ box-sizing:border-box; }
+html{
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  scroll-behavior:smooth; width:100%; overflow-x:hidden;
+}
+body{
+  margin:0; font-family:var(--font-body); color:var(--neutral-900);
+  background:var(--page-bg); width:100%; overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤 잠금 */
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+
+.sr-only{
+  position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* 앵커 이동 시 고정 네비에 안 가리도록 */
+.hero, .section{ scroll-margin-top: calc(var(--nav-h, 72px) + 8px); }
+
+/* =====================================================================
+   네비게이션 (컴포넌트 — 레이아웃+스킨+상태)
+===================================================================== */
+:root{ --nav-h:72px; }
+@media (max-width:980px){ :root{ --nav-h:64px; } }
+
+.site-nav{
+  position:fixed; inset:0 0 auto 0; height:var(--nav-h); z-index:1000;
+  background:var(--primary);
+  box-shadow:0 0 0 rgba(0,0,0,0);
+  transition:box-shadow .18s ease;
+}
+.site-nav.is-scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.12); }
+
+.nav__inner{
+  width:min(1200px,92vw); margin:0 auto; height:100%;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav__menu{ display:flex; gap:clamp(16px,3vw,44px); align-items:center; }
+.nav__link{ padding:8px 4px; position:relative; }
+.nav__link:focus-visible{ outline:none; box-shadow:var(--ring); border-radius:8px; }
+
+.nav__toggle{ display:none; width:40px; height:40px; border:0; background:transparent; cursor:pointer; }
+.nav__bar{ display:block; width:24px; height:2px; background:#fff; margin:5px auto; border-radius:2px; }
+
+@media (max-width:980px){
+  .nav__toggle{ display:block; }
+  .nav__menu{
+    position:absolute; left:0; right:0; top:var(--nav-h);
+    background:var(--primary); display:grid; gap:0;
+    transform:translateY(-8px); opacity:0; pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;
+    border-bottom:1px solid rgba(255,255,255,.15);
+  }
+  .nav__menu a{ padding:14px 20px; border-top:1px solid rgba(255,255,255,.12); }
+  .nav__menu.is-open{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  body.nav-open{ overflow:hidden; }
+}
+
+/* =====================================================================
+   Hero (스킨)  —  레이아웃(grid/gap/padding)은 HTML Tailwind
+===================================================================== */
+.hero{ position:relative; overflow:hidden; background:var(--page-bg); }
+.hero::before{                                   /* 상단 옅은 파랑 띠 */
+  content:""; position:absolute; inset:0 0 auto 0; height:200px;
+  background:var(--primary-bg); z-index:-1; pointer-events:none;
+}
+.hero-visual{
+  position:relative; border-radius:var(--radius-2xl); overflow:hidden;
+  background:#dfeaff; box-shadow:0 20px 60px rgba(23,64,136,.12);
+}
+.hero-visual img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+/* kicker / bullet 카드 (마이크로 UI → 내부 padding은 HTML Tailwind) */
+.kicker{ background:var(--primary-bg); border-radius:var(--radius-pill); }
+.bullet{
+  background:#fff; border:1px solid rgba(31,95,174,.08);
+  border-radius:var(--radius-lg); box-shadow:0 6px 18px rgba(23,64,136,.08);
+}
+
+/* =====================================================================
+   Footer (스킨)
+===================================================================== */
+.site-footer{ background:#fff; border-top:1px solid var(--border-subtle); color:var(--neutral-900); }
+.footer__item .k{ color:var(--neutral-500); }
+.footer__item .v{ color:var(--neutral-800); }
+.footer__bar{ border-top:1px solid var(--neutral-100); background:linear-gradient(to bottom,#fff,#fafcff); }
+
+/* =====================================================================
+   개인정보 모달 (스킨) — 2차에서 HTML/본문 추가. 동작은 ui.js(data-evt)
+===================================================================== */
+.privacy-modal{ position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.6); display:none; }
+.privacy-modal.is-open{ display:block; }
+.privacy-modal__overlay{ position:absolute; inset:0; cursor:pointer; }
+.privacy-modal__content{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  background:#fff; border-radius:var(--radius-md);
+  box-shadow:0 0 10px rgba(0,0,0,.2); overflow:hidden;
+}
+.privacy-modal__head{ background:#f8f8f8; color:#000; display:flex; align-items:center; justify-content:space-between; }
+.privacy-modal__close{ background:transparent; border:0; cursor:pointer; color:#000; }
+.privacy-modal__body{ background:#fff; color:#000; overflow-y:auto; }
+.privacy-table th{ border:1px solid #000; }
+
+/* =====================================================================
+   섹션 공통
+===================================================================== */
+.section__head{ text-align:center; }
+
+/* =====================================================================
+   섹션 2 · 후기 캐러셀 (.testimonials)
+   복합 위젯 → 레이아웃을 컴포넌트로 묶어 CSS 관리(JS가 track flex / --bar-h 에 의존).
+===================================================================== */
+.section.testimonials{ padding-block:clamp(48px,6vw,88px); background:var(--section-alt-bg); }
+.section.testimonials .section__head{ margin-bottom:clamp(28px,3.4vw,48px); }
+.section.testimonials .section__body{ width:min(1200px,92vw); margin-inline:auto; }
+
+.ts{ position:relative; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px; }
+.ts__nav{
+  appearance:none; background:#fff; border:1px solid var(--border-default);
+  width:44px; height:44px; border-radius:var(--radius-pill);
+  display:grid; place-items:center; color:var(--primary-bright); box-shadow:var(--shadow-sm);
+  transition:transform .14s ease;
+}
+.ts__nav:hover{ transform:translateY(-1px); }
+.ts__nav:focus-visible{ outline:3px solid color-mix(in srgb, var(--primary-bright) 30%, transparent); }
+
+.ts__viewport{ overflow:hidden; border-radius:var(--radius-xl); width:100%; }
+.ts__track{ display:flex; list-style:none; margin:0; padding:0; transition:transform .55s cubic-bezier(.22,.61,.36,1); will-change:transform; }
+.ts__slide{ inline-size:100%; flex:0 0 100%; padding:clamp(12px,2.2vw,20px); }
+
+.ts__grid{ --left-col:1.3fr; --right-col:1fr; display:grid; grid-template-columns:var(--left-col) var(--right-col); align-items:center; gap:clamp(24px,3.4vw,44px); }
+
+.ts__copy{ --copy-gutter:clamp(20px,2.8vw,32px); --copy-max:850px; background:var(--neutral-50); border:1px solid #e6eef9; border-radius:var(--radius-xl); padding:var(--copy-gutter); box-shadow:var(--shadow-card); text-align:left; }
+.ts__copyHead, .ts__quote{ max-width:var(--copy-max); }
+.ts__copyHead{ margin:0 0 clamp(12px,1.4vw,16px); }
+.ts__headline{ display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin:0; font-size:clamp(20px,2.6vw,28px); color:var(--neutral-900); }
+.ts__headline .chip{ background:var(--primary-bg); color:var(--primary-text); border-radius:var(--radius-pill); padding:4px 10px; font-size:12px; font-weight:600; }
+.ts__meta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; color:var(--neutral-500); font-size:14px; }
+.ts__meta strong{ color:var(--neutral-900); }
+blockquote.ts__quote{ background:#fff; border:1px solid #e8eef6; padding:clamp(18px,2.2vw,26px); border-radius:var(--radius-lg); line-height:1.75; color:#334; box-shadow:var(--shadow-card); margin:clamp(14px,1.6vw,18px) 0 0; text-align:left; }
+
+.ts__right{ --ts-chart-h:clamp(280px,40vw,350px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2vw,24px); align-items:stretch; justify-items:center; }
+.ts__photoWrap, .ts__chartWrap{ height:var(--ts-chart-h); }
+.ts__photo{ width:100%; height:var(--ts-chart-h); object-fit:cover; border-radius:var(--radius-2xl); box-shadow:0 8px 18px rgba(11,37,64,.08); display:block; }
+.ts__miniChart{
+  width:100%; height:var(--ts-chart-h); border-radius:var(--radius-2xl); border:1px solid var(--neutral-100);
+  padding:18px 18px 36px; display:flex; align-items:flex-end; justify-content:center; gap:28px; position:relative;
+  box-shadow:var(--shadow-card);
+  background:repeating-linear-gradient(to top,#fff 0,#fff 28px, rgba(31,95,174,.22) 29px);
+}
+.ts__bar{
+  position:relative; width:56px; background:var(--neutral-300);
+  border-radius:12px 12px 6px 6px; display:flex; align-items:flex-end; justify-content:center;
+  height:var(--bar-h,0px); max-height:calc(var(--ts-chart-h,320px) - 54px);
+  transition:height .9s cubic-bezier(.22,.61,.36,1); will-change:height;
+}
+.ts__bar span{ position:absolute; left:50%; transform:translateX(-50%); bottom:-26px; font-size:14px; color:var(--neutral-800); line-height:1; white-space:nowrap; }
+.ts__bar--before{ background:var(--neutral-300); }
+.ts__bar--after{ background:linear-gradient(to top, var(--primary-bright), var(--primary-after)); }
+.ts__badge{ position:absolute; top:-12px; right:-10px; background:#fff; border:1px solid var(--border-default); border-radius:var(--radius-md); padding:6px 10px; font-size:12px; text-align:center; color:#1b2a44; box-shadow:0 6px 14px rgba(11,37,64,.08); }
+.ts__badge b{ color:var(--primary-bright); font-size:15px; }
+
+.ts__dots{ width:min(1200px,92vw); margin:16px auto 0; display:flex; justify-content:center; gap:10px; }
+.ts__dot{ width:8px; height:8px; border-radius:var(--radius-pill); background:#c9d6ea; border:none; }
+.ts__dot[aria-selected="true"]{ width:26px; background:var(--primary-bright); transition:width .25s ease; }
+.ts__dot .sr-only{ display:none; }
+
+@media (max-width:980px){
+  .section.testimonials .section__body{ width:min(100%,94vw); }
+  .ts{ grid-template-columns:1fr; position:relative; }
+  .ts__nav{ position:absolute; top:calc(50% - 22px); z-index:2; }
+  .ts__nav--prev{ left:-6px; } .ts__nav--next{ right:-6px; }
+  .ts__grid{ grid-template-columns:1fr; gap:clamp(16px,3vw,20px); min-width:0; }
+  .ts__right{ --ts-chart-h:clamp(220px,48vw,300px); grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .ts__photoWrap, .ts__chartWrap{ display:flex; flex-direction:column; min-width:0; min-height:0; }
+  .ts__miniChart{ padding:14px 14px 30px; }
+  .ts__photo{ border-radius:18px; }
+  .ts__bar span{ bottom:-22px; font-size:13px; }
+  .ts__badge{ top:-10px; right:-8px; font-size:11px; } .ts__badge b{ font-size:14px; }
+}
+
+/* =====================================================================
+   섹션 3 · 성과 카운트업 (.success)   배경 오버레이는 premium.css
+===================================================================== */
+.section.success{ position:relative; padding-block:clamp(60px,7vw,100px); background:transparent; text-align:center; overflow:hidden; }
+.section.success > *{ position:relative; z-index:1; }
+.success__grid{ display:flex; justify-content:center; gap:clamp(16px,3vw,40px); margin-bottom:40px; flex-wrap:wrap; }
+.success__card{ background:#fff; border-radius:var(--radius-lg); padding:24px 32px; min-width:160px; box-shadow:0 8px 20px rgba(0,0,0,.15); }
+
+/* =====================================================================
+   섹션 4 · 업종/자격 그리드 (.industries)
+===================================================================== */
+.section.industries{ padding-block:clamp(56px,7vw,96px); background:color-mix(in srgb, var(--primary-bg) 85%, #fff 15%); }
+.section.industries .section__head{ margin-bottom:clamp(20px,3vw,34px); }
+.section.industries .section__body{ width:min(1200px,92vw); margin-inline:auto; }
+.ind__grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(180px,1fr)); gap:clamp(18px,2.4vw,28px); place-items:center; }
+.ind__item{ display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center; }
+.ind__circle{ width:clamp(160px,18vw,190px); aspect-ratio:1/1; background:#fff; border-radius:var(--radius-pill); display:grid; place-items:center; box-shadow:0 10px 28px rgba(11,37,64,.10); border:1px solid var(--neutral-100); }
+.ind__icon{ width:clamp(100px,8.5vw,130px); height:auto; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(47,111,228,.18)); }
+.ind__texts{ display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:10px; }
+.ind__cap{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:var(--radius-pill); background:color-mix(in srgb, var(--primary-bright) 92%, #fff 8%); color:#fff; box-shadow:0 8px 18px rgba(11,37,64,.12); border:1px solid color-mix(in srgb, var(--primary-bright) 70%, transparent); }
+@media (max-width:1024px){
+  .section.industries .ind__grid{ grid-template-columns:repeat(2,minmax(150px,1fr)) !important; gap:18px !important; }
+  .section.industries .ind__circle{ width:170px; }
+  .section.industries .ind__icon{ width:100px; }
+}
+@media (max-width:560px){
+  .section.industries .section__body{ width:min(100%,94vw); }
+  .section.industries .ind__grid{ grid-template-columns:repeat(2,minmax(140px,1fr)) !important; gap:16px !important; grid-auto-flow:row; }
+  .section.industries .ind__circle{ width:150px; }
+}
+
+/* =====================================================================
+   섹션 5 · 간편절차 (.promises)   배경 오버레이는 premium.css
+===================================================================== */
+.section.promises{ position:relative; padding-block:clamp(56px,7vw,110px); isolation:isolate; }
+.section.promises .section__head{ margin-bottom:clamp(24px,3.5vw,42px); }
+.section.promises .section__body{ width:min(1200px,92vw); margin-inline:auto; }
+.promises__grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2.2vw,24px); align-items:stretch; }
+.promise{ background:#fff; border:1px solid #edf2f9; border-radius:var(--radius-xl); padding:clamp(18px,2.6vw,28px) clamp(18px,2.6vw,28px) clamp(22px,3vw,32px); text-align:center; box-shadow:0 10px 30px rgba(11,37,64,.08); }
+.promise__icon{ width:100px; height:100px; margin-inline:auto; margin-bottom:clamp(12px,1.8vw,16px); display:grid; place-items:center; filter:drop-shadow(0 6px 16px rgba(47,111,228,.25)); }
+.promise__icon img{ max-width:100%; max-height:100%; object-fit:contain; display:block; }
+@media (max-width:1024px){ .section.promises .promises__grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:640px){ .section.promises .promises__grid{ grid-template-columns:1fr; } }
+
+/* =====================================================================
+   섹션 6 · 리드폼 (.leadform)   배경 오버레이는 premium.css
+===================================================================== */
+.section.leadform{ position:relative; padding-block:clamp(72px,10vw,120px); isolation:isolate; text-align:center; }
+.leadform__wrap{ width:min(1100px,92vw); margin-inline:auto; }
+.leadform__card{ background:#fff; border-radius:var(--radius-lg); margin-inline:auto; box-shadow:var(--shadow-lg); border:1px solid rgba(255,255,255,.08); }
+.lf__grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; padding:clamp(16px,3.2vw,22px); }
+.lf__field{ display:flex; flex-direction:column; text-align:left; }
+.lf__field--full{ grid-column:1 / -1; }
+.lf__input, .lf__select, .lf__textarea{ width:100%; border:1px solid var(--border-default); border-radius:var(--radius-md); padding:12px 14px; background:#fff; transition:border-color .15s ease, box-shadow .15s ease; }
+.lf__textarea{ resize:vertical; min-height:110px; }
+.lf__select{
+  appearance:none; padding-right:38px; background-repeat:no-repeat; background-position:right 12px center; background-size:18px;
+  background-image:url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5' stroke='%23163c87' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.lf__input:focus, .lf__select:focus, .lf__textarea:focus{ outline:none; border-color:var(--color-form-focus-border); box-shadow:var(--ring); }
+.lf__input.is-invalid, .lf__select.is-invalid{ border-color:var(--color-form-error); }
+.lf__agree{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.lf__check{ display:flex; gap:8px; align-items:center; }
+.lf__check input{ width:18px; height:18px; }
+.lf__submit{ appearance:none; border:0; border-radius:var(--radius-md); padding:14px 18px; background:var(--color-cta-main); color:#fff; cursor:pointer; box-shadow:0 8px 20px rgba(11,91,211,.25); }
+.lf__submit:disabled{ opacity:.85; cursor:not-allowed; }
+@media (max-width:920px){ .lf__grid{ grid-template-columns:1fr; } }
+
+/* 폼 정책 링크(버튼 리셋) + 모달 표 */
+.lf__policy{ background:none; border:0; padding:0; cursor:pointer; }
+.privacy-table{ border-collapse:collapse; }
+.privacy-table th{ padding:4px 8px; }
