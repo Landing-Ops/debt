@@ -162,12 +162,12 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
   border-radius:var(--radius-xl); box-shadow:var(--shadow-md); padding:clamp(18px,3.2vw,28px);
 }
 .ts__copy{ display:contents; }            /* 래퍼 해제 → 자식들이 직접 그리드 아이템으로 */
-.ts__copyHead{ order:1; margin:0; }
+.ts__copyHead{ order:1; margin:0; text-align:center; }
 .ts__right{ order:2; }
 .ts__quote{ order:3; }
 .ts__more{ order:4; }
 
-.ts__headline{ display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin:0; font-size:clamp(20px,2.6vw,28px); color:var(--neutral-900); }
+.ts__headline{ display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin:0; font-size:clamp(20px,2.6vw,28px); color:var(--neutral-900); justify-content:center; }
 .ts__headline .chip{ background:var(--primary-bg); color:var(--primary-text); border-radius:var(--radius-pill); padding:4px 10px; font-size:12px; font-weight:600; }
 .ts__meta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; color:var(--neutral-500); font-size:14px; }
 .ts__meta strong{ color:var(--neutral-900); }
