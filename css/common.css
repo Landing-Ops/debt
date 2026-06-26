@@ -134,77 +134,68 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
    섹션 2 · 후기 캐러셀 (.testimonials)
    복합 위젯 → 레이아웃을 컴포넌트로 묶어 CSS 관리(JS가 track flex 에 의존).
 ===================================================================== */
-.section.testimonials{ padding-block:clamp(48px,6vw,88px); background:var(--section-alt-bg); }
+.section.testimonials{ padding-block:clamp(48px,6vw,88px); background:#fff; }
 .section.testimonials .section__head{ margin-bottom:clamp(28px,3.4vw,48px); }
-.section.testimonials .section__body{ width:min(1200px,92vw); margin-inline:auto; }
+.section.testimonials .section__body{ width:min(820px,92vw); margin-inline:auto; }
 
-.ts{ position:relative; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px; }
+/* 화살표: 카드 위 절대배치 오버레이 (PC·모바일 공통) */
+.ts{ position:relative; }
 .ts__nav{
+  position:absolute; top:calc(50% - 22px); z-index:2;
   appearance:none; background:#fff; border:1px solid var(--border-default);
   width:44px; height:44px; border-radius:var(--radius-pill);
   display:grid; place-items:center; color:var(--primary-bright); box-shadow:var(--shadow-sm);
   transition:transform .14s ease;
 }
+.ts__nav--prev{ left:-6px; } .ts__nav--next{ right:-6px; }
 .ts__nav:hover{ transform:translateY(-1px); }
 .ts__nav:focus-visible{ outline:3px solid color-mix(in srgb, var(--primary-bright) 30%, transparent); }
 
 .ts__viewport{ overflow:hidden; border-radius:var(--radius-xl); width:100%; }
 .ts__track{ display:flex; list-style:none; margin:0; padding:0; transition:transform .55s cubic-bezier(.22,.61,.36,1); will-change:transform; }
-.ts__slide{ inline-size:100%; flex:0 0 100%; padding:clamp(12px,2.2vw,20px); }
+.ts__slide{ inline-size:100%; flex:0 0 100%; padding:clamp(10px,2vw,16px); }
 
-.ts__grid{ --left-col:1fr; --right-col:1.5fr; display:grid; grid-template-columns:var(--left-col) var(--right-col); align-items:center; gap:clamp(24px,3.4vw,44px); }
+/* 한 장의 흰색 카드: 헤드라인 → 이미지 → 본문 → 더보기 (PC·모바일 동일) */
+.ts__grid{
+  display:grid; grid-template-columns:1fr; gap:clamp(14px,2.6vw,20px); min-width:0;
+  background:#fff; border:1px solid var(--border-default);
+  border-radius:var(--radius-xl); box-shadow:var(--shadow-md); padding:clamp(18px,3.2vw,28px);
+}
+.ts__copy{ display:contents; }            /* 래퍼 해제 → 자식들이 직접 그리드 아이템으로 */
+.ts__copyHead{ order:1; margin:0; }
+.ts__right{ order:2; }
+.ts__quote{ order:3; }
+.ts__more{ order:4; }
 
-.ts__copy{ --copy-gutter:clamp(20px,2.8vw,32px); --copy-max:850px; background:var(--neutral-50); border:1px solid #e6eef9; border-radius:var(--radius-xl); padding:var(--copy-gutter); box-shadow:var(--shadow-card); text-align:left; }
-.ts__copyHead, .ts__quote{ max-width:var(--copy-max); }
-.ts__copyHead{ margin:0 0 clamp(12px,1.4vw,16px); }
 .ts__headline{ display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin:0; font-size:clamp(20px,2.6vw,28px); color:var(--neutral-900); }
 .ts__headline .chip{ background:var(--primary-bg); color:var(--primary-text); border-radius:var(--radius-pill); padding:4px 10px; font-size:12px; font-weight:600; }
 .ts__meta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; color:var(--neutral-500); font-size:14px; }
 .ts__meta strong{ color:var(--neutral-900); }
-blockquote.ts__quote{ background:#fff; border:1px solid #e8eef6; padding:clamp(18px,2.2vw,26px); border-radius:var(--radius-lg); line-height:1.75; color:#334; box-shadow:var(--shadow-card); margin:clamp(14px,1.6vw,18px) 0 0; text-align:left; }
-/* 본문 기본 5줄까지만 (PC·모바일 공통). [자세히 읽기]로 펼침 */
-.ts__quote{ display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
+
+/* 본문: 박스 없이 평평하게, 기본 5줄 말줄임(펼치면 전체) — PC·모바일 공통 */
+blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; }
+.ts__quote{ display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; max-height:calc(5 * 1.75em); }
 .ts__quote.is-expanded{ display:block; -webkit-line-clamp:unset; overflow:visible; max-height:none; }
 
-.ts__right{ --ts-chart-h:clamp(280px,40vw,350px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2vw,24px); align-items:stretch; justify-items:center; }
-.ts__photoWrap{ height:var(--ts-chart-h); }
-.ts__photo{ width:100%; height:var(--ts-chart-h); object-fit:cover; border-radius:var(--radius-2xl); box-shadow:0 8px 18px rgba(11,37,64,.08); display:block; }
+.ts__right{ --ts-chart-h:clamp(240px,34vw,320px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,18px); align-items:stretch; justify-items:center; }
+.ts__photoWrap{ height:var(--ts-chart-h); display:flex; flex-direction:column; min-width:0; min-height:0; }
+.ts__photo{ width:100%; height:var(--ts-chart-h); object-fit:cover; border-radius:var(--radius-lg); box-shadow:0 8px 18px rgba(11,37,64,.08); display:block; }
 /* 두 번째 이미지 임시 회색 자리 (실제 이미지 넣으면 그 위로 채워짐) */
-.ts__photoWrap--ph{ background:var(--neutral-200); border-radius:var(--radius-2xl); box-shadow:0 8px 18px rgba(11,37,64,.06); }
+.ts__photoWrap--ph{ background:var(--neutral-200); border-radius:var(--radius-lg); box-shadow:0 8px 18px rgba(11,37,64,.06); }
 
-/* 본문 더보기 버튼: PC·모바일 공통, 가운데 정렬, 파란 배경/흰 글자 */
-.ts__more{ display:flex; align-items:center; justify-content:center; gap:6px; width:fit-content; margin:16px auto 0; padding:14px 32px; background:var(--color-cta-main); color:#fff; border:0; border-radius:var(--radius-pill); cursor:pointer; }
+/* 본문 더보기 버튼: 가운데, 파란 배경/흰 글자 */
+.ts__more{ display:flex; align-items:center; justify-content:center; gap:6px; width:fit-content; margin:8px auto 0; padding:14px 32px; background:var(--color-cta-main); color:#fff; border:0; border-radius:var(--radius-pill); cursor:pointer; }
 .ts__more:hover{ background:var(--primary-strong); }
 
-.ts__dots{ width:min(1200px,92vw); margin:16px auto 0; display:flex; justify-content:center; gap:10px; }
+.ts__dots{ width:min(820px,92vw); margin:16px auto 0; display:flex; justify-content:center; gap:10px; }
 .ts__dot{ width:8px; height:8px; border-radius:var(--radius-pill); background:#c9d6ea; border:none; }
 .ts__dot[aria-selected="true"]{ width:26px; background:var(--primary-bright); transition:width .25s ease; }
 .ts__dot .sr-only{ display:none; }
 
+/* 모바일: 사이즈만 미세 조정 (구조는 PC와 동일) */
 @media (max-width:980px){
-  .section.testimonials .section__body{ width:min(100%,94vw); }
-  .ts{ grid-template-columns:1fr; position:relative; }
-  .ts__nav{ position:absolute; top:calc(50% - 22px); z-index:2; }
-  .ts__nav--prev{ left:-6px; } .ts__nav--next{ right:-6px; }
-
-  /* 모바일: 흰색 카드 안에 헤드라인 → 이미지 → 본문 → 더보기 순 */
-  .ts__grid{
-    grid-template-columns:1fr; gap:clamp(14px,3vw,18px); min-width:0;
-    background:#fff; border:1px solid var(--border-default);
-    border-radius:var(--radius-xl); box-shadow:var(--shadow-card); padding:clamp(16px,4.5vw,22px);
-  }
-  .ts__copy{ display:contents; }            /* 래퍼 해제 → 자식들이 직접 그리드 아이템이 됨 */
-  .ts__copyHead{ order:1; }
-  .ts__right{ order:2; }
-  .ts__quote{ order:3; }
-  .ts__more{ order:4; }
-
-  .ts__right{ --ts-chart-h:clamp(220px,48vw,300px); grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-  .ts__photoWrap{ display:flex; flex-direction:column; min-width:0; min-height:0; }
-  .ts__photo{ border-radius:18px; }
-
-  /* 흰 카드 안이라 본문 박스는 평평하게 + 정확히 5줄에서 말줄임(삐짐 방지) */
-  .ts__quote{ background:transparent; border:0; box-shadow:none; padding:0; max-height:calc(5 * 1.75em); }
+  .ts__right{ --ts-chart-h:clamp(200px,46vw,280px); gap:12px; }
+  .ts__photo, .ts__photoWrap--ph{ border-radius:14px; }
 }
 
 /* =====================================================================
