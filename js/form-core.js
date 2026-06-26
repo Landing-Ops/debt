@@ -39,7 +39,6 @@
 
   var nameRegex  = /^[가-힣]+$/;
   var phoneRegex = /^[0-9]+$/;
-
   var checkOrder = ['name', 'phone', 'bizname', 'industry', 'region', 'revenue', 'fund', 'arrears', 'agree'];
 
   function clearErrors() {
