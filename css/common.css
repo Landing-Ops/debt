@@ -200,10 +200,8 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; f
 }
 
 @media (max-width: 640px) {
-  .ts__meta { grid-template-columns: 1fr; justify-items: start; }
+  .ts__meta { grid-template-columns: 1fr; justify-items: center; }
 }
-
-
 
 /* =====================================================================
    섹션 3 · 성과 카운트업 (.success)   배경 오버레이는 premium.css
