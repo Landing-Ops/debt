@@ -70,7 +70,7 @@
 /* 절차 */
 .section.promises .section__title{ color:var(--neutral-900); font-size:clamp(28px,4.2vw,48px); letter-spacing:-.02em; }
 .section.promises .section__desc{ margin-top:10px; color:var(--neutral-600); font-size:clamp(18px,1.6vw,24px); }
-.promise__title{ font-weight:900; font-size:clamp(18px,2.4vw,26px); color:var(--neutral-900); margin:6px 0 10px; letter-spacing:-.01em; }
+.promise__title{ font-weight:900; font-size:clamp(20px,2.4vw,26px); color:var(--neutral-900); margin:6px 0 10px; letter-spacing:-.01em; }
 .promise__desc{ color:#46566e; line-height:1.7; font-size:clamp(18px,1.7vw,20px); }
 
 /* 리드폼 (배경 어두움 → 흰 글자, 카드 안은 진한 글자) */
