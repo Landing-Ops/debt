@@ -24,7 +24,7 @@
 
 /* ---------- Footer ---------- */
 .footer__logo-en{ color:var(--primary); font-weight:900; font-size:clamp(22px,3vw,36px); letter-spacing:.2px; }
-.footer__logo-ko{ color:var(--neutral-500); font-weight:800; font-size:clamp(15px,1.6vw,20px); }
+.footer__logo-ko{ color:var(--neutral-500); font-weight:600; font-size:clamp(20px,1.6vw,24px); }
 .footer__slogan{ color:var(--neutral-600); line-height:1.7; font-size:clamp(14px,1.6vw,17px); }
 .footer__item{ font-size:clamp(14px,1.5vw,16px); color:var(--neutral-700); }
 .footer__copy{ color:#617089; font-size:13px; }
