@@ -169,7 +169,7 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 
 .ts__headline{ display:flex; flex-direction:column; flex-wrap:wrap; align-items:center; gap:2px; margin:0; font-size:clamp(28px,2.6vw,30px); color:var(--neutral-900); justify-content:center; }
 .ts__headline .chip{ background:var(--primary-bg); color:var(--primary-text); border-radius:var(--radius-pill); padding:4px 10px; font-size:18px; font-weight:600; }
-.ts__meta { display: grid; grid-template-columns: auto auto; gap: 6px 40px; margin-top: 10px; color: var(--neutral-500); font-size: 18px; justify-content: center; }
+.ts__meta { display: grid; grid-template-columns: auto auto; gap: 6px 40px; margin-top: 10px; color: var(--neutral-500); font-size: 20px; justify-content: center; }
 .ts__meta strong{ color:var(--neutral-900); }
 
 /* 본문: 박스 없이 평평하게, 기본 5줄 말줄임(펼치면 전체) — PC·모바일 공통 */
@@ -200,7 +200,7 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; f
 }
 
 @media (max-width: 640px) {
-  .ts__meta { grid-template-columns: 1fr; justify-items: center; }
+  .ts__meta { grid-template-columns: 1fr; justify-items: center; font-size: 18px;}
 }
 
 /* =====================================================================
@@ -208,9 +208,14 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; f
 ===================================================================== */
 .section.success{ position:relative; padding-block:clamp(60px,7vw,100px); background:transparent; text-align:center; overflow:hidden; }
 .section.success > *{ position:relative; z-index:1; }
-.success__grid{ display:flex; justify-content:center; gap:clamp(16px,3vw,40px); margin-bottom:40px; flex-wrap:wrap; }
-.success__card{ background:#fff; border-radius:var(--radius-lg); padding:24px 32px; min-width:160px; box-shadow:0 8px 20px rgba(0,0,0,.15); }
+.success__grid { display: flex; justify-content: center; gap: clamp(16px, 3vw, 40px); margin-bottom: 40px; flex-wrap: wrap; }
+.success__card { background: #fff; border-radius: var(--radius-lg); padding: 24px 32px; width: 240px; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .15); }
 
+@media (max-width: 640px) {
+  .success__card {
+    width: 200px;
+  }
+}
 /* =====================================================================
    섹션 4 · 업종/자격 그리드 (.industries)
 ===================================================================== */
@@ -223,6 +228,7 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; f
 .ind__icon{ width:clamp(100px,8.5vw,130px); height:auto; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(47,111,228,.18)); }
 .ind__texts{ display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:10px; }
 .ind__cap{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:var(--radius-pill); background:color-mix(in srgb, var(--primary-bright) 92%, #fff 8%); color:#fff; box-shadow:0 8px 18px rgba(11,37,64,.12); border:1px solid color-mix(in srgb, var(--primary-bright) 70%, transparent); }
+
 @media (max-width:1024px){
   .section.industries .ind__grid{ grid-template-columns:repeat(2,minmax(150px,1fr)) !important; gap:18px !important; }
   .section.industries .ind__circle{ width:170px; }
