@@ -28,6 +28,10 @@
   --neutral-100:#eef3fa;
   --neutral-50: #f3f7ff;
   --white:#ffffff;
+
+  /*세컨더리, 악센트 추가 (번호인증용)*/
+  --secondary: hsl(231 65% 46%);
+  --accent: hsl(43 82% 50%);
 }
 
 /* ---------- [2] SEMANTIC — 의미 토큰 ---------- */

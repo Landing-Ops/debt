@@ -19,7 +19,7 @@
   };
   var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
   var THANKYOU_URL    = 'https://landing-ops.github.io/debt/result';
-  var SOURCE = (document.body.getAttribute('data-source') || '인덱스');
+  var SOURCE = (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '인덱스');
 
   /* ---------- 핸드폰 인증 OTP 설정 (구글앱스 웹앱 API)---------- */
   var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbxu2wFttVbqZq8g2q5Csto8GctxSMEvDkIVZhfQNLsZFUeH6Ad1-euEA0sDwWYt5e0C_A/exec';
@@ -76,6 +76,7 @@
     otpBox = document.createElement('div');
     otpBox.setAttribute('data-otp-box', '');
     otpBox.innerHTML =
+      '<p style="font-size:12px;color:#d33;margin-bottom:4px; text-align:left;">정확한 탕감액 산정을 위해 번호 인증을 진행해주세요.</p>' +
       '<div class="otp-row">' +
         '<input data-otp-code type="text" maxlength="6" inputmode="numeric" ' +
           'pattern="[0-9]*" autocomplete="off" ' +
