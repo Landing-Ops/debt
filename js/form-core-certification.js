@@ -76,7 +76,7 @@
     otpBox = document.createElement('div');
     otpBox.setAttribute('data-otp-box', '');
     otpBox.innerHTML =
-      '<p style="font-size:12px;color:#d33;margin-bottom:4px; text-align:left;">정확한 탕감액 산정을 위해 번호 인증을 진행해주세요.</p>' +
+      '<p style="font-size:14px;color:#d33;margin-bottom:4px; text-align:left;">정확한 탕감액 산정을 위해 번호 인증을 진행해주세요.</p>' +
       '<div class="otp-row">' +
         '<input data-otp-code type="text" maxlength="6" inputmode="numeric" ' +
           'pattern="[0-9]*" autocomplete="off" ' +
