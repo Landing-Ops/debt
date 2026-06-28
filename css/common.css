@@ -140,12 +140,21 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 
 /* 화살표: 카드 위 절대배치 오버레이 (PC·모바일 공통) */
 .ts{ position:relative; }
-.ts__nav{
-  position:absolute; top:calc(50% - 22px); z-index:2;
-  appearance:none; background:#fff; border:1px solid var(--border-default);
-  width:44px; height:44px; border-radius:var(--radius-pill);
-  display:grid; place-items:center; color:var(--primary-bright); box-shadow:var(--shadow-sm);
-  transition:transform .14s ease;
+.ts__nav {
+  position: absolute;
+  top: calc(50% - 22px);
+  z-index: 2;
+  appearance: none;
+  background: var(--primary-bright);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform .14s ease;
 }
 .ts__nav--prev{ left:-6px; } .ts__nav--next{ right:-6px; }
 .ts__nav:hover{ transform:translateY(-1px); }
