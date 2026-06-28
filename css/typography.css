@@ -80,7 +80,7 @@
 .leadform__count strong{ font-weight:900; color:#74ffb4; }
 .leadform__title{ margin:4px 0 10px; font-weight:900; font-size:clamp(26px,3.8vw,48px); letter-spacing:-.01em; }
 .leadform__desc{ margin:0 0 10px; opacity:.9; line-height:1.65; font-size:clamp(18px,1.6vw,24px); }
-.lf__label{ font-size:13px; color:#4b5a6b; margin:0 0 6px; font-weight:700; }
+.lf__label{ font-size:16px; color:#4b5a6b; margin:0 0 6px; font-weight:700; }
 .lf__input, .lf__select, .lf__textarea{ font-size:15px; }
 .lf__input::placeholder, .lf__textarea::placeholder{ color:var(--neutral-400); }
 .lf__check{ font-size:14px; color:#334; }
