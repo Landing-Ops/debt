@@ -697,34 +697,23 @@
               <label for="lf-phone" class="lf__label">연락처</label>
               <input id="lf-phone" data-field="phone" class="lf__input" type="tel" inputmode="numeric" placeholder="숫자만 입력 (예: 01012345678)" maxlength="11" required>
             </div>
-            <!-- <div class="lf__field">
-              <label for="lf-bizname" class="lf__label">사업자 상호</label>
-              <input id="lf-bizname" data-field="bizname" class="lf__input" type="text" placeholder="상호명 입력" autocomplete="organization" required>
-            </div> -->
             <div class="lf__field">
-              <label for="lf-industry" class="lf__label">채무금액</label>
-              <select id="lf-industry" data-field="industry" class="lf__select" required>
+              <label for="lf-deb" class="lf__label">채무금액</label>
+              <select id="lf-deb" data-field="deb" class="lf__select" required>
                 <option value="" selected disabled>*채무금액이 2,000만원 미만일 경우 신청이 불가합니다.</option>
                 <option>2,000~3,000만원</option><option>3,000~5,000만원</option><option>5,000~7,000만원</option><option>7,000~1억</option><option>1억 초과
               </select>
             </div>
-            <!-- <div class="lf__field">
-              <label for="lf-region" class="lf__label">지역</label>
-              <select id="lf-region" data-field="region" class="lf__select" required>
-                <option value="" selected disabled>지역을 선택해주세요</option>
-                <option value="서울">서울</option><option value="경기도">경기도</option><option value="인천">인천</option>
-              </select>
-            </div> -->
             <div class="lf__field">
-              <label for="lf-revenue" class="lf__label">소득수준</label>
-              <select id="lf-revenue" data-field="revenue" class="lf__select" required>
+              <label for="lf-inco" class="lf__label">소득수준</label>
+              <select id="lf-inco" data-field="inco" class="lf__select" required>
                 <option value="" selected disabled>소득수준을 선택해주세요</option>
                 <option>100~200만원</option><option>200~300만원</option><option>300~400만원</option><option>400만원 이상</option>
               </select>
             </div>
             <div class="lf__field">
-              <label for="lf-fund" class="lf__label">통화가능 시간</label>
-              <select id="lf-fund" data-field="fund" class="lf__select" required>
+              <label for="calltime" class="lf__label">통화가능 시간</label>
+              <select id="calltime" data-field="calltime" class="lf__select" required>
                 <option value="" selected disabled>통화가능 시간을  선택해주세요</option>
                 <option>오전 10~11시</option>
                 <option>오전 11시~12시</option>
@@ -736,14 +725,6 @@
                 <option>오후 5~6시</option>
               </select>
             </div>
-            <!-- <div class="lf__field">
-              <label for="lf-arrears" class="lf__label">세금 체납/연체/결손 여부</label>
-              <select id="lf-arrears" data-field="arrears" class="lf__select" required>
-                <option value="" selected disabled>선택해주세요</option>
-                <option>O</option><option>X</option>
-              </select>
-            </div> -->
-
             <div class="lf__agree lf__field--full">
               <label class="lf__check" for="lf-agree">
                 <input id="lf-agree" data-field="agree" type="checkbox" checked required>
@@ -908,5 +889,9 @@
   <script src="./js/form-core.js"></script>
   <script src="./js/carousel.js"></script>
   <script src="./js/ui.js"></script>
+
+  <!-- ========== 매체 유입 ==========-->
+<body data-source="좋아썽">
+
 </body>
 </html>

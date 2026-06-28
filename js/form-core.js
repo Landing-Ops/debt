@@ -13,33 +13,30 @@
 
   /* ---------- 구글폼 매핑 (기존 그대로) ---------- */
   var ENTRY = {
-    name:    'entry.114372548',
-    phone:   'entry.2053141744',
-    bizname: 'entry.2013305819',
-    industry:'entry.855034677',
-    region:  'entry.1446743340',
-    revenue: 'entry.853049962',
-    fund:    'entry.1570139881',
-    arrears: 'entry.425300914',
-    source:  'entry.1767017674'
+    name:    'entry.498799052',
+    phone:   'entry.1784497319',
+    deb:'entry.1214740303',
+    inco: 'entry.269586254',
+    calltime: 'entry.569624933',
+    source:  'entry.843968427'
   };
-  var GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSceC-tDXVpVn3kit6Pky0_35rr4ZuBEYmD5IMsP7PkxhoXgLw/formResponse';
-  var THANKYOU_URL    = 'https://kbizconsult.com/result';
+  var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
+  var THANKYOU_URL    = 'https://landing-ops.github.io/debt/result';
   var SOURCE = (document.body.getAttribute('data-source') || '인덱스');
 
   /* ---------- 필드 수집 (data-field) ---------- */
   var $ = function (key) { return form.querySelector('[data-field="' + key + '"]'); };
   var f = {
-    name: $('name'), phone: $('phone'), bizname: $('bizname'),
-    industry: $('industry'), region: $('region'), revenue: $('revenue'),
-    fund: $('fund'), arrears: $('arrears'), agree: $('agree')
+    name: $('name'), phone: $('phone'), 
+    deb: $('deb'), inco: $('inco'),
+    calltime: $('calltime'), agree: $('agree')
   };
   var submitBtn = form.querySelector('[data-field="submit"]');
   if (!submitBtn) return;
 
   var nameRegex  = /^[가-힣]+$/;
   var phoneRegex = /^[0-9]+$/;
-  var checkOrder = ['name', 'phone', 'bizname', 'industry', 'region', 'revenue', 'fund', 'arrears', 'agree'];
+  var checkOrder = ['name', 'phone', 'deb', 'inco', 'calltime', 'agree'];
 
   function clearErrors() {
     checkOrder.forEach(function (k) { if (f[k]) f[k].classList.remove('is-invalid'); });
@@ -49,7 +46,7 @@
   function validate() {
     clearErrors();
     var v = {};
-    ['name', 'phone', 'bizname', 'industry', 'region', 'revenue', 'fund', 'arrears'].forEach(function (k) {
+    ['name', 'phone', 'deb', 'inco', 'calltime'].forEach(function (k) {
       v[k] = (f[k] && f[k].value || '').trim();
     });
 
@@ -58,12 +55,9 @@
     if (v.phone.length === 0) { f.phone.classList.add('is-invalid'); return { ok: false, msg: '전화번호를 입력하세요.' }; }
     if (!(v.phone.substr(0, 3) === '010' && v.phone.length === 11 && phoneRegex.test(v.phone))) { f.phone.classList.add('is-invalid'); return { ok: false, msg: '전화번호 입력을 확인하세요.' }; }
 
-    if (v.bizname.length === 0) { f.bizname.classList.add('is-invalid'); return { ok: false, msg: '상호명을 입력하세요.' }; }
-    if (!v.industry) { f.industry.classList.add('is-invalid'); return { ok: false, msg: '업종을 선택하세요.' }; }
-    if (!v.region)   { f.region.classList.add('is-invalid');   return { ok: false, msg: '지역을 선택하세요.' }; }
-    if (!v.revenue)  { f.revenue.classList.add('is-invalid');  return { ok: false, msg: '연매출을 선택하세요.' }; }
-    if (!v.fund)     { f.fund.classList.add('is-invalid');     return { ok: false, msg: '필요 자금을 선택하세요.' }; }
-    if (!v.arrears)  { f.arrears.classList.add('is-invalid');  return { ok: false, msg: '연체·국세 체납여부를 선택하세요.' }; }
+    if (!v.deb) { f.deb.classList.add('is-invalid'); return { ok: false, msg: '채무 범주를 선택하세요.' }; }
+    if (!v.inco)  { f.inco.classList.add('is-invalid');  return { ok: false, msg: '소득 범주를 선택하세요.' }; }
+    if (!v.calltime)     { f.calltime.classList.add('is-invalid');     return { ok: false, msg: '통화 가능 시간대를 선택하세요.' }; }
     if (!f.agree.checked) { f.agree.classList.add('is-invalid'); return { ok: false, msg: '개인정보 동의를 해주세요.' }; }
 
     return { ok: true, msg: '무료상담 신청하기' };
@@ -95,7 +89,7 @@
   /* ---------- 전송 ---------- */
   function buildBody() {
     var data = new URLSearchParams();
-    ['name', 'phone', 'bizname', 'industry', 'region', 'revenue', 'fund', 'arrears'].forEach(function (k) {
+    ['name', 'phone', 'deb', 'inco', 'calltime'].forEach(function (k) {
       data.append(ENTRY[k], (f[k].value || '').trim());
     });
     data.append(ENTRY.source, SOURCE);
