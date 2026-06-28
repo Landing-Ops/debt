@@ -7,7 +7,7 @@
      - 펼치면 자동재생 정지
      - 접거나 다른 슬라이드로 넘기면 5.5초 재생 재개
      - 슬라이드를 넘기면 새 슬라이드는 항상 "접힌" 기본 상태로 리셋
-===================================================================== */
+====================================================================== */
 (function () {
   'use strict';
 
@@ -78,10 +78,10 @@
   root.setAttribute('tabindex', '0');
 
   /* 터치 스와이프 */
-  var sx = 0, dx = 0;
-  root.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; dx = 0; }, { passive: true });
-  root.addEventListener('touchmove',  function (e) { dx = e.touches[0].clientX - sx; }, { passive: true });
-  root.addEventListener('touchend',   function () { if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); start(); } });
+  // var sx = 0, dx = 0;
+  // root.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; dx = 0; }, { passive: true });
+  // root.addEventListener('touchmove',  function (e) { dx = e.touches[0].clientX - sx; }, { passive: true });
+  // root.addEventListener('touchend',   function () { if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); start(); } });
 
   /* 화면에 들어오면 시작 */
   var io = new IntersectionObserver(function (entries) {
