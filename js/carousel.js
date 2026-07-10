@@ -89,3 +89,132 @@
   }, { threshold: 0.2 });
   io.observe(root);
 })();
+
+
+// 섹션2 - ★★정책자금 그래프 가져옴★★
+(() => {
+  const root = document.querySelector('.section.testimonials');
+  if (!root) return;
+
+  const track   = root.querySelector('.ts__track');
+  const slides  = Array.from(root.querySelectorAll('.ts__slide'));
+  const prevBtn = root.querySelector('.ts__nav--prev');
+  const nextBtn = root.querySelector('.ts__nav--next');
+  const dots    = Array.from(root.querySelectorAll('.ts__dot'));
+
+  let index = 0;
+  const DURATION = 5500;
+  let timer = null;
+  let isPaused = false;
+
+  /* ───────── 그래프 높이 계산 & 적용 ───────── */
+  function usableHeight(chartEl){
+    // 그래프 컨테이너의 내부 실사용 높이(패딩 제외)
+    const cs = getComputedStyle(chartEl);
+    const pt = parseFloat(cs.paddingTop)    || 0;
+    const pb = parseFloat(cs.paddingBottom) || 0;
+    return Math.max(0, chartEl.clientHeight - pt - pb);
+  }
+
+  function setBarsForSlide(slide){
+    const chart = slide.querySelector('.ts__miniChart');
+    if (!chart) return;
+
+    const useH = usableHeight(chart);
+
+    // 목표 비율 (필요하면 조정: before 낮게, after 높게)
+    const beforeRatio = 0.32;
+    const afterRatio  = 0.92;
+
+    const beforeBar = chart.querySelector('.ts__bar--before');
+    const afterBar  = chart.querySelector('.ts__bar--after');
+
+    // (안전) 먼저 0으로 리셋 → 다음 프레임에 목표값 적용해 애니메이션 유도
+    if (beforeBar) beforeBar.style.setProperty('--bar-h', '0px');
+    if (afterBar)  afterBar.style.setProperty('--bar-h',  '0px');
+
+    // 레이아웃 안정 후 적용 (Safari 대비 2프레임 확보)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (beforeBar) {
+          const h = Math.round(useH * beforeRatio);
+          beforeBar.style.setProperty('--bar-h', h + 'px');
+        }
+        if (afterBar) {
+          const h = Math.round(useH * afterRatio);
+          afterBar.style.setProperty('--bar-h', h + 'px');
+        }
+      });
+    });
+  }
+
+  function resetBars(slide){
+    // 비활성화 시 0으로 내려서 다음에 다시 올라가도록
+    slide.querySelectorAll('.ts__bar').forEach(b => {
+      b.style.setProperty('--bar-h', '0px');
+    });
+  }
+
+  /* ───────── 슬라이더 기본 동작 ───────── */
+  function activate(i){
+    slides.forEach((s, si) => {
+      s.classList.toggle('is-active', si === i);
+      if (si === i) setBarsForSlide(s);
+      else          resetBars(s);
+    });
+  }
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    track.style.transform = `translate3d(${-index * 100}%,0,0)`;
+    dots.forEach((d, di) => d.setAttribute('aria-selected', di === index ? 'true' : 'false'));
+    activate(index);
+  }
+  function next(){ goTo(index + 1); }
+  function prev(){ goTo(index - 1); }
+
+  function start(){ stop(); timer = setInterval(() => { if (!isPaused) next(); }, DURATION); }
+  function stop(){ if (timer) clearInterval(timer); }
+
+  nextBtn?.addEventListener('click', () => { next(); start(); });
+  prevBtn?.addEventListener('click', () => { prev(); start(); });
+  dots.forEach((d, di) => d.addEventListener('click', () => { goTo(di); start(); }));
+
+  root.addEventListener('mouseenter', () => { isPaused = true; });
+  root.addEventListener('mouseleave', () => { isPaused = false; });
+
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { next(); start(); }
+    if (e.key === 'ArrowLeft')  { prev(); start(); }
+  });
+  root.setAttribute('tabindex', '0');
+
+  // 터치 스와이프
+  // let sx = 0, dx = 0;
+  // root.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; dx = 0; }, {passive:true});
+  // root.addEventListener('touchmove',  (e) => { dx = e.touches[0].clientX - sx; }, {passive:true});
+  // root.addEventListener('touchend',   ()  => {
+  //   if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); start(); }
+  // });
+
+  // 초기 진입: 섹션이 보이면 1번 슬라이드 활성화
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) {
+      goTo(0);
+      start();
+      io.disconnect();
+    }
+  }, {threshold: 0.2});
+  io.observe(root);
+
+  // 리사이즈/회전 시 현재 슬라이드 그래프 재계산
+  let resizeRaf = 0;
+  function onResize(){
+    cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => {
+      setBarsForSlide(slides[index]);
+    });
+  }
+  window.addEventListener('resize', onResize);
+  window.addEventListener('orientationchange', onResize);
+})();

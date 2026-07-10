@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  /* ---------- 네비: body 패딩 보정 + 스크롤 그림자 + 햄버거 토글 ---------- */
+  /* ---------- 모바일) 네비: body 패딩 보정 + 스크롤 그림자 + 햄버거 토글 ---------- */
   var nav = document.querySelector('.site-nav');
   if (nav) {
     var setPT = function () { document.body.style.paddingTop = nav.offsetHeight + 'px'; };
@@ -51,7 +51,7 @@
     });
   }
 
-  /* ---------- 성과 카운트업 (.success__num data-target) ---------- */
+  /* ---------- 섹션 3, 성과 카운트업 (.success__num data-target) ---------- */
   var nums = document.querySelectorAll('.success__num');
   if (nums.length) {
     var animate = function (el) {
@@ -73,7 +73,7 @@
     nums.forEach(function (n) { io.observe(n); });
   }
 
-  /* ---------- 투데이 신청자 (#today-count, 날짜 시드 고정난수 25~60) ---------- */
+  /* ---------- 섹션 6 입력폼. 투데이 신청자 (#today-count, 날짜 시드 고정난수 25~60) ---------- */
   var todayEl = document.getElementById('today-count');
   if (todayEl) {
     var today = new Date().toISOString().slice(0, 10);
