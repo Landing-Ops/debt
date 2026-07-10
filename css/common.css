@@ -188,7 +188,7 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; f
 
 .ts__right{ --ts-chart-h:clamp(240px,40vw,400px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,18px); align-items:stretch; justify-items:center; }
 .ts__photoWrap{ height:var(--ts-chart-h); display:flex; flex-direction:column; min-width:0; min-height:0; }
-.ts__photo{ width:100%; height:var(--ts-chart-h); object-fit:cover; border-radius:var(--radius-lg); box-shadow:0 8px 18px rgba(11,37,64,.08); display:block; }
+.ts__photo{ width:100%; height:var(--ts-chart-h); object-fit:cover; border-radius:var(--radius-lg); box-shadow:0 8px 18px rgba(11,37,64,.08); display:block; border: 1px solid var(--border-strong);}
 /* 두 번째 이미지 임시 회색 자리 (실제 이미지 넣으면 그 위로 채워짐) */
 .ts__photoWrap--ph{ background:var(--neutral-200); border-radius:var(--radius-lg); box-shadow:0 8px 18px rgba(11,37,64,.06); }
 
@@ -325,11 +325,11 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; f
 }
 
 /* 막대 그래프 컨테이너 */
-.ts__miniChart{
+.ts__miniChart {
   width: 100%;
   height: var(--ts-chart-h);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--neutral-100);
+  border: 1px solid var(--border-strong);
   padding: 18px 18px 36px;
   display: flex;
   align-items: flex-end;
@@ -339,8 +339,8 @@ blockquote.ts__quote{ line-height:1.75; color:#334; margin:0; text-align:left; f
   background: repeating-linear-gradient(
     to top,
     #ffffff 0px,
-    #ffffff 28px,
-    rgba(31,95,174,0.22) 29px
+    #ffffff 27px,
+    rgba(2, 28, 59, 0.15) 29px
   );
   position: relative;
 }
