@@ -122,12 +122,12 @@
 
     const useH = usableHeight(chart);
 
-    // 목표 비율 (필요하면 조정: before 낮게, after 높게)
-    const beforeRatio = 0.32;
-    const afterRatio  = 0.92;
+    // ★ 고정값 대신 data 속성에서 읽기 (없으면 기본값)
+  const beforeRatio = parseFloat(chart.dataset.before) || 0.90;
+  const afterRatio  = parseFloat(chart.dataset.after)  || 0.20;
 
-    const beforeBar = chart.querySelector('.ts__bar--before');
-    const afterBar  = chart.querySelector('.ts__bar--after');
+  const beforeBar = chart.querySelector('.ts__bar--before');
+  const afterBar  = chart.querySelector('.ts__bar--after');
 
     // (안전) 먼저 0으로 리셋 → 다음 프레임에 목표값 적용해 애니메이션 유도
     if (beforeBar) beforeBar.style.setProperty('--bar-h', '0px');
