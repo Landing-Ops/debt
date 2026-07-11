@@ -176,7 +176,7 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 .ts__quote{ order:3; }
 .ts__more{ order:4; }
 
-.ts__headline{ display:flex; flex-direction:column; flex-wrap:wrap; align-items:center; gap:2px; margin:0; font-size:clamp(28px,2.6vw,42px); color:var(--neutral-900); justify-content:center; }
+.ts__headline{ display:flex; flex-direction:column; flex-wrap:wrap; align-items:center; gap:2px; margin:0; font-size:clamp(24px,2.6vw,42px); color:var(--neutral-900); justify-content:center; }
 .ts__headline .chip{ background:var(--primary-bg); color:var(--primary-text); border-radius:var(--radius-lg); padding:4px 10px; font-size:36px; font-weight:700; }
 .ts__meta { display: grid; grid-template-columns: auto auto; gap: 6px 40px; margin-top: 10px; color: var(--neutral-500); font-size: 24px; justify-content: center; }
 .ts__meta strong{ color:var(--neutral-900); }
@@ -228,7 +228,7 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 
 @media (max-width: 640px) {
   .ts__headline .chip {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 

@@ -1,186 +1,87 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-color-pattern="1">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>정부지원 정책자금 솔루션</title>
+  <title>2026년 채무탕감 법원제도 개인회생 솔루션</title>
 
-  <!-- Google Fonts -->
+  <!-- ============================
+      파비콘 & 터치 아이콘
+  ============================ -->
+  <link rel="icon" href="./img/favicon_32x32.png" />
+  <link rel="apple-touch-icon" href="./img/favicon_32x32.png" />
+
+  <!-- 폰트: Noto Sans KR (기존 유지) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <!-- 외부 CSS -->
-  <link rel="stylesheet" href="./css/styles.css">
-  <link rel="stylesheet" href="css/ionicons.min.css"  /> <!--개인정보 팝업 닫기버튼-->
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <!-- Tailwind: 레이아웃 전용 (초기 제작용 CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-830866619"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'AW-830866619');
-  </script>
-
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '2253155728441697');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=2253155728441697&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
-
-  <!-- Danggeun Market Code -->
-  <script src="https://karrot-pixel.business.daangn.com/0.4/karrot-pixel.umd.js"></script>
-  <script>
-    window.karrotPixel.init('1760898545523909001');
-    window.karrotPixel.track('ViewPage');
-    window.karrotPixel.track('Lead');
-  </script>
-  <!-- End Danggeun Market Code -->
-
+  <!-- 역할별 CSS: 토큰 → 컴포넌트 스킨 → 타이포 → 효과 -->
+  <link rel="stylesheet" href="./css/brand.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/typography.css">
+  <link rel="stylesheet" href="./css/premium.css">
 </head>
 
-<body>
+<body data-industry="legal" data-source="인덱스">
 
-  <script>
-    (function () {  //페이스북 픽셀 - 중복로드 방지
-    // URL에서 tx 파라미터 추출
-    var params = new URLSearchParams(window.location.search);
-    var tx = params.get('tx');
+  <!-- ============ 헤더 / 네비 ============ -->
+  <header class="site-nav" role="navigation" aria-label="주요 메뉴">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo flex gap-1 mb-2.5" aria-label="채무탕감 도움터">
+        <img src="img/logo_50x50.png" alt="채무탕감 길라잡이" class="h-7 w-auto md:h-10">
+        <strong>채무탕감 길라잡이</strong>
+      </a>
 
-    // 토큰이 없으면 발화하지 않음 (공유/직접 접근 차단)
-    if (!tx) {
-        console.info('no token → skip Lead');
-        return;
-    }
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
+        <span class="nav__bar"></span><span class="nav__bar"></span><span class="nav__bar"></span>
+      </button>
 
-    // 같은 세션에서 같은 토큰으로는 다시 발화하지 않음
-    if (sessionStorage.getItem('tx_used:' + tx)) {
-        console.info('duplicate token → skip Lead');
-        return;
-    }
-    sessionStorage.setItem('tx_used:' + tx, '1');
-
-    // 최초 1회 정상 발화
-    fbq('track', 'Lead', {currency: "KRW", value:0});
-
-    // 새로고침 시 URL에서 토큰 제거
-    history.replaceState({}, '', window.location.pathname);
-    })();
-    </script>
-
-  <!--HTML 헤더,메뉴바-->
-<header class="site-nav" role="navigation" aria-label="주요 메뉴">
-  <div class="container nav__inner">
-    <!-- 좌측 로고 -->
-    <a href="#hero" class="nav__logo" aria-label="사업자 홈">
-      <strong>K-Biz 경영지원 그룹</strong> 
-    </a>
-    <!-- 모바일 햄버거 -->
-    <!-- <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
-      <span class="nav__bar"></span>
-      <span class="nav__bar"></span>
-      <span class="nav__bar"></span>
-    </button> -->
-
-    <!-- 우측 메뉴 -->
-    <!-- <nav id="nav-menu" class="nav__menu" aria-label="상단 메뉴">
-      <a class="nav__link" href="#testimonial">성공사례</a>
-      <a class="nav__link" href="#proccess">간편절차</a>
-      <a class="nav__link" href="#contact">무료상담</a>
-    </nav>
-  </div> -->
-</header>
-  <!-- 섹션1 - Hero -->
-  <main class="hero" id="hero">
-    <div class="container hero-inner">
-      <!-- 좌측: 비주얼 -->
-      <figure class="hero-visual" aria-label="정책자금 안내 비주얼">
-        <img src="./img/thanks_01_001.png">
-      </figure>
-
-      <!-- 우측: 카피 & CTA -->
-      <div class="hero-copy">
-        <span class="kicker">
-          <svg class="spark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          2025년 하반기 정책자금 솔루션 무료상담
-        </span>
-        <h2 class="" style="color: #163c87"><b>신청해주셔서 감사합니다</b></h2><br>
-        <p class="" style="font-size: 18px;">
-          K-Biz 경영지원 그룹 소속<br>
-          <span style="color:#0b5bd3"><b>CBIC 중소기업비즈니스혁신센터의 담당자</b></span>가 
-          <br>대표님께 1~2일내로 연락드릴 예정입니다.<br><br>
-          <span style="color:#0b5bd3"><b>CBIC 중소기업비즈니스혁신센터</b></span>는
-          <b><u>서울 · 경기 1금융권 은행  200개점과 업무 협약</u></b>을 맺은 튼튼한 업체로써
-          자타공인 중소기업 정책자금 컨설팅 노하우를 지닌 회사입니다.
-          <br><br>
-          <span style="color:#0b5bd3"><b>CBIC 중소기업비즈니스혁신센터</b></span>는 15년이 넘는 시간동안 <b>정부 정책자금</b>(운전자금, 시설자금 등)에 대한 전략적 솔루션을 제공해오고 있으며 
-          <b>기업의 성장 단계에 맞춘 경영인증</b>(예: 벤처기업, 이노비즈, 메인비즈 등)을 통해
-          기술력과 경쟁력 향상을 도모하고 있습니다. 
-          <br><br>
-          또한 기술개발 자금 확보 분야에서도 다수의 성공 사례와 풍부한 실적을 축적하였으며 기업의 혁신 역량을 실질적으로 강화해드리고 있습니다.
-          <br><br>
-          <span style="color:#0b5bd3"><b>대표님의 회사에 필요한 자금을 확실하게 확보</b></span>할수 있도록 최선을 다하겠습니다. <br><br>감사합니다.
-          <!-- <span style="font-size:22px;">금리 최저 <b>연 2%</b></span><br>
-          <span style="font-size:22px;">상환기간 최대 <b>10년</b></span><br>
-          <span style="font-size:22px;">자금한도 최대 <b>5억</b></span> -->
-        </p>
-
-        <!-- <div class="bullets" role="list">
-          <div class="bullet" role="listitem">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div><strong>세금, 연체없는 사업자</strong>라면 누구나!</div>
-          </div>
-          <div class="bullet" role="listitem">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div>신용점수 <strong>700점 이상(NICE)</strong> 기준</div>
-          </div>
-          <div class="bullet" role="listitem">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M20 6l-11 11-5-5" fill="none" stroke="#1f5fae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div>사업자 개설 <strong>3개월 이상 &매출발생</strong></div>
-          </div>
-        </div> -->
-
-        <!--<div class="ctas">
-          <button class="btn btn-primary" id="reqConsult">무료 상담 요청</button>
-          <button class="btn btn-ghost" id="seeMore">자세히 보기</button>
-        </div>
-
-        <div class="chips" aria-label="주요 혜택">
-          <span class="chip">연 2%~4%대</span>
-          <span class="chip">최대 5억 한도</span>
-          <span class="chip">만 20세 이상</span>
-        </div>-->
-      </div>
+      <nav id="nav-menu" class="nav__menu" aria-label="상단 메뉴">
+        <a class="nav__link" href="#testimonial">성공사례</a>
+        <a class="nav__link" href="#proccess">간편절차</a>
+        <a class="nav__link" href="#contact">무료상담</a>
+      </nav>
     </div>
-    <!--후기섹션-->
-<!--섹션2 시작 -->
-  <section class="section testimonials" id="testimonial" aria-label="성공 사례">
+  </header>
+
+  <main id="page">
+
+    <!-- ============ 섹션 1 · Hero ============ -->
+    <section class="hero" id="hero">
+      <div class="mx-auto w-[min(1200px,92vw)] grid items-center grid-cols-1 min-[981px]:grid-cols-[1.15fr_1fr] gap-[18px] min-[981px]:gap-8 pt-7 pb-14">
+
+        <!-- 좌: 비주얼 -->
+        <figure class="hero-visual" style="width:100%; max-width:500px; aspect-ratio:1/1; margin-inline:auto;" aria-label="개인회생 안내 비주얼">
+          <img src="./img/hero002.png" alt="개인회생 히어로" />
+        </figure>
+
+        <!-- 우: 카피 -->
+        <div class="hero-copy px-1 py-2">
+          <span class="kicker inline-flex items-center gap-2.5 px-3 py-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            서민 채무 탕감제도 개인회생·파산
+          </span>
+
+          <h1 class="title mt-3.5 mb-2.5 !text-4xl">신청해주셔서 감사합니다.</h1>
+
+          <div class="lead mt-8 mb-4.5">
+            <span class="hero-lead-lg !text-2xl">채무탕강 길라잡이와 협약을 맺은 OOOO 법률 사무소입니다.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- ============ 섹션 2 · 성공사례 ============ -->
+<section class="section testimonials" id="testimonial" aria-label="성공 사례">
   <div class="section__head">
-    <h1 class="section__title">수많은 기업이 신뢰하고 있는<br>제조업 경영자금 컨설팅<br></h1>
-    <p class="section__desc">정책자금 활용으로 성장한<br>대표님들의 실제 이야기를 확인해보세요</p>
+    <h1 class="section__title">법원에서 보장하는 <br class="block min-[981px]:hidden">개인회생 탕감제도<br>금지명령으로 독촉·협박·압류 <br class="block min-[981px]:hidden">신청 즉시 차단!<br></h1>
+    <p class="section__desc">채무의 덫에서 벗어난 분들의 <br class="block min-[981px]:hidden">실제 이야기를 확인해보세요</p>
   </div>
 
   <div class="section__body">
@@ -199,34 +100,38 @@
               <div class="ts__copy">
                 <div class="ts__copyHead">
                   <div class="ts__headline">
-                    <strong>세림 정밀OO (김XX 대표님)</strong>
-                    <span class="chip">제조업</span>
+                    <span class="chip">직장인</span>
+                    <strong>신청자 김XX님 (서울)</strong>
                   </div>
-                  <div class="ts__meta">
-                    <span>지역 | 경기 시흥</span>
-                    <span>승인자금 | 2억 5천만원</span>
-                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 43,533,853원</span>
+                    <span>탕감액 | 39,586,669원</span>
+                  </div> -->
                 </div>
-                <blockquote class="ts__quote">
-                  “요즘 원자재 값이 너무 올라서 원가 부담이 정말 컸습니다. 
-                  혹시 납품을 못 맞출까 봐 불안했는데, 정책자금 상담 덕분에 긴급 운전자금을 바로 쓸 수 있었어요. 
-                  덕분에 거래처랑 약속도 지키고 신뢰도 잃지 않을 수 있었습니다.”
-                </blockquote>
+              <blockquote class="ts__quote">
+              냉동식품 공장에 다니는데, 재작년 허리디스크로 몇 달 일을 못 하면서 빚이 4천3백만원까지 늘었습니다.
+              <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+              통장이 막히거나 회사에 알려질까 봐 걱정하던 중 지인이 채무탕감 길라잡이를 알려줬어요. 덕분에 제 상황에 맞는 정보를 얻어 회생을 진행했고, 지금은 <strong>매달 11만원만 갚으며</strong> 딸 앞에서 웃을 수 있게 됐습니다.
+              <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+              한숨 대신, <strong>이제는 웃는 얼굴을 보여줄 수 있어 다행입니다.</strong>
+              </blockquote>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
               </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj001.png" class="ts__photo">
+                  <img src="./img/ts_employee.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>90%+</b></em>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.20">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>90.9%</b></em>
                     </div>
                   </div>
                 </div>
-              </div>
+                <!--그래프-->
             </div>
           </li>
           <!-- ========== Slide 2 ========== -->
@@ -234,36 +139,39 @@
             <div class="ts__grid">
             <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
               <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>태O정밀 (김XX 대표님)</strong>
-                  <span class="chip">제조업</span>
+                <div class="ts__copyHead">
+                  <div class="ts__headline">
+                    <span class="chip">일용직</span>
+                    <strong>신청자 박XX님 (부산)</strong>
+                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 214,991,466원</span>
+                    <span>탕감액 | 204,260,838원</span>
+                  </div> -->
                 </div>
-                <div class="ts__meta">
-                  <span>지역 | 경기 안산</span>
-                  <span>승인자금 | 2억 원</span>
-                </div>
+                <blockquote class="ts__quote">
+                막노동과 대리운전을 병행하며 애 둘을 혼자 키우다 빚이 2억을 넘겼습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                수임료 걱정에 망설였는데, 채무탕감 길라잡이에서 비용과 절차 정보를 솔직하게 확인할 수 있어 마음 놓고 다음 단계를 밟았어요. 지금은 <strong>한 달에 30만원만 갚으며</strong> 애들 앞에서 더 이상 한숨 쉬지 않습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                <strong>사람 사는 것 같은 하루하루가, 이렇게 다시 시작될 수 있더라고요.</strong>
+                </blockquote>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
               </div>
-              <blockquote class="ts__quote">
-                “기계 한 대가 멈추면 납품 일정이 다 밀릴 정도로 빡빡한 생산 라인이었습니다.
-                이번에 지원받은 설비 교체 자금으로 노후 프레스를 교체하면서 불량률이 크게 줄었어요.
-                덕분에 야근 없이 납기를 맞추고, 새 거래처도 두 곳이나 생겼습니다.”
-              </blockquote>
-            </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj002.png" class="ts__photo">
+                   <img src="./img/ts_oneday.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>93%+</b></em>
-                    </div>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.13">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>95%</b></em>
                   </div>
                 </div>
-              </div>
+                <!--그래프-->
             </div>
           </li>
           <!-- ========== Slide 3 ========== -->
@@ -271,36 +179,41 @@
             <div class="ts__grid">
             <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
               <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>해O식품 (박XX 대표님)</strong>
-                  <span class="chip">제조업</span>
+                <div class="ts__copyHead">
+                  <div class="ts__headline">
+                    <span class="chip">프리랜서</span>
+                    <strong>신청자 이XX님 (대구)</strong>
+
+                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 198,400,709원</span>
+                    <span>탕감액 | 190,792,253원</span>
+                  </div> -->
                 </div>
-                <div class="ts__meta">
-                  <span>지역 | 인천 남동구</span>
-                  <span>승인자금 | 1억 8천만원</span>
-                </div>
+                <blockquote class="ts__quote">
+                남편의 사고로 수입이 끊기며 빚이 1억 9천만원까지 늘었습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                신용불량 낙인이 평생 갈까 두려웠는데, 채무탕감 길라잡이를 통해 요즘은 1년만 성실히 갚으면 신용이 회복될 수 있다는 정보를 알게 됐어요. <strong>지금은 매달 21만원씩 갚으며</strong> 다시 시작할 희망이 생겼습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                <strong>막막했던 마음에, 이제야 조금씩 볕이 듭니다.</strong>
+                </blockquote>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
               </div>
-              <blockquote class="ts__quote">
-                “원재료값이 계속 올라서 원가 부담이 컸습니다.
-                정책자금으로 제때 원료 대금을 결제하고 생산을 멈추지 않을 수 있었어요.
-                거래처에 신뢰를 잃지 않게 돼서 마음이 놓입니다.”
-              </blockquote>
-            </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj003.png"  class="ts__photo">
+                   <img src="./img/ts_free.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>91%+</b></em>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.19">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>87.1%</b></em>
                     </div>
                   </div>
                 </div>
-              </div>
+                <!--그래프-->
             </div>
           </li>
           <!-- ========== Slide 4 ========== -->
@@ -308,36 +221,40 @@
             <div class="ts__grid">
             <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
               <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>성O테크 (김XX 대표님)</strong>
-                  <span class="chip">제조업</span>
+                <div class="ts__copyHead">
+                  <div class="ts__headline">
+                    <span class="chip">자영업</span>
+                    <strong>신청자 정XX님 (경기 수원)</strong>
+                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 170,634,099원</span>
+                    <span>탕감액 | 158,567,511원</span>
+                  </div> -->
                 </div>
-                <div class="ts__meta">
-                  <span>지역 | 경기 화성</span>
-                  <span>승인자금 | 3억 원</span>
-                </div>
+                <blockquote class="ts__quote">
+                작은 김밥집이 도로공사와 무리한 이전으로 빚이 1억 7천만원까지 늘었습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                재산을 다 뺏길까 겁났는데, 채무탕감 길라잡이에서 재산을 지키며 빚을 정리하는 제도라는 정보를 확인하고 용기를 냈어요. 지금은 원리금 92%를 덜고 <strong>한 달 34만원씩 갚으며</strong> 살던 집을 지키고 있습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                자책만 하던 제가, <strong>이제야 조금씩 다시 일어서고 있습니다.</strong>
+                </blockquote>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
               </div>
-              <blockquote class="ts__quote">
-                “전기요금이 급등하면서 사출기 가동이 부담이었는데
-                이번 자금으로 절전형 사출기를 도입했습니다.
-                생산 효율은 오르고 전기료는 줄어서 회사가 한결 숨통이 트였습니다.”
-              </blockquote>
-            </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj004.png" class="ts__photo">
+                   <img src="./img/ts_self.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>92%+</b></em>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.14">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>92%</b></em>
                     </div>
                   </div>
                 </div>
-              </div>
+                <!--그래프-->
             </div>
           </li>
           <!-- ========== Slide 5 ========== -->
@@ -345,36 +262,40 @@
             <div class="ts__grid">
             <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
               <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>세O패키지 (정XX 대표님)</strong>
-                  <span class="chip">제조업</span>
+                <div class="ts__copyHead">
+                  <div class="ts__headline">
+                    <span class="chip">사업자</span>
+                    <strong>신청자 최XX님 (인천)</strong>
+                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 421,110,943원</span>
+                    <span>탕감액 | 401,793,415원</span>
+                  </div> -->
                 </div>
-                <div class="ts__meta">
-                  <span>지역 | 인천 서구</span>
-                  <span>승인자금 | 1억 원</span>
-                </div>
+                <blockquote class="ts__quote">
+                제조업 공장이 부도나며 빚이 4억 2천만원까지 늘었고, 아버지 병간호까지 겹쳤습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                혼자 하려니 서류가 복잡해 엄두가 안 났는데, 채무탕감 길라잡이를 통해 필요한 정보를 정리해 전문가를 찾을 수 있었어요. 지금은 <strong>매달 54만원씩 갚으며</strong> 원금 85%를 덜었습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                <strong>무너졌던 자리에서, 다시 아버지 곁을 지킬 수 있게 됐습니다.</strong>
+                </blockquote>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
               </div>
-              <blockquote class="ts__quote">
-                “포장 원단 단가가 계속 오르는데 납품가는 그대로라 고민이 많았습니다.
-                정책자금 덕분에 원단을 미리 대량 확보할 수 있었고,
-                급한 물량이 들어와도 단가를 방어할 수 있었습니다.”
-              </blockquote>
-            </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj005.png"  class="ts__photo">
+                   <img src="./img/ts_bussiness.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>96%+</b></em>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.19">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>85%</b></em>
                     </div>
                   </div>
                 </div>
-              </div>
+                <!--그래프-->
             </div>
           </li>
           <!-- ========== Slide 6 ========== -->
@@ -382,36 +303,40 @@
             <div class="ts__grid">
             <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
               <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>디O테크 (조XX 대표님)</strong>
-                  <span class="chip">제조업</span>
+                <div class="ts__copyHead">
+                  <div class="ts__headline">
+                    <span class="chip">주식·코인</span>
+                    <strong>신청자 한XX님 (광주)</strong>
+                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 426,553,096원</span>
+                    <span>탕감액 | 367,793,788원</span>
+                  </div> -->
                 </div>
-                <div class="ts__meta">
-                  <span>지역 | 경기 시흥</span>
-                  <span>승인자금 | 2억 5천만원</span>
-                </div>
-              </div>
               <blockquote class="ts__quote">
-                “수입 자재가 늦게 들어오면서 납기가 위험했는데,
-                정책자금으로 대체 자재를 긴급 확보했습니다.
-                덕분에 해외 수출 일정을 지키고, 바이어와의 신뢰를 이어갈 수 있었습니다.”
+              주식 투자 실패로 빚이 4억 2천만원까지 불었습니다.
+              <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+              신청했다가 압류가 들어올까 망설였는데, 채무탕감 길라잡이에서 오히려 신청하면 추심과 압류가 멈춘다는 정보를 확인하고 결심했습니다. 지금은 <strong>매월 164만원씩 갚으며</strong> 원금 85%를 덜었습니다.
+              <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+              <strong>짓눌렸던 마음이 가벼워지니, 이제야 웃을 힘이 나네요.</strong>
               </blockquote>
-            </div>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
+              </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj006.png"  class="ts__photo">
+                   <img src="./img/ts_stock-coin.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>94%+</b></em>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.18">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>85.7%</b></em>
                     </div>
                   </div>
                 </div>
-              </div>
+                <!--그래프-->
             </div>
           </li>
           <!-- ========== Slide 7 ========== -->
@@ -419,145 +344,80 @@
             <div class="ts__grid">
             <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
               <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>디O테크 (조XX 대표님)</strong>
-                  <span class="chip">제조업</span>
+                <div class="ts__copyHead">
+                  <div class="ts__headline">
+                    <span class="chip">도박</span>
+                    <strong>신청자 윤XX님 (제주)</strong>
+                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 84,549,976원</span>
+                    <span>탕감액 | 68,987,908원</span>
+                  </div> -->
                 </div>
-                <div class="ts__meta">
-                  <span>지역 | 경기 시흥</span>
-                  <span>승인자금 | 2억 5천만원</span>
-                </div>
+                <blockquote class="ts__quote">
+                도박과 코인으로 빚이 8천4백만원까지 늘었고, 가족이 알까 매일 조마조마했습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                채무탕감 길라잡이를 통해 가족·직장에 따로 통보되지 않는다는 정보를 알게 되며 막연한 불안이 사라졌어요. <strong>지금은 43만원씩 갚으며</strong> 원금 82%를 덜었습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                혼자 끙끙 앓던 시간이, <strong>거짓말처럼 가벼워졌습니다.</strong>
+                </blockquote>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
               </div>
-              <blockquote class="ts__quote">
-                “수입 자재가 늦게 들어오면서 납기가 위험했는데,
-                정책자금으로 대체 자재를 긴급 확보했습니다.
-                덕분에 해외 수출 일정을 지키고, 바이어와의 신뢰를 이어갈 수 있었습니다.”
-              </blockquote>
-            </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj007.png"  class="ts__photo">
+                   <img src="./img/ts_gamble.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>91%+</b></em>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.22">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>82%</b></em>
                     </div>
                   </div>
                 </div>
-              </div>
+                <!--그래프-->
             </div>
           </li>
-          <!-- ========== Slide 8 ========== -->
-          <li class="ts__slide" aria-label="레스토랑 미OO (장XX 대표님) 후기" id="slide-8">
+          <!-- ========== Slide 8 ========== --> 
+          <li class="ts__slide" aria-label="" id="slide-8">
             <div class="ts__grid">
             <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
               <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>우O가구 (한XX 대표님)</strong>
-                  <span class="chip">제조업</span>
+                <div class="ts__copyHead">
+                  <div class="ts__headline">
+                    <span class="chip">사기피해</span>
+                    <strong>신청자 장XX님 (경기 용인)</strong>
+                  </div>
+                  <!-- <div class="ts__meta">
+                    <span>채무액 | 390,855,017원</span>
+                    <span>탕감액 | 378,047,045원</span>
+                  </div> -->
                 </div>
-                <div class="ts__meta">
-                  <span>지역 | 경기 포천</span>
-                  <span>승인자금 | 8천만원</span>
-                </div>
+                <blockquote class="ts__quote">
+                주식 리딩방 사기로 빚이 3억 9천만원까지 늘어 억울한 나날을 보냈습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                여기서도 또 당할까 걱정했는데, 채무탕감 길라잡이를 통해 무료로 정보를 확인하고 형편에 맞는 절차를 알 수 있었어요. 지금은 <strong>36만원씩 갚으며</strong> 원금 94%를 덜었습니다.
+                <br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+                억울했던 시간을 지나, <strong>이제는 제자리를 찾아가고 있습니다.</strong>
+                </blockquote>
+                <!-- <button class="ts__more" type="button" aria-expanded="false">자세히 읽기</button> -->
               </div>
-              <blockquote class="ts__quote">
-                “가구 수요는 늘었는데 자재비가 너무 올라서 수익이 남지 않았어요.
-                정책자금으로 목재를 대량 구매하고, CNC 장비를 들여오면서 생산량이 두 배로 늘었습니다.”
-              </blockquote>
-            </div>
               <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
               <div class="ts__right">
                 <div class="ts__photoWrap">
-                  <img src="./img/jj008.png"  class="ts__photo">
+                   <img src="./img/ts_victim.png" class="ts__photo">
                 </div>
+                <!--그래프-->
                 <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>95%+</b></em>
-                    </div>
+                  <div class="ts__miniChart" aria-hidden="true" data-before="0.90" data-after="0.13">
+                    <div class="ts__bar ts__bar--before"><span>탕감 전</span></div>
+                    <div class="ts__bar ts__bar--after"><span>탕감 후</span>
+                      <em class="ts__badge"><strong>탕감율</strong><br><b>94.5%</b></em>
                   </div>
                 </div>
-              </div>
-            </div>
-          </li>
-          <!-- ========== Slide 9 ========== -->
-          <li class="ts__slide" aria-label="오븐치OO하우스 (오XX 대표님) 후기" id="slide-9">
-            <div class="ts__grid">
-            <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
-              <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>대O산업 (윤XX 대표님)</strong>
-                  <span class="chip">제조업</span>
-                </div>
-                <div class="ts__meta">
-                  <span>지역 | 경기 평택</span>
-                  <span>승인자금 | 3억 5천만원</span>
-                </div>
-              </div>
-              <blockquote class="ts__quote">
-                “전기차 부품 납품을 시작했지만, 신공정 설비가 비싸서 엄두가 안 났습니다.
-                시설자금 지원으로 프레스기를 교체했고,
-                제품 정밀도가 높아져 OEM 본사에서 추가 발주가 들어왔어요.”
-              </blockquote>
-            </div>
-              <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
-              <div class="ts__right">
-                <div class="ts__photoWrap">
-                  <img src="./img/jj009.png"  class="ts__photo">
-                </div>
-                <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>97%+</b></em>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!-- ========== Slide 10 ========== -->
-          <li class="ts__slide" aria-label="글로벌OO학원 (서XX 원장님) 후기" id="slide-10">
-            <div class="ts__grid">
-            <!-- 왼쪽 큰 박스: 위/아래 텍스트 시작선과 폭 통일 -->
-              <div class="ts__copy">
-              <div class="ts__copyHead">
-                <div class="ts__headline">
-                  <strong>엠O랩 (오XX 대표님)</strong>
-                  <span class="chip">제조업</span>
-                </div>
-                <div class="ts__meta">
-                  <span>지역 | 인천 송도</span>
-                  <span>승인자금 | 2억 원</span>
-                </div>
-              </div>
-              <blockquote class="ts__quote">
-                “수출 오더가 늘었는데 생산라인이 한계였어요.
-                정책자금으로 충전라인과 검사장비를 확충하면서
-                생산량이 1.5배 늘고, 신규 수출 계약도 문제없이 진행됐습니다.”
-              </blockquote>
-            </div>
-              <!-- 오른쪽 큰 박스: 사진 + 그래프(1:1) -->
-              <div class="ts__right">
-                <div class="ts__photoWrap">
-                  <img src="./img/jj010.png"  class="ts__photo">
-                </div>
-                <div class="ts__chartWrap">
-                  <div class="ts__miniChart" aria-hidden="true">
-                    <div class="ts__bar ts__bar--before"><span>진단 전</span></div>
-                    <div class="ts__bar ts__bar--after"><span>진단 후</span>
-                      <em class="ts__badge">자금<br>승인율<br><b>98%+</b></em>
-                    </div>
-                  </div>
-                </div>
+                <!--그래프-->
               </div>
             </div>
           </li>
@@ -581,102 +441,48 @@
     <button class="ts__dot" role="tab" aria-selected="false" aria-controls="slide-6"><span class="sr-only">6번 후기</span></button>
     <button class="ts__dot" role="tab" aria-selected="false" aria-controls="slide-7"><span class="sr-only">7번 후기</span></button>
     <button class="ts__dot" role="tab" aria-selected="false" aria-controls="slide-8"><span class="sr-only">8번 후기</span></button>
-    <button class="ts__dot" role="tab" aria-selected="false" aria-controls="slide-9"><span class="sr-only">9번 후기</span></button>
-    <button class="ts__dot" role="tab" aria-selected="false" aria-controls="slide-10"><span class="sr-only">10번 후기</span></button>
   </div>
 </section>
-<!--섹션2 끝 -->
-<!--섹션5 시작 (신청절차)-->
-<section class="section promises"  id="proccess" aria-labelledby="promises-title">
-  <div class="promises__bg" aria-hidden="true"></div>
-  <div class="section__head">
-    <h2 id="promises-title" class="section__title">제조업 특화<br>정책자금 컨설팅 솔루션<br>간편한 절차</h2>
-    <p class="section__desc">기업 운영에 필요한 자금을 복잡한 절차 없이 효율적으로 확보할 수 있습니다.</p>
-  </div>
 
-  <div class="section__body">
-    <ul class="promises__grid" role="list">
-      <!-- 카드 1 -->
-      <li class="promise">
-        <div class="promise__icon" aria-hidden="true">
-          <img src="./img/pro001.png" alt="맞춤 상담 아이콘" />
-        </div>
-        <h3 class="promise__title">1:1 맞춤 전문상담</h3>
-        <p class="promise__desc">
-          제조분야·매출·규모·2025년 하반기 정책 방향을 분석해 적합한 자금제도와 지원전략을 제안드립니다.
-        </p>
-      </li>
+  <!-- ============ 푸터 ============ -->
+  <footer class="site-footer" aria-labelledby="footer-title">
+    <h2 id="footer-title" class="sr-only">사이트 정보</h2>
 
-      <!-- 카드 2 -->
-      <li class="promise">
-        <div class="promise__icon" aria-hidden="true">
-          <img src="./img/pro002.png" alt="원스톱 프로세스 아이콘" />
-        </div>
-        <h3 class="promise__title">ONE-STOP 프로세스</h3>
-        <p class="promise__desc">
-          복잡한 절차를 간소화해, 필요 서류 확인 → 사업장 진단 → 자금 활용방안 제시까지 한 번에 진행됩니다.
-        </p>
-      </li>
-
-      <!-- 카드 3 -->
-      <li class="promise">
-        <div class="promise__icon" aria-hidden="true">
-          <img src="./img//pro003.png" alt="최적화된 자금 확보 아이콘" />
-        </div>
-        <h3 class="promise__title">최적화된 자금 확보</h3>
-        <p class="promise__desc">
-          제조 기업이 가진 재무 안정성과 성장 역량을 높여 자금의 최대 한도와 승인 가능성을 높이는 맞춤형 전략을 수립합니다.
-        </p>
-      </li>
-    </ul>
-  </div>
-</section>
-<!--섹션5 끝 -->
-</main>
-<!-- ===================== -->
-<!-- Footer -->
-<!-- ===================== -->
-<footer class="site-footer" aria-labelledby="footer-title">
-  <h2 id="footer-title" class="sr-only">사이트 정보</h2>
-
-  <div class="container footer__inner">
-    <!-- 좌측: 로고/소개 -->
+  <div class="footer__top">
+  <div class="mx-auto w-[min(1200px,92vw)] grid gap-[clamp(20px,4vw,48px)] grid-cols-1 min-[981px]:grid-cols-[1.2fr_1fr] py-[clamp(28px,5vw,48px)]">
     <div class="footer__brand">
-      <div class="footer__logo">
-        <span class="footer__logo-en">K-Biz</span>
-        <span class="footer__logo-ko">경영지원 그룹</span>
+      <div class="footer__logo flex items-center gap-1 mb-2.5">
+        <img src="img/logo_50x50.png" alt="채무탕감 길라잡이" class="h-8 w-auto">
+        <span class="footer__logo-ko">채무탕감 길라잡이</span>
       </div>
-
-      <p class="footer__slogan">
-        제조기업의 재무를 진단하고<br>
-        최적의 정책자금 한도&금리 승인전략을 제시하는 전문 컨설팅 그룹
-      </p>
+      <p class="footer__slogan mt-2">더 이상 혼자 버티지 마세요.<br>편안한 일상으로 가는 길을 알려드립니다.</p>
     </div>
 
-    <!-- 우측: 사업자 정보 -->
-    <div class="footer__org" role="list">
-      <p class="footer__item" role="listitem"><span class="k">브랜드명</span><span class="v">K-Biz 경영지원 그룹</span></p>
-      <p class="footer__item" role="listitem"><span class="k">사업자등록번호</span><span class="v">366-03-03344</span></p>
+    <div class="footer__org self-start" role="list">
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">사이트명</span><span class="v">채무탕감 길라잡이</span></p>
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">상호명</span><span class="v">리코 코퍼레이션</span></p>
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">대표자</span><span class="v">강민우</span></p>
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">사업자 등록번호</span><span class="v">366-03-03344</span></p>
     </div>
   </div>
+</div>
 
-  <!-- 하단 바 -->
-  <div class="footer__bar">
-    <div class="container">
-      <p class="footer__copy">리코 코퍼레이션 © All Rights Reserved.</p>
+    <div class="footer__bar">
+      <div class="mx-auto w-[min(1200px,92vw)]">
+        <p class="footer__copy py-4">채무탕감 길라잡이는 변호사 및 법무사(이하 ‘광고주’)와 소비자 간을 연결하는 플랫폼으로, 변호사법 및 기타 관련규정을 준수하기 위해 이용자의 법률상담 및 사건, 수임의 여부 및 내용에 어떠한 관여도 하지 않으며 광고주와 의뢰인간의 업무 전반에 대해 어떠한 법적책임도 부담하지 않습니다. <br><br>Ricco-corporation © All Rights Reserved.</p>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<!--개인정보처리방침-->
-<div id="privacy">
-        <div id="privacyContent">
-            <div class="titWrap">
-                    <span>개인정보취급방침</span>
-                <i style="margin-top:-14px !important" class="ion-close-circled closeBtn"></i>
-            </div>
-            <div style="line-height:1.2" class="conWrap">
-                개인정보의 수집 및 이용 동의(필수)<br><br>
+  <!-- 개인정보 모달 -->
+  <div class="privacy-modal" data-modal="privacy" role="dialog" aria-modal="true" aria-label="개인정보취급방침">
+    <div class="privacy-modal__overlay" data-evt="close_privacy"></div>
+    <div class="privacy-modal__content w-[min(92vw,640px)] max-h-[80vh] flex flex-col">
+      <div class="privacy-modal__head shrink-0 h-11 px-4">
+        <span class="privacy-modal__title">개인정보취급방침</span>
+        <button class="privacy-modal__close text-xl leading-none" data-evt="close_privacy" aria-label="닫기">✕</button>
+      </div>
+      <div class="privacy-modal__body grow p-4">개인정보의 수집 및 이용 동의(필수)<br><br>
 
                 1. 수집하는 개인정보의 항목 및 수집 목적<br><br>
 
@@ -712,41 +518,41 @@
                 이용자가 회원탈퇴를 요청하거나 제공한 개인정보의 수집 및 이용에 대한 동의를 철회하는 경우, 또는 수집 및 이용목적이 달성되거나 보유 및 이용기간이 종료한 경우 해당 이용자의 개인정보는 지체 없이 파기되며 다음 정보에 대해서는 아래의 사유로 일정기간 동안 저장됩니다.<br>
                 전자상거래 등에서의 소비자보호에 관한 법률, 통신비밀보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관계법령에 따라 보존할 필요가 있는 경우 회사는 관계법령에서 정한 기간 동안 고객의 개인정보를 보유하며, 그 기간은 다음과 같습니다.<br><br>
 
-                <table style="border: 1px solid black;">
+                <table class="privacy-table">
                 <tr>
-                    <th style="border: 1px solid black;">보존근거</th>
-                    <th style="border: 1px solid black;">보존대상</th>
-                    <th style="border: 1px solid black;">보존기간</th>
-                </tr>
-                <tr>
-                    <th style="border: 1px solid black;"> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
-                    <th style="border: 1px solid black;"> 대금결제 및 재화 등의 공급에 관한 기록 </th>
-                    <th style="border: 1px solid black;"> 5년 </th>
+                    <th>보존근거</th>
+                    <th>보존대상</th>
+                    <th>보존기간</th>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid black;"> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
-                    <th style="border: 1px solid black;"> 소비자의 불만 또는 분쟁처리에 관한 기록 </th>
-                    <th style="border: 1px solid black;"> 3년 </th>
+                    <th> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
+                    <th> 대금결제 및 재화 등의 공급에 관한 기록 </th>
+                    <th> 5년 </th>
+                </tr>
+                <tr>
+                    <th> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
+                    <th> 소비자의 불만 또는 분쟁처리에 관한 기록 </th>
+                    <th> 3년 </th>
                 </tr>
 		        <tr>
-                    <th style="border: 1px solid black;"> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
-                    <th style="border: 1px solid black;"> 표시, 광고에 관한 기록 </th>
-                    <th style="border: 1px solid black;"> 6개월 </th>
+                    <th> 전자상거래 등에서의소비자 보호에 관한 법률 </th>
+                    <th> 표시, 광고에 관한 기록 </th>
+                    <th> 6개월 </th>
                 </tr>
 		        <tr>
-                    <th style="border: 1px solid black;"> 전자금융거래법 </th>
-                    <th style="border: 1px solid black;"> 전자금융 거래에 관한 기록 </th>
-                    <th style="border: 1px solid black;"> 5년 </th>
+                    <th> 전자금융거래법 </th>
+                    <th> 전자금융 거래에 관한 기록 </th>
+                    <th> 5년 </th>
                 </tr>
 		        <tr>
-                    <th style="border: 1px solid black;"> 통신비밀보호법 </th>
-                    <th style="border: 1px solid black;"> 서비스 방문기록, 접속로그,접속 아이피 </th>
-                    <th style="border: 1px solid black;"> 3개월 </th>
+                    <th> 통신비밀보호법 </th>
+                    <th> 서비스 방문기록, 접속로그,접속 아이피 </th>
+                    <th> 3개월 </th>
                 </tr>
 		        <tr>
-                    <th style="border: 1px solid black;"> 정보통신망 이용촉진 및 정보보호 등에 관한 법률 </th>
-                    <th style="border: 1px solid black;"> 본인 확인에 관한 기록 </th>
-                    <th style="border: 1px solid black;"> 6개월 </th>
+                    <th> 정보통신망 이용촉진 및 정보보호 등에 관한 법률 </th>
+                    <th> 본인 확인에 관한 기록 </th>
+                    <th> 6개월 </th>
                 </tr>
                 </table>
 
@@ -755,7 +561,7 @@
 
                 2. 회사는 다음과 같이 개인정보를 제3자에게 제공하고 있습니다.<br><br>
 
-                제3자 : K-Biz경영지원그룹,중소기업비즈니스혁신센터<br>
+                제3자 : 채무탕감 길라잡이<br>
                 제공하는 개인정보항목 : 이름,연락처,상호명,업종,지역 등등<br>
                 제공받는자의 이용목적 : 맞춤형 서비스 제공, 운영 업무 대행<br>
                 제공받는자의 보유 및 이용기간 : 참여일로부터 12개월<br><br>
@@ -780,270 +586,18 @@
                 1.개인분쟁조정위원회 (https://www.1336.or.kr/1336)<br>
                 2.정보보호마크인증위원회 (https://www.eprivacy.or.kr/02-580-0533~4)<br>
                 3.대검찰청 인터넷범죄수사센터 (02-3480-3600)<br>
-                4.경찰청 사이버테러대응센터 (https://www.ctrc.go.kr/02-392-0330)<br>
-            </div>
-        </div>
+                4.경찰청 사이버테러대응센터 (https://www.ctrc.go.kr/02-392-0330)<br></div>
+    </div>
   </div>
-<!--자바스크립트-->
-<!-- 헤더 메뉴바 (네비게이션) -->
-<script>
-// 네비 높이 변화에 따라 body padding-top 자동 보정
-(() => {
-  const nav = document.querySelector('.site-nav');
-  if(!nav) return;
-  const setPT = () => { document.body.style.paddingTop = nav.offsetHeight + 'px'; };
-  setPT(); window.addEventListener('resize', setPT);
-})();
 
-// 기존 토글 훅을 확장: 열림 상태에서 본문 스크롤 잠금
-(() => {
-  const toggle = document.querySelector('.nav__toggle');
-  const menu   = document.getElementById('nav-menu');
-  if(!toggle || !menu) return;
+  <!-- ========== 매체 유입 ========== -->
+  <script>var LANDING_SOURCE = '인덱스';</script>
 
-  const setOpen = (open) => {
-    toggle.setAttribute('aria-expanded', open);
-    menu.classList.toggle('is-open', open);
-    document.body.classList.toggle('nav-open', open);
-  };
+  <!-- ============ JS ============ -->
+  <script src="./js/carousel.js"></script>
+  <script src="./js/form-core-certification.js"></script>
+  <script src="./js/ui.js"></script>
 
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') !== 'true';
-    setOpen(open);
-  });
-
-  // 메뉴 클릭 시 닫기
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
-
-  // ESC로 닫기
-  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') setOpen(false); });
-})();
-
-// 스크롤 그림자 (이미 있다면 중복 제거해도 OK)
-(() => {
-  const head = document.querySelector('.site-nav');
-  if(!head) return;
-  const onScroll = () => head.classList.toggle('is-scrolled', window.scrollY > 6);
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive:true });
-})();
-</script>
-
-<!--섹션2. 슬라이드 JS-->
-<script>
-(() => {
-  const root = document.querySelector('.section.testimonials');
-  if (!root) return;
-
-  const track   = root.querySelector('.ts__track');
-  const slides  = Array.from(root.querySelectorAll('.ts__slide'));
-  const prevBtn = root.querySelector('.ts__nav--prev');
-  const nextBtn = root.querySelector('.ts__nav--next');
-  const dots    = Array.from(root.querySelectorAll('.ts__dot'));
-
-  let index = 0;
-  const DURATION = 5500;
-  let timer = null;
-  let isPaused = false;
-
-  /* ───────── 그래프 높이 계산 & 적용 ───────── */
-  function usableHeight(chartEl){
-    // 그래프 컨테이너의 내부 실사용 높이(패딩 제외)
-    const cs = getComputedStyle(chartEl);
-    const pt = parseFloat(cs.paddingTop)    || 0;
-    const pb = parseFloat(cs.paddingBottom) || 0;
-    return Math.max(0, chartEl.clientHeight - pt - pb);
-  }
-
-  function setBarsForSlide(slide){
-    const chart = slide.querySelector('.ts__miniChart');
-    if (!chart) return;
-
-    const useH = usableHeight(chart);
-
-    // 목표 비율 (필요하면 조정: before 낮게, after 높게)
-    const beforeRatio = 0.32;
-    const afterRatio  = 0.92;
-
-    const beforeBar = chart.querySelector('.ts__bar--before');
-    const afterBar  = chart.querySelector('.ts__bar--after');
-
-    // (안전) 먼저 0으로 리셋 → 다음 프레임에 목표값 적용해 애니메이션 유도
-    if (beforeBar) beforeBar.style.setProperty('--bar-h', '0px');
-    if (afterBar)  afterBar.style.setProperty('--bar-h',  '0px');
-
-    // 레이아웃 안정 후 적용 (Safari 대비 2프레임 확보)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (beforeBar) {
-          const h = Math.round(useH * beforeRatio);
-          beforeBar.style.setProperty('--bar-h', h + 'px');
-        }
-        if (afterBar) {
-          const h = Math.round(useH * afterRatio);
-          afterBar.style.setProperty('--bar-h', h + 'px');
-        }
-      });
-    });
-  }
-
-  function resetBars(slide){
-    // 비활성화 시 0으로 내려서 다음에 다시 올라가도록
-    slide.querySelectorAll('.ts__bar').forEach(b => {
-      b.style.setProperty('--bar-h', '0px');
-    });
-  }
-
-  /* ───────── 슬라이더 기본 동작 ───────── */
-  function activate(i){
-    slides.forEach((s, si) => {
-      s.classList.toggle('is-active', si === i);
-      if (si === i) setBarsForSlide(s);
-      else          resetBars(s);
-    });
-  }
-
-  function goTo(i) {
-    index = (i + slides.length) % slides.length;
-    track.style.transform = `translate3d(${-index * 100}%,0,0)`;
-    dots.forEach((d, di) => d.setAttribute('aria-selected', di === index ? 'true' : 'false'));
-    activate(index);
-  }
-  function next(){ goTo(index + 1); }
-  function prev(){ goTo(index - 1); }
-
-  function start(){ stop(); timer = setInterval(() => { if (!isPaused) next(); }, DURATION); }
-  function stop(){ if (timer) clearInterval(timer); }
-
-  nextBtn?.addEventListener('click', () => { next(); start(); });
-  prevBtn?.addEventListener('click', () => { prev(); start(); });
-  dots.forEach((d, di) => d.addEventListener('click', () => { goTo(di); start(); }));
-
-  root.addEventListener('mouseenter', () => { isPaused = true; });
-  root.addEventListener('mouseleave', () => { isPaused = false; });
-
-  root.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { next(); start(); }
-    if (e.key === 'ArrowLeft')  { prev(); start(); }
-  });
-  root.setAttribute('tabindex', '0');
-
-  // 터치 스와이프
-  let sx = 0, dx = 0;
-  root.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; dx = 0; }, {passive:true});
-  root.addEventListener('touchmove',  (e) => { dx = e.touches[0].clientX - sx; }, {passive:true});
-  root.addEventListener('touchend',   ()  => {
-    if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); start(); }
-  });
-
-  // 초기 진입: 섹션이 보이면 1번 슬라이드 활성화
-  const io = new IntersectionObserver((entries) => {
-    if (entries.some(e => e.isIntersecting)) {
-      goTo(0);
-      start();
-      io.disconnect();
-    }
-  }, {threshold: 0.2});
-  io.observe(root);
-
-  // 리사이즈/회전 시 현재 슬라이드 그래프 재계산
-  let resizeRaf = 0;
-  function onResize(){
-    cancelAnimationFrame(resizeRaf);
-    resizeRaf = requestAnimationFrame(() => {
-      setBarsForSlide(slides[index]);
-    });
-  }
-  window.addEventListener('resize', onResize);
-  window.addEventListener('orientationchange', onResize);
-})();
-</script>
-
-<!--섹션4. JS, 카운트 -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const nums = document.querySelectorAll(".success__num");
-  const options = { threshold: 0.5 };
-
-  const animate = (el) => {
-    const target = parseFloat(el.dataset.target); // 소수점 포함 처리
-    let count = 0;
-
-    const isUnit = el.textContent.includes("건"); // "건" 단위
-    const isPercent = el.textContent.includes("%"); // "%" 단위
-
-    // step 계산 (소수는 더 정밀하게)
-    const step = target / 40;
-
-    const interval = setInterval(() => {
-      count += step;
-      if (count >= target) {
-        count = target;
-        clearInterval(interval);
-      }
-
-      if (isUnit) {
-        // 천 단위 콤마 + "건"
-        el.textContent = Math.floor(count).toLocaleString() + "건";
-      } else if (isPercent) {
-        // 소수점 첫째자리까지 + "%"
-        el.textContent = count.toFixed(1) + "%";
-      }
-    }, 25);
-  };
-
-  const observer = new IntersectionObserver((entries, io) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animate(entry.target);
-        io.unobserve(entry.target);
-      }
-    });
-  }, options);
-
-  nums.forEach(num => observer.observe(num));
-});
-</script>
-
-<!--섹션6. JS 투데이 신청자 -->
-<script>
-  // 오늘 날짜 기준으로 '매일 동일한 숫자' 생성
-  function getTodayCount() {
-    // 오늘 날짜 가져오기 (YYYY-MM-DD)
-    const today = new Date().toISOString().slice(0, 10);
-
-    // 날짜 문자열을 시드(seed) 값으로 변환
-    let seed = 0;
-    for (let i = 0; i < today.length; i++) {
-      seed += today.charCodeAt(i);
-    }
-
-    // 원하는 범위 (최소 ~ 최대)에서 숫자 생성
-    const min = 25;
-    const max = 60;
-
-    // 날짜마다 고정된 값 나오도록 seed를 활용
-    const count = (seed % (max - min + 1)) + min;
-
-    return count;
-  }
-
-  // DOM에 숫자 반영
-  document.addEventListener("DOMContentLoaded", function() {
-    const todayCountEl = document.getElementById("today-count");
-    if (todayCountEl) {
-      todayCountEl.textContent = getTodayCount();
-    }
-  });
-</script>
-
-<!--JS파일-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!--(필수)이 제이쿼리 코드 다음에 js코드가 와야함-->
-  <script src="./js/form-fund-row.js"></script>
-  <script src="js/validation-fund-row.js"></script>
-  <script src="js/personal.js"></script>
-  <script src="js/main.js" charset="euc-kr"></script>
-  <script src="js/wow.min.js"></script>
 
 </body>
 </html>
