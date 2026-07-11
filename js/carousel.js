@@ -1,91 +1,94 @@
 /* =====================================================================
-   carousel.js  —  후기 슬라이더 (Vanilla)
-   슬라이드 전환(translateX) · dots · prev/next · 자동재생(5.5s) · hover 정지 ·
-   화살표키 · 터치 스와이프 · IntersectionObserver 진입 시작
-   + [자세히 읽기] 인라인 펼침/접힘
-   자동재생 규칙:
-     - 펼치면 자동재생 정지
-     - 접거나 다른 슬라이드로 넘기면 5.5초 재생 재개
-     - 슬라이드를 넘기면 새 슬라이드는 항상 "접힌" 기본 상태로 리셋
+   carousel.js  —  후기 슬라이더 (Vanilla JS)
+   기능: 슬라이드 전환 · dots 연동 · prev/next 버튼 · 자동재생(11s)
+        · PC hover 정지 · 모바일 터치 정지 · 화살표키 이동
+        · 화면 진입 시 자동재생 시작
 ====================================================================== */
 (function () {
   'use strict';
 
+  /* ---------- 1. 요소 찾기 ---------- */
+  // 섹션 자체가 없으면 아무것도 안 하고 종료 (다른 페이지에서 에러 방지)
   var root = document.querySelector('.section.testimonials');
   if (!root) return;
 
-  var track   = root.querySelector('.ts__track');
-  var slides  = Array.prototype.slice.call(root.querySelectorAll('.ts__slide'));
-  var prevBtn = root.querySelector('.ts__nav--prev');
-  var nextBtn = root.querySelector('.ts__nav--next');
-  var dots    = Array.prototype.slice.call(root.querySelectorAll('.ts__dot'));
-  if (!track || !slides.length) return;
+  var track   = root.querySelector('.ts__track');                                  // 슬라이드들을 감싼 트랙(가로로 이동시킬 대상)
+  var slides  = Array.prototype.slice.call(root.querySelectorAll('.ts__slide'));    // 슬라이드 전체 배열
+  var prevBtn = root.querySelector('.ts__nav--prev');                              // 이전 버튼
+  var nextBtn = root.querySelector('.ts__nav--next');                              // 다음 버튼
+  var dots    = Array.prototype.slice.call(root.querySelectorAll('.ts__dot'));      // 하단 점(dots) 배열
+  if (!track || !slides.length) return;   // 트랙이나 슬라이드가 없으면 종료 (안전장치)
 
-  var index = 0;
-  var DURATION = 5500;
-  var timer = null;
-  var isPaused = false;   // hover 시 정지
-  var expanded = false;   // 현재 슬라이드 본문 펼침 여부 (펼침 = 자동재생 정지)
+  /* ---------- 2. 상태 변수 ---------- */
+  var index = 0;            // 현재 보여지는 슬라이드 번호 (0부터 시작)
+  var DURATION = 11000;     // 자동재생 간격 (11초) — 카피 3단락을 편히 읽을 시간 확보
+  var timer = null;         // setInterval 타이머 저장용
+  var isPaused = false;     // true면 자동재생 멈춤 (hover 중 / 터치 중)
 
-  /* 모든 슬라이드 본문을 접힌 기본 상태로 리셋 */
-  function collapseAll() {
-    slides.forEach(function (s) {
-      var q = s.querySelector('.ts__quote');
-      var btn = s.querySelector('.ts__more');
-      if (q) q.classList.remove('is-expanded');
-      if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.textContent = '자세히 읽기'; }
-    });
-    expanded = false;
-  }
-
+  /* ---------- 3. 슬라이드 이동 함수 ---------- */
   function goTo(i) {
+    // 인덱스가 배열 범위를 벗어나도 순환되게 처리 (마지막에서 next → 처음으로, 처음에서 prev → 마지막으로)
     index = (i + slides.length) % slides.length;
+
+    // 트랙을 가로로 이동시켜 해당 슬라이드가 보이게 함
     track.style.transform = 'translate3d(' + (-index * 100) + '%,0,0)';
-    dots.forEach(function (d, di) { d.setAttribute('aria-selected', di === index ? 'true' : 'false'); });
-    collapseAll();   // 슬라이드 바뀌면 항상 접힘 → 자동재생 자연 재개
-  }
-  function next() { goTo(index + 1); }
-  function prev() { goTo(index - 1); }
 
-  function tick()  { if (!isPaused && !expanded) next(); }   // 펼침/hover 중엔 멈춤
-  function start() { stop(); timer = setInterval(tick, DURATION); }
-  function stop()  { if (timer) clearInterval(timer); }
-
-  if (nextBtn) nextBtn.addEventListener('click', function () { next(); start(); });
-  if (prevBtn) prevBtn.addEventListener('click', function () { prev(); start(); });
-  dots.forEach(function (d, di) { d.addEventListener('click', function () { goTo(di); start(); }); });
-
-  /* [자세히 읽기] / [접기] : 펼치면 정지, 접으면 재개 */
-  slides.forEach(function (s) {
-    var q = s.querySelector('.ts__quote');
-    var btn = s.querySelector('.ts__more');
-    if (!q || !btn) return;
-    btn.addEventListener('click', function () {
-      var open = q.classList.toggle('is-expanded');
-      btn.setAttribute('aria-expanded', open);
-      btn.textContent = open ? '접기' : '자세히 읽기';
-      expanded = open;   // 펼침=true → tick 멈춤 / 접힘=false → 다음 tick부터 재생
+    // 하단 dots 중 현재 슬라이드에 해당하는 dot만 aria-selected="true"로 표시 (접근성 + 시각적 표시)
+    dots.forEach(function (d, di) {
+      d.setAttribute('aria-selected', di === index ? 'true' : 'false');
     });
+  }
+  function next() { goTo(index + 1); }   // 다음 슬라이드로
+  function prev() { goTo(index - 1); }   // 이전 슬라이드로
+
+  /* ---------- 4. 자동재생 타이머 ---------- */
+  function tick() {
+    // 멈춤 상태(hover/터치 중)가 아닐 때만 다음 슬라이드로 이동
+    if (!isPaused) next();
+  }
+  function start() {
+    stop();  // 기존 타이머 있으면 먼저 제거 (중복 실행 방지)
+    timer = setInterval(tick, DURATION);
+  }
+  function stop() {
+    if (timer) clearInterval(timer);
+  }
+
+  /* ---------- 5. 버튼 클릭 이벤트 ---------- */
+  // next 버튼 클릭 → 다음 슬라이드로 이동 + 자동재생 타이머 리셋(처음부터 11초 다시 카운트)
+  if (nextBtn) nextBtn.addEventListener('click', function () { next(); start(); });
+  // prev 버튼 클릭 → 이전 슬라이드로 이동 + 타이머 리셋
+  if (prevBtn) prevBtn.addEventListener('click', function () { prev(); start(); });
+  // dot 클릭 → 해당 번호 슬라이드로 직접 이동 + 타이머 리셋
+  dots.forEach(function (d, di) {
+    d.addEventListener('click', function () { goTo(di); start(); });
   });
 
-  root.addEventListener('mouseenter', function () { isPaused = true; });
-  root.addEventListener('mouseleave', function () { isPaused = false; });
+  /* ---------- 6. PC: 마우스 hover 시 자동재생 정지 ---------- */
+  root.addEventListener('mouseenter', function () { isPaused = true; });   // 섹션에 마우스 올라오면 멈춤
+  root.addEventListener('mouseleave', function () { isPaused = false; });  // 마우스 벗어나면 재개
 
+  /* ---------- 7. 모바일: 화면 터치 중 자동재생 정지 ---------- */
+  // 섹션 영역 어디든 손가락이 닿으면(touchstart) 멈춤
+  root.addEventListener('touchstart', function () { isPaused = true; }, { passive: true });
+  // 손을 떼면(touchend) 재개 + 타이머 리셋 (터치 종료 시점부터 다시 11초 카운트)
+  root.addEventListener('touchend', function () { isPaused = false; start(); }, { passive: true });
+
+  /* ---------- 8. 키보드 화살표 이동 ---------- */
   root.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowRight') { next(); start(); }
-    if (e.key === 'ArrowLeft')  { prev(); start(); }
+    if (e.key === 'ArrowRight') { next(); start(); }   // → 키: 다음 슬라이드
+    if (e.key === 'ArrowLeft')  { prev(); start(); }   // ← 키: 이전 슬라이드
   });
-  root.setAttribute('tabindex', '0');
+  root.setAttribute('tabindex', '0');   // 섹션이 키보드 포커스를 받을 수 있게 설정 (안 하면 keydown이 안 먹힘)
 
-  /* 터치 스와이프 */
-  // var sx = 0, dx = 0;
-  // root.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; dx = 0; }, { passive: true });
-  // root.addEventListener('touchmove',  function (e) { dx = e.touches[0].clientX - sx; }, { passive: true });
-  // root.addEventListener('touchend',   function () { if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); start(); } });
-
-  /* 화면에 들어오면 시작 */
+  /* ---------- 9. 화면에 섹션이 보이면 자동재생 시작 ---------- */
   var io = new IntersectionObserver(function (entries) {
-    if (entries.some(function (e) { return e.isIntersecting; })) { goTo(0); start(); io.disconnect(); }
+    // 섹션이 화면에 20% 이상 보이는 순간 1회 실행
+    if (entries.some(function (e) { return e.isIntersecting; })) {
+      goTo(0);          // 1번 슬라이드부터 시작
+      start();          // 자동재생 시작
+      io.disconnect();  // 한 번 실행 후 감시 중단 (스크롤 왔다갔다해도 재실행 안 됨)
+    }
   }, { threshold: 0.2 });
   io.observe(root);
 })();
