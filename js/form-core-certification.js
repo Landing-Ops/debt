@@ -16,8 +16,9 @@
     deb:      'entry.269586254',
     comparison: 'entry.569624933',
     impossibility: 'entry.843968427',
-    calltime: 'entry.1097158195',
-    message: 'entry.1437671360',
+    cause: 'entry.1097158195',
+    calltime: 'entry.1437671360',
+    message: 'entry.1633505487',
     source:   'entry.1195646871'
   };
   var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
@@ -34,6 +35,7 @@
     name: $('name'), phone: $('phone'),
     deb: $('deb'), inco: $('inco'),
     comparison: $('comparison'), impossibility: $('impossibility'),
+    cause: $('cause'),
     calltime: $('calltime'), message: $('message'), agree: $('agree') 
   };
   var submitBtn = form.querySelector('[data-field="submit"]');
@@ -41,7 +43,7 @@
 
   var nameRegex  = /^[가-힣]+$/;
   var phoneRegex = /^[0-9]+$/;
-  var checkOrder = ['name', 'phone', 'deb', 'inco', 'comparison', 'impossibility', 'calltime', 'message', 'agree'];
+  var checkOrder = ['name', 'phone', 'deb', 'inco', 'comparison', 'impossibility', 'cause', 'calltime', 'message', 'agree'];
   function clearErrors() {
     checkOrder.forEach(function (k) { if (f[k]) f[k].classList.remove('is-invalid'); });
   }
@@ -242,7 +244,7 @@
   function validate() {
     clearErrors();
     var v = {};
-    ['name', 'phone', 'inco', 'deb','comparison','impossibility','calltime','message'].forEach(function (k) {
+    ['name', 'phone', 'inco', 'deb','comparison','impossibility', 'cause', 'calltime','message'].forEach(function (k) {
       v[k] = (f[k] && f[k].value || '').trim();
     });
 
@@ -289,6 +291,7 @@
       return { ok: false, msg: '개인회생 신청이 불가합니다.' };
     }
 
+    if (!v.cause) { f.cause.classList.add('is-invalid'); return { ok: false, msg: '채무 발생 원인을 선택하세요.' }; }
     if (!v.calltime) { f.calltime.classList.add('is-invalid'); return { ok: false, msg: '통화 가능 시간대를 선택하세요.' }; }
     if (v.message.length < 2) { f.message.classList.add('is-invalid'); return { ok: false, msg: '문의사항을 입력하세요.' }; }
     if (!f.agree.checked) { f.agree.classList.add('is-invalid'); return { ok: false, msg: '개인정보 동의를 해주세요.' }; }
@@ -326,7 +329,7 @@
   ===================================================================== */
   function buildBody() {
     var data = new URLSearchParams();
-    ['name', 'phone', 'inco', 'deb', 'comparison', 'impossibility', 'calltime', 'message'].forEach(function (k) {
+    ['name', 'phone', 'inco', 'deb', 'comparison', 'impossibility', 'cause', 'calltime', 'message'].forEach(function (k) {
       data.append(ENTRY[k], (f[k].value || '').trim());
     });
     data.append(ENTRY.source, SOURCE);
