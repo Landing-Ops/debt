@@ -28,50 +28,46 @@
 
 <body data-industry="legal" data-source="인덱스">
 
-  <!-- ============ 헤더 / 네비 ============ -->
-  <header class="site-nav" role="navigation" aria-label="주요 메뉴">
-    <div class="nav__inner">
-      <a href="#hero" class="nav__logo flex gap-1 mb-2.5" aria-label="채무탕감 도움터">
-        <img src="img/logo_50x50.png" alt="채무탕감 길라잡이" class="h-7 w-auto md:h-10">
-        <strong>채무탕감 길라잡이</strong>
-      </a>
-
-      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
-        <span class="nav__bar"></span><span class="nav__bar"></span><span class="nav__bar"></span>
-      </button>
-
-      <nav id="nav-menu" class="nav__menu" aria-label="상단 메뉴">
-        <a class="nav__link" href="#testimonial">성공사례</a>
-        <a class="nav__link" href="#proccess">간편절차</a>
-        <a class="nav__link" href="#contact">무료상담</a>
-      </nav>
-    </div>
-  </header>
-
   <main id="page">
 
     <!-- ============ 섹션 1 · Hero ============ -->
     <section class="hero" id="hero">
-      <div class="mx-auto w-[min(1200px,92vw)] grid items-center grid-cols-1 min-[981px]:grid-cols-[1.15fr_1fr] gap-[18px] min-[981px]:gap-8 pt-7 pb-14">
+      <div class="mx-auto w-[min(1200px,92vw)] grid items-center justify-items-center grid-cols-1 gap-[18px] min-[981px]:gap-8 pt-7 pb-14">
+       <!-- 비주얼 (그라데이션 완료 박스) -->
+        <div class="thanks-hero-box" aria-label="신청 완료 안내">
+          <div class="thanks-hero-box__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="thanks-hero-box__title">홍길동님!</h2>
+          <h2 class="thanks-hero-box__title">상담에 들어가기 전에</h2>
+          <p class="thanks-hero-box__desc--highlight m-2"><strong style="color:yellow">잠깐, 1분만 시간을 내어</strong></p>
+          <p class="thanks-hero-box__desc">{홍길동}님과 같은 (채무원인) 사유로 빚을 졌다가 <br class="hidden min-[981px]:block">평온한 일상으로 돌아간 3분의 리얼한 이야기를 읽어보세요.</p>
 
-        <!-- 좌: 비주얼 -->
-        <figure class="hero-visual" style="width:100%; max-width:500px; aspect-ratio:1/1; margin-inline:auto;" aria-label="개인회생 안내 비주얼">
-          <img src="./img/hero002.png" alt="개인회생 히어로" />
-        </figure>
-
-        <!-- 우: 카피 -->
-        <div class="hero-copy px-1 py-2">
+        </div>
+        <!-- 카피 -->
+        <div class="hero-copy px-1 py-2 flex flex-col items-center text-center">
           <span class="kicker inline-flex items-center gap-2.5 px-3 py-1.5">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            서민 채무 탕감제도 개인회생·파산
+            생생한 리얼스토리
           </span>
+          <h1 class="title mt-3.5 mb-2.5 !text-4xl">
+              제한시간 15분만 공개!
+            </h1>
+          <div class="thanks-lead mt-8 mb-4.5">
+            <span class="hero-lead-lg !text-2xl">
+               *본 후기는 채무탕감 길라잡이와 협약한 <strong class="highlight-strong-text">ABC 사무소</strong>의
+              개인회생·파산 서비스를 받은 고객님의 생생한 실제 후기입니다.<br><br>
 
-          <h1 class="title mt-3.5 mb-2.5 !text-4xl">신청해주셔서 감사합니다.</h1>
-
-          <div class="lead mt-8 mb-4.5">
-            <span class="hero-lead-lg !text-2xl">채무탕강 길라잡이와 협약을 맺은 OOOO 법률 사무소입니다.</span>
+              비슷한 사연으로 어려움을 겪고 계신 분들 외에는
+              <strong style="color:red">비공개 약속을 받았기에,
+              제한시간 15분만 공개</strong>되며 이후 페이지가 자동 종료됩니다.<br><br>
+              
+              아래 후기를 읽어보시면 구체적인 개인회생·파산 진행 과정의 핵심을 알 수 있으며,<br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+              <span class="highlight-bg">{홍길동}님이 겪고 계신 어려움</span>을 딛고 일어설 수 있다는 희망이 되어줄 것입니다.</span>
           </div>
         </div>
       </div>
