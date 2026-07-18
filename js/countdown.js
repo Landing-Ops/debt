@@ -14,7 +14,7 @@
   if (!bar || !timeEl) return;   // 배너 없으면 아무것도 안 함 (다른 페이지 안전)
 
   /* ---------- 설정 ---------- */
-  var LIMIT_MIN = 0.3;                 // ★ 제한시간(분) — 여기만 바꾸면 됨
+  var LIMIT_MIN = 15;                 // ★ 제한시간(분) — 여기만 바꾸면 됨
   var LIMIT_MS  = LIMIT_MIN * 60 * 1000;
   var STORE_KEY = 'ttl_start_at';     // 시작 시각 저장 키
 
