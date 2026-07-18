@@ -486,21 +486,28 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 .thanks-hero-box__title {
   color: #fff;
   font-weight: 900;
-  font-size: clamp(38px, 3vw, 48px);
+  font-size: clamp(34px, 3vw, 48px);
   margin-bottom: 12px;
   letter-spacing: -0.01em;
 }
 
 .thanks-hero-box__desc {
   color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(24px, 1.6vw, 24px);
+  font-size: clamp(20px, 1.6vw, 30px);
   line-height: 1.6;
   font-weight: 500;
 }
 
+.thanks-box__desc {
+  color: rgba(0, 0, 0, 0.9);
+  font-size: clamp(20px, 1.6vw, 26px);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
 .thanks-hero-box__desc--highlight {
   color: #ffe600;
-  font-size: clamp(30px, 2vw, 40px);
+  font-size: clamp(26px, 2vw, 40px);
   font-weight: 800;
 }
 
@@ -512,3 +519,133 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
   border-radius: 16px;
   padding: clamp(24px, 4vw, 36px) clamp(20px, 3vw, 32px);
 }
+
+/* =====================================================================
+   떙큐페이지 ) 제한시간 띠배너 + 종료 팝업 — common.css 하단에 추가
+===================================================================== */
+
+/* ---------- 스크롤 고정 띠배너 ---------- */
+.ttl-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  background: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary-strong) 100%);
+  box-shadow: 0 -4px 16px rgba(11, 37, 64, 0.18);
+  transform: translateY(0);
+  transition: transform .3s ease;
+}
+/* 종료 시 배너 숨김용 (JS가 클래스 토글) */
+.ttl-bar.is-hidden { transform: translateY(100%); }
+
+.ttl-bar__inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #fff;
+}
+
+.ttl-bar__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 32px;
+  font-weight: 700;
+}
+.ttl-bar__ico { flex: 0 0 auto; }
+
+.ttl-bar__time {
+  font-size: 32px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums; /* 숫자 폭 고정 → 깜빡임 방지 */
+  letter-spacing: 0.02em;
+  color: #ffe600;
+  min-width: 62px;
+  text-align: center;
+}
+
+.ttl-bar__hint {
+  font-size: 32px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 배너가 콘텐츠 가리지 않게 body 하단 여백 (JS에서 동적 처리도 가능) */
+body.has-ttl-bar { padding-bottom: 64px; }
+
+@media (max-width: 480px) {
+  .ttl-bar__inner { padding: 10px 14px; gap: 8px; }
+  .ttl-bar__label { font-size: 20px; }
+  .ttl-bar__time { font-size: 20px; min-width: 56px; }
+  .ttl-bar__hint { width: 100%; text-align: center; font-size: 16px; }
+}
+
+/* ---------- 종료 팝업 ---------- */
+.ttl-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.ttl-modal[hidden] { display: none; }
+
+.ttl-modal__dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 37, 64, 0.75);
+  backdrop-filter: blur(12px);
+}
+
+.ttl-modal__box {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 28px 32px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(11, 37, 64, 0.35);
+  animation: ttlModalIn .3s ease;
+}
+@keyframes ttlModalIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.ttl-modal__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--primary-bg);
+  color: var(--primary-bright);
+  margin-bottom: 18px;
+}
+
+.ttl-modal__title {
+  color: var(--neutral-900);
+  font-weight: 900;
+  font-size: 22px;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.ttl-modal__desc {
+  color: var(--neutral-600);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* 팝업 열렸을 때 배경 스크롤 잠금 */
+body.ttl-locked { overflow: hidden; }
