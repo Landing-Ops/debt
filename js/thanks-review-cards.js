@@ -1,7 +1,9 @@
 /* =====================================================================
-   review-cards.js  —  섹션2 후기 카드 슬라이드 + 상세 팝업
+   review-cards.js  —  섹션2 후기 카드 슬라이드 + 상세 팝업 + 이미지 라이트박스
    - 좌우 버튼 없음. 터치 스와이프 / 마우스 드래그로 넘김
    - 카드 또는 "이어서 읽기" 클릭 시 팝업에 상세 데이터 채워서 노출
+   - 팝업 상단(tags 아래)에 카드와 동일한 사진 2장을 나란히 노출, 클릭 시 라이트박스 확대
+   - 본문(review)은 카드처럼 텍스트 하나로 쭉 이어짐
    - 팝업 데이터는 이 파일 상단 REVIEW_DATA에서 관리 (HTML 수정 없이 내용 교체 가능)
 ===================================================================== */
 (function () {
@@ -16,7 +18,8 @@
       avatar: './img/avatar001.png',
       name: '오OO',
       meta: '30대 / 여성 / 프리랜서',
-      tags: ['정확한 초정밀 진단', '법무사의 유연한 대응', '빠른 고객대응', '높은 탕감률'],
+      tags: ['법무사의 유연한 대응', '빠른 고객대응', '높은 탕감률'],
+      photos: ['./img/th_test2.png', './img/th_test1.png'],
       stars: 5,
       goodLabel: 'ABC사무소의 만족스러웠던 점은 무엇인가요?',
       good: [
@@ -37,7 +40,8 @@
       avatar: './img/avatar002.png',
       name: '정OO',
       meta: '20대 / 여성 / 직장인',
-      tags: ['시간에 구애받지 않는 온라인 접수', '깔끔한 일처리', '친절한 안내', '법무사의 꼼꼼함'],
+      tags: ['깔끔한 일처리', '친절한 안내', '법무사의 꼼꼼함'],
+      photos: ['./img/th_test2.png', './img/th_test1.png'],
       stars: 5,
       goodLabel: 'ABC사무소의 만족스러웠던 점은 무엇인가요?',
       good: [
@@ -54,7 +58,8 @@
       avatar: './img/avatar003.png',
       name: '문OO',
       meta: '30대 / 남성 / 직장인',
-      tags: ['빠른 피드백', '책임감 있는 법무사', '쉽고 간편한 자료안내', '1:1 맞춤 진행'],
+      tags: ['빠른 피드백', '책임감 있는 법무사', '1:1 맞춤 진행'],
+      photos: ['./img/th_test2.png', './img/th_test1.png'],
       stars: 5,
       goodLabel: 'ABC사무소의 만족스러웠던 점은 무엇인가요?',
       good: [
@@ -162,6 +167,30 @@
     if (isDragging) dragEnd();
   });
 
+  /* ---------- 이미지 라이트박스 (팝업보다 위 레이어, 전역 1개) ---------- */
+  var lightbox = document.querySelector('[data-lightbox]');
+  var openLightbox = function () {};
+
+  if (lightbox) {
+    var lbImg = lightbox.querySelector('[data-lightbox-img]');
+
+    openLightbox = function (src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lightbox.hidden = false;
+    };
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lbImg.src = '';
+    }
+    lightbox.querySelectorAll('[data-lightbox-close]').forEach(function (el) {
+      el.addEventListener('click', closeLightbox);
+    });
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+    });
+  }
+
   /* ---------- 상세 팝업 ---------- */
   var modal = document.querySelector('[data-review-modal]');
   var openModal = function () {};
@@ -171,7 +200,7 @@
     var elName        = modal.querySelector('[data-modal-name]');
     var elMeta        = modal.querySelector('[data-modal-meta]');
     var elTags        = modal.querySelector('[data-modal-tags]');
-    var elStars       = modal.querySelector('[data-modal-stars]');
+    var elPhotos      = modal.querySelector('[data-modal-photos]'); // 카드와 동일한 사진 2장 영역
     var elGoodLabel   = modal.querySelector('[data-modal-good-label]');
     var elGood        = modal.querySelector('[data-modal-good]');
     var elReviewLabel = modal.querySelector('[data-modal-review-label]');
@@ -194,7 +223,18 @@
         elTags.appendChild(span);
       });
 
-      elStars.textContent = '★★★★★'.slice(0, d.stars) + '☆☆☆☆☆'.slice(0, 5 - d.stars);
+      /* 카드와 동일한 사진 2장, 클릭 시 라이트박스 확대 */
+      elPhotos.innerHTML = '';
+      d.photos.forEach(function (src) {
+        var img = document.createElement('img');
+        img.className = 'rv-modal__photo';
+        img.src = src;
+        img.alt = d.name;
+        img.addEventListener('click', function () {
+          openLightbox(src, d.name);
+        });
+        elPhotos.appendChild(img);
+      });
 
       elGoodLabel.textContent = d.goodLabel;
       elGood.innerHTML = '';
@@ -220,15 +260,39 @@
       el.addEventListener('click', closeModal);
     });
     window.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !modal.hidden) closeModal();
+      if (e.key === 'Escape' && !modal.hidden && lightbox && lightbox.hidden) closeModal();
     });
   }
 
-  /* 카드 전체 클릭 + "이어서 읽기" 버튼 클릭 모두 팝업 오픈 (드래그 중이면 무시) */
+  /* 카드 전체 클릭 + "자세히 읽기" 버튼 클릭 모두 팝업 오픈*/
   slides.forEach(function (slide) {
     slide.addEventListener('click', function (e) {
       if (dragMoved) { e.preventDefault(); return; }
       openModal(slide.id);
+    });
+  });
+
+  /* 카드 요약문을 REVIEW_DATA에서 자동 생성 */
+  slides.forEach(function (slide) {
+    var d = REVIEW_DATA[slide.id];
+    if (!d) return;
+    var excerptEl = slide.querySelector('[data-excerpt]');
+    if (!excerptEl) return;
+    excerptEl.textContent = d.review;   // review 원문 통째로 넣고, CSS의 max-height+mask로 잘려 보이게
+  });
+
+  /* 카드 안 태그를 REVIEW_DATA에서 자동으로 채움 */
+  slides.forEach(function (slide) {
+    var d = REVIEW_DATA[slide.id];
+    if (!d) return;
+    var tagsEl = slide.querySelector('[data-card-tags]');
+    if (!tagsEl) return;
+    tagsEl.innerHTML = '';
+    d.tags.forEach(function (t) {
+      var span = document.createElement('span');
+      span.className = 'rv__tag';
+      span.textContent = t;
+      tagsEl.appendChild(span);
     });
   });
 

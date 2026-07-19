@@ -13,7 +13,9 @@
 .nav__link{ color:#fff; font-weight:800; font-size:clamp(14px,1.6vw,18px); text-decoration:none; }
 
 /* ---------- Hero ---------- */
-.kicker{ color:var(--primary-text); font-weight:700; font-size:12px; letter-spacing:.02em; }
+.kicker{ color:var(--primary-text); font-weight:700; font-size:14px; letter-spacing:.02em; }
+.kicker--solid{ color: #fff; font-weight:700; font-size:14px; letter-spacing:.02em; }
+
 .hero .title{ color:var(--primary); font-weight:900; font-size:clamp(36px,4.5vw,52px); line-height:1.05; letter-spacing:-.01em; }
 .hero .lead{ color:var(--neutral-600); font-weight:400; font-size:clamp(16px,1.6vw,18px); line-height:1.7; }
 
