@@ -901,9 +901,19 @@ body.ttl-locked { overflow: hidden; }
 }
 .rv-modal__tags .rv__tag { font-size: clamp(12px, 1.3vw, 14px); }
 
+/* ★ 이미지를 감싸는 슬롯: 이게 한 장 분량의 "칸"을 담당 */
+.rv-modal__photoSlot {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: clamp(350px, 55vw, 500px);   /* 동일하게 맞춤 */
+}
+
 .rv-modal__photosWrap {
   position: relative;
-  height: clamp(220px, 42vw, 320px);
+  height: clamp(350px, 42vw, 500px); /* 동일하게 맞춤 */
 }
 
 .rv-modal__photos {
@@ -917,15 +927,6 @@ body.ttl-locked { overflow: hidden; }
 }
 .rv-modal__photos::-webkit-scrollbar { display: none; }
 
-/* ★ 이미지를 감싸는 슬롯: 이게 한 장 분량의 "칸"을 담당 */
-.rv-modal__photoSlot {
-  flex: 0 0 100%;              /* 92% → 100% */
-  scroll-snap-align: center;   /* start → center */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: clamp(220px, 42vw, 320px);
-}
 
 /*팝업 이미지 슬라이드, 화살표 스타일 */
 .rv-modal__photoNav {
