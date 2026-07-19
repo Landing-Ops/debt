@@ -974,7 +974,11 @@ body.ttl-locked { overflow: hidden; }
   cursor: pointer;
 }
 
-body.rv-locked { overflow: hidden; }
+body.rv-locked {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
 
 
 /* ---------- 카드 안 사진 2장 (탕감 전/후 등 증빙용) ---------- */
@@ -1044,8 +1048,8 @@ body.rv-locked { overflow: hidden; }
 .rv-lightbox__img {
   position: relative;
   z-index: 1;
-  max-width: 80vw;
-  max-height: 80vh;
+  max-width: 90vw;
+  max-height: 90vh;
   width: auto;
   height: auto;
   border-radius: 8px;
@@ -1074,4 +1078,10 @@ body.rv-locked { overflow: hidden; }
   place-items: center;
 }
 .rv-lightbox__close:hover { background: rgba(255,255,255,0.25); }
+
+body.rv-lightbox-locked {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
  

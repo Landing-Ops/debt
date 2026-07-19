@@ -174,15 +174,27 @@
   if (lightbox) {
     var lbImg = lightbox.querySelector('[data-lightbox-img]');
 
-    openLightbox = function (src, alt) {
-      lbImg.src = src;
-      lbImg.alt = alt || '';
-      lightbox.hidden = false;
-    };
-    function closeLightbox() {
-      lightbox.hidden = true;
-      lbImg.src = '';
-    }
+  var scrollY = 0;
+
+  openLightbox = function (src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lightbox.hidden = false;
+
+    scrollY = window.scrollY;
+    document.body.style.top = '-' + scrollY + 'px';
+    document.body.classList.add('rv-lightbox-locked');
+  };
+
+  function closeLightbox() {
+    lightbox.hidden = true;
+    lbImg.src = '';
+
+    document.body.classList.remove('rv-lightbox-locked');
+    document.body.style.top = '';
+    window.scrollTo(0, scrollY);
+  }
+
     lightbox.querySelectorAll('[data-lightbox-close]').forEach(function (el) {
       el.addEventListener('click', closeLightbox);
     });
@@ -205,6 +217,9 @@
     var elGood        = modal.querySelector('[data-modal-good]');
     var elReviewLabel = modal.querySelector('[data-modal-review-label]');
     var elReview      = modal.querySelector('[data-modal-review]');
+
+    // 1) 함수 시작 전에 변수 하나 추가
+    var modalScrollY = 0;
 
     openModal = function (id) {
       var d = REVIEW_DATA[id];
@@ -248,12 +263,18 @@
       elReview.textContent = d.review;
 
       modal.hidden = false;
+      modalScrollY = window.scrollY;
+      document.body.style.top = '-' + modalScrollY + 'px';
       document.body.classList.add('rv-locked');
     };
+
+    // open modal 맨 끝
 
     function closeModal() {
       modal.hidden = true;
       document.body.classList.remove('rv-locked');
+      document.body.style.top = '';
+      window.scrollTo(0, modalScrollY);
     }
 
     modal.querySelectorAll('[data-review-close]').forEach(function (el) {
