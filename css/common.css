@@ -901,21 +901,87 @@ body.ttl-locked { overflow: hidden; }
 }
 .rv-modal__tags .rv__tag { font-size: clamp(12px, 1.3vw, 14px); }
 
+.rv-modal__photosWrap {
+  position: relative;
+  height: clamp(220px, 42vw, 320px);
+}
+
 .rv-modal__photos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+}
+.rv-modal__photos::-webkit-scrollbar { display: none; }
+
+/* ★ 이미지를 감싸는 슬롯: 이게 한 장 분량의 "칸"을 담당 */
+.rv-modal__photoSlot {
+  flex: 0 0 100%;              /* 92% → 100% */
+  scroll-snap-align: center;   /* start → center */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: clamp(220px, 42vw, 320px);
+}
+
+/*팝업 이미지 슬라이드, 화살표 스타일 */
+.rv-modal__photoNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: clamp(38px, 8vw, 48px);
+  height: clamp(38px, 8vw, 48px);
+  border-radius: 50%;
+  background: var(--primary-bright);
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 8px rgba(11,37,64,.25);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: clamp(24px, 5vw, 30px);
+}
+.rv-modal__photoNav--prev { left: 10px; }
+.rv-modal__photoNav--next { right: 10px; }
+.rv-modal__photoNav[hidden] { display: none; }
+
+/*팝업 이미지,점(dots) 스타일 추가 */
+.rv-modal__photoDots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
   margin-bottom: 20px;
 }
+.rv-modal__photoDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neutral-300);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.rv-modal__photoDot[aria-selected="true"] {
+  width: 16px;
+  border-radius: 999px;
+  background: var(--primary-bright);
+}
+
 .rv-modal__photo {
-  width: 100%;
-  height: clamp(160px, 30vw, 240px);
-  object-fit: cover;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;                     /* height 고정값 → max-height로 변경 */
+  object-fit: contain;
   border-radius: 12px;
   border: 1px solid var(--border-strong);
   box-shadow: 0 4px 12px rgba(11,37,64,.08);
   cursor: zoom-in;
   display: block;
+  margin: 0 auto;                        /* ★ 좌우 중앙 보정 */
   -webkit-user-drag: none;
 }
 

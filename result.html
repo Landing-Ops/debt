@@ -211,7 +211,13 @@
     </div>
 
     <div class="rv-modal__tags" data-modal-tags></div>
-    <div class="rv-modal__photos" data-modal-photos></div>
+
+    <div class="rv-modal__photosWrap">
+      <button class="rv-modal__photoNav rv-modal__photoNav--prev" type="button" data-photo-prev aria-label="이전 사진">‹</button>
+      <div class="rv-modal__photos" data-modal-photos></div>
+      <button class="rv-modal__photoNav rv-modal__photoNav--next" type="button" data-photo-next aria-label="다음 사진">›</button>
+    </div>
+    <div class="rv-modal__photoDots" data-modal-photo-dots></div>
     <div class="rv-modal__block">
       <p class="rv-modal__label" data-modal-good-label></p>
       <ul class="rv-modal__list" data-modal-good></ul>

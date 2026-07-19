@@ -19,7 +19,7 @@
       name: '오OO',
       meta: '30대 / 여성 / 프리랜서',
       tags: ['법무사의 유연한 대응', '빠른 고객대응', '높은 탕감률'],
-      photos: ['./img/th_test2.png', './img/th_test1.png'],
+      photos: ['./img/th_test2.png', './img/th_test1.png','./img/th_test1.png'],
       stars: 5,
       goodLabel: 'ABC사무소의 만족스러웠던 점은 무엇인가요?',
       good: [
@@ -217,9 +217,29 @@
     var elGood        = modal.querySelector('[data-modal-good]');
     var elReviewLabel = modal.querySelector('[data-modal-review-label]');
     var elReview      = modal.querySelector('[data-modal-review]');
+    var elPhotosWrap = modal.querySelector('.rv-modal__photosWrap');
+    var elPhotoDots  = modal.querySelector('[data-modal-photo-dots]');
+    var btnPhotoPrev = modal.querySelector('[data-photo-prev]');
+    var btnPhotoNext = modal.querySelector('[data-photo-next]');
+    var photoIndex = 0;
 
     // 1) 함수 시작 전에 변수 하나 추가
     var modalScrollY = 0;
+
+    // ★ 추가
+    function goToPhoto(i, total) {
+      photoIndex = Math.min(Math.max(i, 0), total - 1);
+      var slot = elPhotos.children[photoIndex];
+      if (slot) slot.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      updatePhotoDots();
+    }
+
+    function updatePhotoDots() {
+      var dots = elPhotoDots.querySelectorAll('[role="tab"]');
+      dots.forEach(function (d, di) {
+        d.setAttribute('aria-selected', di === photoIndex ? 'true' : 'false');
+      });
+    }
 
     openModal = function (id) {
       var d = REVIEW_DATA[id];
@@ -238,9 +258,15 @@
         elTags.appendChild(span);
       });
 
-      /* 카드와 동일한 사진 2장, 클릭 시 라이트박스 확대 */
+      /* 카드와 동일한 사진, 클릭 시 라이트박스 확대 */
       elPhotos.innerHTML = '';
-      d.photos.forEach(function (src) {
+      elPhotoDots.innerHTML = '';
+      photoIndex = 0;
+
+      d.photos.forEach(function (src, i) {
+        var slot = document.createElement('div');
+        slot.className = 'rv-modal__photoSlot';
+
         var img = document.createElement('img');
         img.className = 'rv-modal__photo';
         img.src = src;
@@ -248,8 +274,26 @@
         img.addEventListener('click', function () {
           openLightbox(src, d.name);
         });
-        elPhotos.appendChild(img);
+
+        slot.appendChild(img);
+        elPhotos.appendChild(slot);
+
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'rv-modal__photoDot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        dot.addEventListener('click', function () { goToPhoto(i, d.photos.length); });
+        elPhotoDots.appendChild(dot);
       });
+
+      var multi = d.photos.length > 1;
+      btnPhotoPrev.hidden = !multi;
+      btnPhotoNext.hidden = !multi;
+      elPhotoDots.style.display = multi ? 'flex' : 'none';
+
+      btnPhotoPrev.onclick = function () { goToPhoto(photoIndex - 1, d.photos.length); };
+      btnPhotoNext.onclick = function () { goToPhoto(photoIndex + 1, d.photos.length); };
 
       elGoodLabel.textContent = d.goodLabel;
       elGood.innerHTML = '';
@@ -267,7 +311,6 @@
       document.body.style.top = '-' + modalScrollY + 'px';
       document.body.classList.add('rv-locked');
     };
-
     // open modal 맨 끝
 
     function closeModal() {
