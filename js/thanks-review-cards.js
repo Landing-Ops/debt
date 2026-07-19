@@ -262,6 +262,7 @@
       elPhotos.innerHTML = '';
       elPhotoDots.innerHTML = '';
       photoIndex = 0;
+      elPhotos.scrollLeft = 0;   // ★ 추가 — 스크롤 위치를 항상 맨 처음으로 리셋
 
       d.photos.forEach(function (src, i) {
         var slot = document.createElement('div');

@@ -890,8 +890,8 @@ body.ttl-locked { overflow: hidden; }
   background: var(--neutral-100);
 }
 .rv-modal__who { display: flex; flex-direction: column; }
-.rv-modal__name { font-size: clamp(20px, 2.2vw, 24px); font-weight: 900; color: var(--neutral-900); }
-.rv-modal__meta { font-size: clamp(16px, 1.5vw, 18px); color: var(--neutral-500); }
+.rv-modal__name { font-size: clamp(24px, 2.2vw, 28px); font-weight: 900; color: var(--neutral-900); }
+.rv-modal__meta { font-size: clamp(18px, 1.5vw, 20px); color: var(--neutral-500); }
 
 .rv-modal__tags {
   display: flex;
@@ -899,7 +899,7 @@ body.ttl-locked { overflow: hidden; }
   gap: 6px;
   margin-bottom: 20px;
 }
-.rv-modal__tags .rv__tag { font-size: clamp(12px, 1.3vw, 14px); }
+.rv-modal__tags .rv__tag { font-size: clamp(14px, 1.3vw, 16px); }
 
 /* ★ 이미지를 감싸는 슬롯: 이게 한 장 분량의 "칸"을 담당 */
 .rv-modal__photoSlot {
@@ -1008,7 +1008,7 @@ body.ttl-locked { overflow: hidden; }
   margin: 0;
 }
 .rv-modal__list li {
-  font-size: clamp(14px, 1.5vw, 16px);
+  font-size: clamp(18px, 1.5vw, 20px);
   color: var(--neutral-700);
   line-height: 1.7;
   position: relative;
@@ -1022,7 +1022,7 @@ body.ttl-locked { overflow: hidden; }
 }
 
 .rv-modal__text {
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size: clamp(16px, 1.6vw, 18px);
   color: var(--neutral-700);
   line-height: 1.75;
   white-space: pre-line;
