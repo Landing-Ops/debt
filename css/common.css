@@ -908,12 +908,12 @@ body.ttl-locked { overflow: hidden; }
   display: flex;
   justify-content: center;
   align-items: center;
-  height: clamp(350px, 55vw, 500px);   /* 동일하게 맞춤 */
+  height: clamp(320px, 55vw, 420px);   /* 동일하게 맞춤 */
 }
 
 .rv-modal__photosWrap {
   position: relative;
-  height: clamp(350px, 42vw, 500px); /* 동일하게 맞춤 */
+  height: clamp(320px, 42vw, 420px); /* 동일하게 맞춤 */
 }
 
 .rv-modal__photos {
@@ -934,8 +934,8 @@ body.ttl-locked { overflow: hidden; }
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
-  width: clamp(38px, 8vw, 48px);
-  height: clamp(38px, 8vw, 48px);
+  width: clamp(38px, 8vw, 44px);
+  height: clamp(38px, 8vw, 44px);
   border-radius: 50%;
   background: var(--primary-bright);
   color: #fff;
@@ -946,8 +946,8 @@ body.ttl-locked { overflow: hidden; }
   place-items: center;
   font-size: clamp(24px, 5vw, 30px);
 }
-.rv-modal__photoNav--prev { left: 10px; }
-.rv-modal__photoNav--next { right: 10px; }
+.rv-modal__photoNav--prev { left: -10px; }
+.rv-modal__photoNav--next { right:-10px; }
 .rv-modal__photoNav[hidden] { display: none; }
 
 /*팝업 이미지,점(dots) 스타일 추가 */
