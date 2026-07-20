@@ -760,15 +760,15 @@ body.ttl-locked { overflow: hidden; }
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 14px;
+  margin-bottom: 4px;
 }
 .rv__tag {
   background: var(--primary-bg);
   color: var(--primary-text);
-  font-size: clamp(14px, 1.3vw, 18px);
-  font-weight: 700;
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 800;
   padding: 5px 10px;
-  border-radius: 999px;
+  border-radius: 20px;
 }
 
 .rv__headline {
@@ -797,7 +797,7 @@ body.ttl-locked { overflow: hidden; }
   margin-top: 14px;
   background: var(--primary-bright);
   color: #fff;
-  font-size: clamp(12px, 1.5vw, 13px);
+  font-size: clamp(16px, 1.5vw, 18px);
   font-weight: 800;
   padding: 9px 22px;
   border: none;
@@ -865,17 +865,6 @@ body.ttl-locked { overflow: hidden; }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.rv-modal__kicker {
-  display: inline-block;
-  font-size: clamp(14px, 1.5vw, 14px);
-  font-weight: 800;
-  color: var(--primary-text);
-  background: var(--primary-bg);
-  padding: 5px 12px;
-  border-radius: 999px;
-  margin-bottom: 16px;
-}
-
 .rv-modal__profile {
   display: flex;
   align-items: center;
@@ -897,9 +886,9 @@ body.ttl-locked { overflow: hidden; }
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 }
-.rv-modal__tags .rv__tag { font-size: clamp(14px, 1.3vw, 16px); }
+.rv-modal__tags .rv__tag { font-size: clamp(16px, 1.3vw, 20px); font-weight: 800; }
 
 /* ★ 이미지를 감싸는 슬롯: 이게 한 장 분량의 "칸"을 담당 */
 .rv-modal__photoSlot {
@@ -1033,7 +1022,7 @@ body.ttl-locked { overflow: hidden; }
   margin-top: 8px;
   background: var(--primary-bright);
   color: #fff;
-  font-size: clamp(14px, 1.8vw, 15px);
+  font-size: clamp(16px, 1.8vw, 18px);
   font-weight: 800;
   padding: 13px;
   border: none;
@@ -1075,19 +1064,6 @@ body.rv-locked {
   border: 1px solid var(--border-strong);
   -webkit-user-drag: none;
   pointer-events: none;
-}
-
-.rv-modal__close {
-  width: 100%;
-  margin-top: 8px;
-  background: var(--primary-bright);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 800;
-  padding: 13px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
 }
  
 body.rv-locked { overflow: hidden; }
