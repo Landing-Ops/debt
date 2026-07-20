@@ -686,7 +686,7 @@ body.ttl-locked { overflow: hidden; }
 .rv__desc {
   margin-top: 6px;
   margin-left: 30px;
-  font-size: clamp(18px, 2.4vw, 24px);
+  font-size: clamp(18px, 2.4vw, 20px);
   font-weight: 700;
   color: var(--primary-text);
 }
