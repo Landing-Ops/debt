@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko" data-color-pattern="1">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2026년 채무탕감 법원제도 개인회생 솔루션</title>
+
+  <!-- ============================
+      파비콘 & 터치 아이콘
+  ============================ -->
+  <link rel="icon" href="./img/favicon_32x32.png" />
+  <link rel="apple-touch-icon" href="./img/favicon_32x32.png" />
+
+  <!-- 폰트: Noto Sans KR (기존 유지) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind: 레이아웃 전용 (초기 제작용 CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- 역할별 CSS: 토큰 → 컴포넌트 스킨 → 타이포 → 효과 -->
+  <link rel="stylesheet" href="./css/brand.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/typography.css">
+  <link rel="stylesheet" href="./css/premium.css">
+</head>
+
+<body data-industry="legal" data-source="인덱스">
+
+  <main id="page">
+
+
+    <!-- ============ 섹션 1 · Hero ============ -->
+    <section class="hero" id="hero">
+      <div class="mx-auto w-[min(1200px,92vw)] grid items-center justify-items-center grid-cols-1 gap-[18px] min-[981px]:gap-8 pt-7 pb-14">
+       <!-- 비주얼 (그라데이션 완료 박스) -->
+        <div class="thanks-hero-box" aria-label="신청 완료 안내">
+          <div class="thanks-hero-box__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="thanks-hero-box__title">홍길동님!</h2>
+          <h2 class="thanks-hero-box__title">상담에 들어가기 전에</h2>
+          <p class="thanks-hero-box__desc--highlight m-2"><strong style="color:yellow">잠깐, 1분만 시간을 내어</strong></p>
+          <p class="thanks-hero-box__desc">{홍길동}님과 같은 (채무원인) 사유로 빚을 졌다가 <br class="hidden min-[981px]:block">빚 독촉없는 평온한 일상으로 돌아간 <br class="hidden min-[981px]:block">세 사람의 날것 그대로의 실제 이야기를 읽어보세요.</p>
+
+        </div>
+        <!-- 카피 -->
+        <div class="hero-copy px-1 py-2 flex flex-col items-center text-center">
+          <span class="kicker inline-flex items-center gap-2.5 px-3 py-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            생생한 리얼스토리
+          </span>
+          <h1 class="title mt-3.5 mb-2.5 !text-4xl">
+              딱 15분만 공개!
+            </h1>
+          <div class="thanks-lead mt-8 mb-4.5">
+            <span class="thanks-box__desc">
+               채무탕감 길라잡이와 협약한 <strong class="highlight-strong-text">ABC 사무소</strong>에서
+              개인회생·파산 법률 서비스를 받은 <strong class="highlight-strong-text">고객님이 직접 써주신 실제 후기</strong>를 날것 그대로 공개합니다.<br><br>
+
+              비슷한 사연으로 어려움을 겪고 계신 분들 외에는
+              <strong style="color:red">비공개 약속을 받았기에,
+              제한시간 15분 동안만 공개</strong>되며 이후 본 페이지는 자동 종료됩니다.<br><br>
+              
+              아래 후기를 읽어보시면 구체적인 개인회생·파산 진행 과정의 핵심을 알 수 있습니다.<br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+              그리고 이분들도 해냈듯, <span class="highlight-bg">{홍길동}님 또한 현재 겪고 계신 어려움에서 충분히 벗어나실수 있습니다.</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- ============ 섹션 2 - 실제 고객 소감 (카드 슬라이드 + 팝업) ============ -->
+<section class="section rv" id="testimonial" aria-label="실제 고객 소감">
+  <div class="rv__head">
+    <span class="kicker--solid inline-flex items-center gap-2.5 px-3 py-1.5">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+          법률사무소 ABC
+    </span>
+    <h2 class="rv__title">
+      양육비 개인회생<br>실제 고객 자필 후기!
+    </h2>
+    <p class="rv__desc">*고객님께서 직접 작성해 주신 후기입니다</p>
+  </div>
+
+  <div class="rv__body">
+    <div class="rv" role="region" aria-roledescription="carousel" aria-label="고객 후기 슬라이드">
+      <div class="rv__viewport">
+        <ul class="rv__track">
+
+          <!-- ========== Card 1 ========== -->
+          <li class="rv__slide" data-review-trigger id="review-1">
+            <div class="rv__card">
+              <div class="rv__profile">
+                <img class="rv__avatar" src="./img/avatar001.png" alt="" />
+                <div class="rv__who">
+                  <strong class="rv__name">오OO</strong>
+                  <span class="rv__meta">30대 / 여성 / 프리랜서</span>
+                </div>
+              </div>
+
+              <div class="rv__photos">
+                <div class="rv__photoWrap">
+                  <img src="./img/th_test2.png" class="rv__photo" alt="">
+                </div>
+                <div class="rv__photoWrap">
+                  <img src="./img/th_test1.png" class="rv__photo" alt="">
+                </div>
+              </div>
+
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
+
+              <h3 class="rv__headline">다른 사무실들은 불가능하다고 했는데 ABC사무소는 6만원대로 받아냈어요</h3>
+              <p class="rv__excerpt" data-excerpt></p> <!--JS의 Review카드의 글을 HTML으로 불러와 삽입-->
+              <button class="rv__more" type="button">자세히 읽기</button>
+            </div>
+          </li>
+
+          <!-- ========== Card 2 ========== -->
+          <li class="rv__slide" data-review-trigger id="review-2">
+            <div class="rv__card">
+              <div class="rv__profile">
+                <img class="rv__avatar" src="./img/avatar002.png" alt="" />
+                <div class="rv__who">
+                  <strong class="rv__name">정OO</strong>
+                  <span class="rv__meta">20대 / 여성 / 직장인</span>
+                </div>
+              </div>
+
+              <div class="rv__photos">
+                <div class="rv__photoWrap">
+                  <img src="./img/th_test2.png" class="rv__photo" alt="">
+                </div>
+                <div class="rv__photoWrap">
+                  <img src="./img/th_test1.png" class="rv__photo" alt="">
+                </div>
+              </div>
+
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
+
+              <h3 class="rv__headline">비대면인데도 이렇게 물심양면인 법무사님은 못 찾으실 겁니다</h3>
+
+              <p class="rv__excerpt" data-excerpt></p> <!--JS의 Review카드의 글을 HTML으로 불러와 삽입-->
+
+              <button class="rv__more" type="button">자세히 읽기</button>
+            </div>
+          </li>
+
+          <!-- ========== Card 3 ========== -->
+          <li class="rv__slide" data-review-trigger id="review-3">
+            <div class="rv__card">
+              <div class="rv__profile">
+                <img class="rv__avatar" src="./img/avatar003.png" alt="" />
+                <div class="rv__who">
+                  <strong class="rv__name">문OO</strong>
+                  <span class="rv__meta">30대 / 남성 / 직장인</span>
+                </div>
+              </div>
+
+              <div class="rv__photos">
+                <div class="rv__photoWrap">
+                  <img src="./img/th_test2.png" class="rv__photo" alt="">
+                </div>
+                <div class="rv__photoWrap">
+                  <img src="./img/th_test1.png" class="rv__photo" alt="">
+                </div>
+              </div>
+
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
+
+              <h3 class="rv__headline">간편하게 자료 확보하는 법부터 다르다는 생각이 들었어요</h3>
+
+              <p class="rv__excerpt" data-excerpt></p> <!--JS의 Review카드의 글을 HTML으로 불러와 삽입-->
+
+              <button class="rv__more" type="button">자세히 읽기</button>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="rv__dots" role="tablist" aria-label="후기 페이지 표시">
+      <button class="rv__dot" role="tab" aria-selected="true"  aria-controls="review-1"><span class="sr-only">1번 후기</span></button>
+      <button class="rv__dot" role="tab" aria-selected="false" aria-controls="review-2"><span class="sr-only">2번 후기</span></button>
+      <button class="rv__dot" role="tab" aria-selected="false" aria-controls="review-3"><span class="sr-only">3번 후기</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 후기 상세 팝업 (공통 1개, JS가 내용 채움) ============ -->
+<div class="rv-modal" data-review-modal hidden>
+  <div class="rv-modal__dim" data-review-close></div>
+  <div class="rv-modal__box" role="dialog" aria-modal="true" aria-labelledby="rv-modal-title">
+    <div class="rv-modal__head">
+      <span class="rv-modal__kicker">실제 후기 보기</span>
+    </div>
+
+    <div class="rv-modal__profile">
+      <img class="rv-modal__avatar" data-modal-avatar src="" alt="" />
+      <div class="rv-modal__who">
+        <strong class="rv-modal__name" data-modal-name id="rv-modal-title"></strong>
+        <span class="rv-modal__meta" data-modal-meta></span>
+      </div>
+    </div>
+
+    <div class="rv-modal__tags" data-modal-tags></div>
+
+    <div class="rv-modal__photosWrap">
+      <button class="rv-modal__photoNav rv-modal__photoNav--prev" type="button" data-photo-prev aria-label="이전 사진">‹</button>
+      <div class="rv-modal__photos" data-modal-photos></div>
+      <button class="rv-modal__photoNav rv-modal__photoNav--next" type="button" data-photo-next aria-label="다음 사진">›</button>
+    </div>
+    <div class="rv-modal__photoDots" data-modal-photo-dots></div>
+    <div class="rv-modal__block">
+      <p class="rv-modal__label" data-modal-good-label></p>
+      <ul class="rv-modal__list" data-modal-good></ul>
+    </div>
+
+    <div class="rv-modal__block">
+      <p class="rv-modal__label" data-modal-review-label></p>
+      <div class="rv-modal__text" data-modal-review></div>
+    </div>
+
+    <button class="rv-modal__close" type="button" data-review-close>닫기</button>
+  </div>
+</div>
+ 
+<!-- ============ 이미지 확대 라이트박스 (전역 1개) ============ -->
+<div class="rv-lightbox" data-lightbox hidden>
+  <div class="rv-lightbox__dim" data-lightbox-close></div>
+  <button class="rv-lightbox__close" type="button" data-lightbox-close aria-label="이미지 닫기">✕</button>
+  <img class="rv-lightbox__img" data-lightbox-img src="" alt="" />
+</div>
+
+  <!-- ============ 푸터 ============ -->
+  <footer class="site-footer" aria-labelledby="footer-title">
+    <h2 id="footer-title" class="sr-only">사이트 정보</h2>
+
+  <div class="footer__top">
+  <div class="mx-auto w-[min(1200px,92vw)] grid gap-[clamp(20px,4vw,48px)] grid-cols-1 min-[981px]:grid-cols-[1.2fr_1fr] py-[clamp(28px,5vw,48px)]">
+    <div class="footer__brand">
+      <div class="footer__logo flex items-center gap-1 mb-2.5">
+        <img src="img/logo_50x50.png" alt="채무탕감 길라잡이" class="h-8 w-auto">
+        <span class="footer__logo-ko">채무탕감 길라잡이</span>
+      </div>
+      <p class="footer__slogan mt-2">더 이상 혼자 버티지 마세요.<br>편안한 일상으로 가는 길을 알려드립니다.</p>
+    </div>
+
+    <div class="footer__org self-start" role="list">
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">사이트명</span><span class="v">채무탕감 길라잡이</span></p>
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">상호명</span><span class="v">리코 코퍼레이션</span></p>
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">대표자</span><span class="v">강민우</span></p>
+      <p class="footer__item grid grid-cols-[120px_1fr] gap-2 my-2" role="listitem"><span class="k">사업자 등록번호</span><span class="v">366-03-03344</span></p>
+    </div>
+  </div>
+</div>
+
+    <div class="footer__bar">
+      <div class="mx-auto w-[min(1200px,92vw)]">
+        <p class="footer__copy py-4">채무탕감 길라잡이는 변호사 및 법무사(이하 ‘광고주’)와 소비자 간을 연결하는 플랫폼으로, 변호사법 및 기타 관련규정을 준수하기 위해 이용자의 법률상담 및 사건, 수임의 여부 및 내용에 어떠한 관여도 하지 않으며 광고주와 의뢰인간의 업무 전반에 대해 어떠한 법적책임도 부담하지 않습니다. <br><br>Ricco-corporation © All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+<!-- ============ 제한시간 띠배너 (스크롤 고정) ============ -->
+<!-- </footer> 다음, </body> 앞에 삽입 -->
+<div class="ttl-bar" data-countdown-bar aria-live="polite">
+  <div class="ttl-bar__inner">
+    <span class="ttl-bar__label">
+      <svg class="ttl-bar__ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 9v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      열람 제한시간
+    </span>
+    <span class="ttl-bar__time" data-countdown-time>15:00</span>
+    <span class="ttl-bar__hint">이후 자동 종료됩니다</span>
+  </div>
+</div>
+
+<!-- ============ 종료 팝업 (타이머 만료 시 노출) ============ -->
+<div class="ttl-modal" data-countdown-modal hidden>
+  <div class="ttl-modal__dim"></div>
+  <div class="ttl-modal__box" role="dialog" aria-modal="true" aria-labelledby="ttl-modal-title">
+    <div class="ttl-modal__icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 8v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="16" r="1" fill="currentColor"/>
+      </svg>
+    </div>
+    <h2 id="ttl-modal-title" class="ttl-modal__title">열람 시간이 종료되었습니다</h2>
+    <p class="ttl-modal__desc">
+      비슷한 사연을 겪고 계신 분들께<br class="hidden min-[981px]:block">
+      단, 15분 동안만 공개되는 자료입니다.<br><br>
+      [법률사무소 ABC] 담당자가 곧 연락드릴 예정이니<br class="hidden min-[981px]:block">
+      조금만 기다려 주세요.
+    </p>
+  </div>
+</div>
+
+  <!-- ========== 매체 유입 ========== -->
+  <script>var LANDING_SOURCE = '인덱스';</script>
+
+  <!-- ============ JS ============ -->
+  <script src="./js/thanks-countdown.js"></script>
+  <script src="./js/thanks-review-cards.js"></script>
+  <script src="./js/carousel.js"></script>
+  <script src="./js/ui.js"></script>
+
+
+</body>
+</html>
