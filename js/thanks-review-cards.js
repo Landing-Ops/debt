@@ -283,8 +283,8 @@
     deltaX = 0;
   }
 
-  /* 터치 — 방향 잠금(axis-lock): 가로 스와이프 or 세로 스크롤 둘 중 하나만 */
-   var axisLock = null;
+   /* 터치 — 방향 잠금(axis-lock): 가로 스와이프 or 세로 스크롤 둘 중 하나만 */
+  var axisLock = null;
   var startY = 0;
 
   track.addEventListener('touchstart', function (e) {
@@ -319,6 +319,14 @@
 
   track.addEventListener('touchend', function () {
     if (axisLock === 'x') dragEnd();
+    axisLock = null;
+  });
+
+  track.addEventListener('touchcancel', function () {
+    isDragging = false;
+    track.style.transition = '';
+    applyTransform();
+    deltaX = 0;
     axisLock = null;
   });
 
