@@ -780,12 +780,12 @@ body.ttl-locked { overflow: hidden; }
 }
 
 .rv__excerpt {
-  font-size: clamp(12px, 1.6vw, 20px);
+  font-size: clamp(12px, 1.6vw, 16px);
   color: var(--neutral-600);
   line-height: 1.65;
   flex: 1;
   /* 카드 안에서는 일부만 보이게 페이드 처리 */
-  max-height: 40px;
+  max-height: 30px;
   overflow: hidden;
   position: relative;
   mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
