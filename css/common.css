@@ -686,7 +686,7 @@ body.ttl-locked { overflow: hidden; }
 .rv__desc {
   margin-top: 6px;
   margin-left: 30px;
-  font-size: clamp(14px, 2.4vw, 16px);
+  font-size: clamp(14px, 2.4vw, 20px);
   font-weight: 700;
   color: var(--primary-text);
 }
@@ -715,17 +715,17 @@ body.ttl-locked { overflow: hidden; }
   height: 44px;
   display: grid;
   place-items: center;
-  border: none;
+  border: 1px solid var(--border-subtle, rgba(11,37,64,.12));
   border-radius: 50%;
-  background: var(--primary-bright);
-  color: #fff;
+  background: #fff;
+  color: var(--primary, #1b56f0);
   box-shadow: var(--shadow-md, 0 8px 20px rgba(11,37,64,.10));
   cursor: pointer;
   transition: background .15s ease, box-shadow .15s ease, opacity .15s ease;
 }
-.rv__arrow:hover { background: var(--primary-strong); }
+.rv__arrow:hover { background: var(--primary-bg, #eef3ff); }
 .rv__arrow:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--primary-bright) 30%, transparent);
+  outline: 3px solid color-mix(in srgb, var(--primary, #1b56f0) 30%, transparent);
   outline-offset: 2px;
 }
 .rv__arrow--prev { left: 4px; }
@@ -740,8 +740,6 @@ body.ttl-locked { overflow: hidden; }
   .rv__arrow--prev { left: 8px; }
   .rv__arrow--next { right: 8px; }
 }
-
-/*  */
 
 .rv__slide {
   flex: 0 0 92%;
@@ -806,7 +804,7 @@ body.ttl-locked { overflow: hidden; }
 }
 
 .rv__headline {
-  font-size: clamp(16px, 3vw, 22px);
+  font-size: clamp(16px, 3vw, 26px);
   font-weight: 800;
   color: var(--neutral-900);
   line-height: 1.4;
@@ -1159,3 +1157,93 @@ body.rv-lightbox-locked {
   width: 100%;
   overflow: hidden;
 }
+ 
+/* =====================================================================
+   섹션 3 · 광고주(사무소) 소개  — adv
+   레이아웃 수치는 HTML의 Tailwind 유틸에서 제어. 여기선 겉모습(색·보더·라운드·그림자)만.
+===================================================================== */
+.section.adv {
+  padding: clamp(28px, 4vw, 44px) 0;
+}
+
+/* A안 · 섹션 전체를 옅은 배경으로 감싸 하나의 그룹으로 묶음 */
+.adv__wrap {
+  background: var(--neutral-50);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-2xl);
+}
+
+/* 공통 박스 스킨 */
+.adv__box {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---------- 박스 1 · 헤더 ---------- */
+.adv__header { background: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary-strong) 100%); border-color: var(--primary-border); }
+
+.adv__title {
+  font-size: clamp(26px, 2.4vw, 38px);
+  font-weight: 900;
+  line-height: 1.35;
+  color: white;
+}
+.adv__title-num { color: var(--primary-bright); font-weight: 900; }
+
+/* ---------- 박스 2 · 바디 ---------- */
+.adv__media-main,
+.adv__media-sub {
+  background: var(--neutral-50);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.adv__media-main { aspect-ratio: 4 / 3; }
+.adv__media-sub  { aspect-ratio: 1 / 1; }
+.adv__media-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.adv__intro-office { font-size: clamp(20px, 1.6vw, 24px); font-weight: 700; color: var(--primary-text); }
+.adv__intro-person { display: flex; align-items: baseline; gap: 8px; margin-top: 2px; }
+.adv__intro-name { font-size: clamp(24px, 2.6vw, 32px); font-weight: 900; color: var(--neutral-900); }
+.adv__intro-role { font-size: clamp(18px, 1.4vw, 20px); font-weight: 500; color: var(--neutral-600); }
+
+.adv__intro-group { margin-top: 20px; }
+.adv__intro-label {
+  display: inline-block;
+  font-size: 14px; font-weight: 900; color: var(--primary-text);
+  background: var(--primary-soft);
+  border-radius: var(--radius-pill);
+  padding: 3px 12px; margin-bottom: 10px;
+}
+.adv__intro-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.adv__intro-list li {
+  position: relative; padding-left: 20px;
+  font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5; color: var(--neutral-700);
+}
+.adv__intro-list li::before {
+  content: ""; position: absolute; left: 4px; top: .55em;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--primary-bright);
+}
+
+/* ---------- 박스 3 · 서비스 메리트 ---------- */
+.adv__merits-title { font-size: clamp(26px, 2vw, 38px); font-weight: 900; color: var(--primary); }
+.adv__merit {
+  list-style: none;
+  background: var(--primary-bg);
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(16px, 2.4vw, 24px) 12px;
+  text-align: center;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.adv__merit:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.adv__merit-ic {
+  width: clamp(48px, 7vw, 64px);
+  height: clamp(48px, 7vw, 64px);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
+}
+.adv__merit-tt { font-size: clamp(16px, 1.6vw, 20px); font-weight: 700; color: var(--neutral-900); line-height: 1.3; }
