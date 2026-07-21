@@ -785,7 +785,7 @@ body.ttl-locked { overflow: hidden; }
   line-height: 1.65;
   flex: 1;
   /* 카드 안에서는 일부만 보이게 페이드 처리 */
-  max-height: 30px;
+  max-height: 40px;
   overflow: hidden;
   position: relative;
   mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
