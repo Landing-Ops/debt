@@ -705,7 +705,7 @@ body.ttl-locked { overflow: hidden; }
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: pan-y; /* 세로 스크롤은 살리고 가로만 스와이프로 가져감 */
+  touch-action: none; /* 브라우저 네이티브 스크롤 OFF — 세로/가로 모두 JS가 통제 */
 }
 .rv__track:active { cursor: grabbing; }
 

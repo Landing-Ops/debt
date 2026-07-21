@@ -283,52 +283,65 @@
     deltaX = 0;
   }
 
-   /* 터치 — 방향 잠금(axis-lock): 가로 스와이프 or 세로 스크롤 둘 중 하나만 */
-  var axisLock = null;
-  var startY = 0;
+  /* 터치 — 첫 움직임에서 축을 확정하고 제스처 끝까지 그 축만 사용 */
+    var axisLock = null;      // 'x' | 'y' | null
+    var startY = 0;
+    var lastY = 0;
 
-  track.addEventListener('touchstart', function (e) {
-    startY = e.touches[0].clientY;
-    axisLock = null;
-    dragStart(e.touches[0].clientX);
-  }, { passive: true });
+    track.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      lastY  = startY;
+      axisLock = null;
+      dragStart(e.touches[0].clientX);
+    }, { passive: true });
 
-  track.addEventListener('touchmove', function (e) {
-    if (!isDragging) return;
-    var x = e.touches[0].clientX;
-    var y = e.touches[0].clientY;
+    track.addEventListener('touchmove', function (e) {
+      if (!isDragging) return;
+      var x = e.touches[0].clientX;
+      var y = e.touches[0].clientY;
 
-    if (axisLock === null) {
-      var dx = Math.abs(x - startX);
-      var dy = Math.abs(y - startY);
-      if (dx < 6 && dy < 6) return;
-      axisLock = dx > dy ? 'x' : 'y';
+      // 축 확정 전: 방향 판정
+      if (axisLock === null) {
+        var dx = Math.abs(x - startX);
+        var dy = Math.abs(y - startY);
+        if (dx < 8 && dy < 8) return;        // 판정 임계치
+        axisLock = dx > dy ? 'x' : 'y';
+      }
 
-      // 세로로 확정되면 캐러셀 드래그 자체를 취소 — 이후 pan-y가 스크롤을 담당
-      if (axisLock === 'y') {
+      if (axisLock === 'x') {
+        e.preventDefault();                  // 페이지가 세로로 따라 내려가는 것 차단
+        dragMove(x);
+      } else {
+        // 세로 확정 → 캐러셀은 손 떼고 JS가 직접 페이지를 스크롤
+        e.preventDefault();
+        var d = lastY - y;                   // 손가락 이동량만큼 페이지 이동
+        window.scrollBy(0, d);
+        lastY = y;
+      }
+    }, { passive: false });   // preventDefault 하려면 반드시 false
+
+    track.addEventListener('touchend', function () {
+      if (axisLock === 'x') {
+        dragEnd();
+      } else {
+        // 세로였으면 캐러셀 위치 원복(살짝 밀렸을 수 있으니 정렬)
         isDragging = false;
         track.style.transition = '';
         applyTransform();
         deltaX = 0;
-        return;
       }
-    }
+      axisLock = null;
+    });
 
-    if (axisLock === 'x') dragMove(x);
-  }, { passive: true });
+    track.addEventListener('touchcancel', function () {
+      isDragging = false;
+      track.style.transition = '';
+      applyTransform();
+      deltaX = 0;
+      axisLock = null;
+    });
 
-  track.addEventListener('touchend', function () {
-    if (axisLock === 'x') dragEnd();
-    axisLock = null;
-  });
-
-  track.addEventListener('touchcancel', function () {
-    isDragging = false;
-    track.style.transition = '';
-    applyTransform();
-    deltaX = 0;
-    axisLock = null;
-  });
 
   /* 마우스 드래그 (PC) */
   track.addEventListener('mousedown', function (e) {
