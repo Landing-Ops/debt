@@ -283,59 +283,26 @@
     deltaX = 0;
   }
 
-  /* 터치 — 첫 움직임에서 축을 확정하고 제스처 끝까지 그 축만 사용 */
-    var axisLock = null;      // 'x' | 'y' | null
-    var startY = 0;
-    var lastY = 0;
+  /* 터치 — 이 캐러셀은 무조건 가로 전용 (세로 이동은 전부 무시)
+     세로 스크롤 제스처 차단은 CSS의 touch-action: pan-x 가 담당 */
+  track.addEventListener('touchstart', function (e) {
+    dragStart(e.touches[0].clientX);
+  }, { passive: true });
 
-    track.addEventListener('touchstart', function (e) {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      lastY  = startY;
-      axisLock = null;
-      dragStart(e.touches[0].clientX);
-    }, { passive: true });
+  track.addEventListener('touchmove', function (e) {
+    if (!isDragging) return;
+    // 손가락 X좌표만 반영 — 세로 움직임은 캐러셀에 영향 없음
+    dragMove(e.touches[0].clientX);
+  }, { passive: true });
 
-    track.addEventListener('touchmove', function (e) {
-      if (!isDragging) return;
-      var x = e.touches[0].clientX;
-      var y = e.touches[0].clientY;
+  track.addEventListener('touchend', dragEnd);
 
-      // 축 확정 전: 방향 판정
-      if (axisLock === null) {
-        var dx = Math.abs(x - startX);
-        var dy = Math.abs(y - startY);
-        if (dx < 8 && dy < 8) return;        // 판정 임계치
-        axisLock = dx > dy ? 'x' : 'y';
-
-        // 세로로 확정 → 캐러셀에서 완전히 손 떼고, 이후는 브라우저 네이티브 스크롤에 맡김
-        if (axisLock === 'y') {
-          isDragging = false;
-          track.style.transition = '';
-          applyTransform();                  // 살짝 밀린 것 원위치
-          deltaX = 0;
-          return;
-        }
-      }
-
-      if (axisLock === 'x') {
-        e.preventDefault();                  // 가로 스와이프 중 세로 이동 0으로 고정
-        dragMove(x);
-      }
-    }, { passive: false });   // 가로일 때 preventDefault 하려면 false
-
-    track.addEventListener('touchend', function () {
-      if (axisLock === 'x') dragEnd();
-      axisLock = null;
-    });
-
-    track.addEventListener('touchcancel', function () {
-      isDragging = false;
-      track.style.transition = '';
-      applyTransform();
-      deltaX = 0;
-      axisLock = null;
-    });
+  track.addEventListener('touchcancel', function () {
+    isDragging = false;
+    track.style.transition = '';
+    applyTransform();
+    deltaX = 0;
+  });
 
 
   /* 마우스 드래그 (PC) */
