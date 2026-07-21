@@ -772,7 +772,7 @@ body.ttl-locked { overflow: hidden; }
 }
 
 .rv__headline {
-  font-size: clamp(14px, 3vw, 26px);
+  font-size: clamp(16px, 3vw, 26px);
   font-weight: 800;
   color: var(--neutral-900);
   line-height: 1.4;
@@ -785,7 +785,7 @@ body.ttl-locked { overflow: hidden; }
   line-height: 1.65;
   flex: 1;
   /* 카드 안에서는 일부만 보이게 페이드 처리 */
-  max-height: 40px;
+  max-height: 50px;
   overflow: hidden;
   position: relative;
   mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
