@@ -93,18 +93,24 @@
 
   <div class="rv__body">
     <div class="rv" role="region" aria-roledescription="carousel" aria-label="고객 후기 슬라이드">
+      <button class="rv__arrow rv__arrow--prev" type="button" data-rv-prev aria-label="이전 후기">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="rv__arrow rv__arrow--next" type="button" data-rv-next aria-label="다음 후기">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
       <div class="rv__viewport">
         <ul class="rv__track">
 
           <!-- ========== Card 1 ========== -->
           <li class="rv__slide" data-review-trigger id="review-1">
             <div class="rv__card">
-              <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar001.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">김XX님</strong>
-                  <span class="rv__meta">서울특별시 / 직장인</span>
+                  <span class="rv__meta">서울특별시</span>
                 </div>
               </div>
 
@@ -116,6 +122,9 @@
                   <img src="./img/tx-review1.png" class="rv__photo" alt="">
                 </div>
               </div>
+
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
+
               <h3 class="rv__headline">병원비로 빚 4천3백만 원, 일자리 잃을까봐 걱정했는데, 90% 탕감받고 새 출발했습니다.</h3>
               <p class="rv__excerpt" data-excerpt></p> <!--JS의 Review카드의 글을 HTML으로 불러와 삽입-->
               <button class="rv__more" type="button">자세히 읽기</button>
@@ -125,12 +134,12 @@
           <!-- ========== Card 2 ========== -->
           <li class="rv__slide" data-review-trigger id="review-2">
             <div class="rv__card">
-             <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+             <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar002.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">박XX님</strong>
-                  <span class="rv__meta">부산광역시 / 일용직</span>
+                  <span class="rv__meta">부산광역시</span>
                 </div>
               </div>
 
@@ -154,12 +163,12 @@
           <!-- ========== Card 3 ========== -->
           <li class="rv__slide" data-review-trigger id="review-3">
             <div class="rv__card">
-              <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar003.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">이XX님</strong>
-                  <span class="rv__meta">대구광역시 / 프리랜서</span>
+                  <span class="rv__meta">대구광역시</span>
                 </div>
               </div>
 
@@ -180,12 +189,12 @@
           <!-- ========== Card 4 ========== -->
           <li class="rv__slide" data-review-trigger id="review-4">
             <div class="rv__card">
-              <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar004.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">정XX님</strong>
-                  <span class="rv__meta">경기도 수원시 / 자영업</span>
+                  <span class="rv__meta">경기도 수원시</span>
                 </div>
               </div>
 
@@ -207,12 +216,12 @@
           <!-- ========== Card 5 ========== -->
           <li class="rv__slide" data-review-trigger id="review-5">
             <div class="rv__card">
-              <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar005.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">최XX님</strong>
-                  <span class="rv__meta">인천광역시 / 사업자</span>
+                  <span class="rv__meta">인천광역시</span>
                 </div>
               </div>
 
@@ -235,12 +244,12 @@
           <!-- ========== Card 6 ========== -->
           <li class="rv__slide" data-review-trigger id="review-6">
             <div class="rv__card">
-              <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar006.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">한XX님</strong>
-                  <span class="rv__meta">광주광역시 / 주식 투자</span>
+                  <span class="rv__meta">광주광역시</span>
                 </div>
               </div>
 
@@ -263,12 +272,12 @@
           <!-- ========== Card 7 ========== -->
           <li class="rv__slide" data-review-trigger id="review-7">
             <div class="rv__card">
-              <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar007.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">윤XX님</strong>
-                  <span class="rv__meta">제주특별자치도 / 도박</span>
+                  <span class="rv__meta">제주특별자치도</span>
                 </div>
               </div>
 
@@ -291,12 +300,12 @@
           <!-- ========== Card 8 ========== -->
           <li class="rv__slide" data-review-trigger id="review-8">
             <div class="rv__card">
-              <!-- <div class="rv__tags" data-card-tags></div> JS의 Review카드의 tag글을 HTML으로 불러와 삽입 -->
+              <div class="rv__tags" data-card-tags></div> <!--JS의 Review카드의 tag글을 HTML으로 불러와 삽입-->
               <div class="rv__profile">
                 <img class="rv__avatar" src="./img/avatar008.png" alt="" />
                 <div class="rv__who">
                   <strong class="rv__name">장XX님</strong>
-                  <span class="rv__meta">경기도 안산시 / 사기피해</span>
+                  <span class="rv__meta">경기도 안산시</span>
                 </div>
               </div>
               <div class="rv__photos">

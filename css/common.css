@@ -702,12 +702,46 @@ body.ttl-locked { overflow: hidden; }
   list-style: none;
   padding: 0;
   margin: 0;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: pan-x; /* 이 영역 터치는 가로 전용 — 세로 스크롤 제스처 자체를 막음 */
+  /* 좌우 버튼으로만 넘김 → 터치는 브라우저 기본(세로 스크롤)에 완전히 맡김 */
 }
-.rv__track:active { cursor: grabbing; }
+
+/* ---------- 좌우 넘김 버튼 (카드 위에 겹침) ---------- */
+.rv__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary-bright);
+  color: #fff;
+  box-shadow: var(--shadow-md, 0 8px 20px rgba(11,37,64,.10));
+  cursor: pointer;
+  transition: background .15s ease, box-shadow .15s ease, opacity .15s ease;
+}
+.rv__arrow:hover { background: var(--primary-strong); }
+.rv__arrow:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary-bright) 30%, transparent);
+  outline-offset: 2px;
+}
+.rv__arrow--prev { left: 4px; }
+.rv__arrow--next { right: 4px; }
+.rv__arrow:disabled {
+  opacity: .35;
+  cursor: default;
+  box-shadow: none;
+}
+.rv__arrow svg { display: block; }
+@media (min-width: 720px) {
+  .rv__arrow--prev { left: 8px; }
+  .rv__arrow--next { right: 8px; }
+}
+
+/*  */
 
 .rv__slide {
   flex: 0 0 92%;

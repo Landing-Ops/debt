@@ -247,77 +247,25 @@
     dots.forEach(function (d, di) {
       d.setAttribute('aria-selected', di === index ? 'true' : 'false');
     });
+    if (typeof updateArrows === 'function') updateArrows();
   }
 
   dots.forEach(function (d, di) { d.addEventListener('click', function () { goTo(di); }); });
   window.addEventListener('resize', function () { goTo(index); });
 
-  /* ---------- 터치 / 마우스 드래그 스와이프 ---------- */
-  var isDragging = false;
-  var dragMoved  = false;
-  var startX = 0;
-  var deltaX = 0;
+  /* ---------- 좌우 버튼으로만 넘기기 (터치 스와이프 없음) ---------- */
+  var btnPrev = root.querySelector('[data-rv-prev]');
+  var btnNext = root.querySelector('[data-rv-next]');
 
-  function dragStart(clientX) {
-    isDragging = true;
-    dragMoved  = false;
-    startX = clientX;
-    deltaX = 0;
-    track.style.transition = 'none';
+  function updateArrows() {
+    if (btnPrev) btnPrev.disabled = (index <= 0);
+    if (btnNext) btnNext.disabled = (index >= maxIndex());
   }
 
-  function dragMove(clientX) {
-    if (!isDragging) return;
-    deltaX = clientX - startX;
-    if (Math.abs(deltaX) > 4) dragMoved = true;
-    applyTransform(deltaX);
-  }
+  if (btnPrev) btnPrev.addEventListener('click', function () { goTo(index - 1); });
+  if (btnNext) btnNext.addEventListener('click', function () { goTo(index + 1); });
 
-  function dragEnd() {
-    if (!isDragging) return;
-    isDragging = false;
-    track.style.transition = '';
-
-    var threshold = slideWidth() * 0.15; // 카드 1장 폭의 15% 이상 밀면 다음/이전으로
-    if (deltaX <= -threshold)      goTo(index + 1);
-    else if (deltaX >= threshold)  goTo(index - 1);
-    else                            goTo(index); // 원위치
-    deltaX = 0;
-  }
-
-  /* 터치 — 이 캐러셀은 무조건 가로 전용 (세로 이동은 전부 무시)
-     세로 스크롤 제스처 차단은 CSS의 touch-action: pan-x 가 담당 */
-  track.addEventListener('touchstart', function (e) {
-    dragStart(e.touches[0].clientX);
-  }, { passive: true });
-
-  track.addEventListener('touchmove', function (e) {
-    if (!isDragging) return;
-    // 손가락 X좌표만 반영 — 세로 움직임은 캐러셀에 영향 없음
-    dragMove(e.touches[0].clientX);
-  }, { passive: true });
-
-  track.addEventListener('touchend', dragEnd);
-
-  track.addEventListener('touchcancel', function () {
-    isDragging = false;
-    track.style.transition = '';
-    applyTransform();
-    deltaX = 0;
-  });
-
-
-  /* 마우스 드래그 (PC) */
-  track.addEventListener('mousedown', function (e) {
-    dragStart(e.clientX);
-    e.preventDefault();
-  });
-  window.addEventListener('mousemove', function (e) {
-    if (isDragging) dragMove(e.clientX);
-  });
-  window.addEventListener('mouseup', function () {
-    if (isDragging) dragEnd();
-  });
+  updateArrows();
 
   /* ---------- 이미지 라이트박스 (팝업보다 위 레이어, 전역 1개) ---------- */
   var lightbox = document.querySelector('[data-lightbox]');
@@ -497,7 +445,6 @@
   /* 카드 전체 클릭 + "자세히 읽기" 버튼 클릭 모두 팝업 오픈*/
   slides.forEach(function (slide) {
     slide.addEventListener('click', function (e) {
-      if (dragMoved) { e.preventDefault(); return; }
       openModal(slide.id);
     });
   });
