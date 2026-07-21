@@ -355,6 +355,7 @@
     var elReviewLabel = modal.querySelector('[data-modal-review-label]');
     var elReview      = modal.querySelector('[data-modal-review]');
     var elPhotosWrap = modal.querySelector('.rv-modal__photosWrap');
+    var elModalBox = modal.querySelector('.rv-modal__box');
     var elPhotoDots  = modal.querySelector('[data-modal-photo-dots]');
     var btnPhotoPrev = modal.querySelector('[data-photo-prev]');
     var btnPhotoNext = modal.querySelector('[data-photo-next]');
@@ -449,6 +450,7 @@
       elReview.textContent = d.review;
 
       modal.hidden = false;
+      elModalBox.scrollTop = 0;   // ★ 팝업 세로 스크롤을 맨 위로 리셋
       modalScrollY = window.scrollY;
       document.body.style.top = '-' + modalScrollY + 'px';
       document.body.classList.add('rv-locked');
