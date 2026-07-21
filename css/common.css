@@ -1281,7 +1281,7 @@ body.rv-lightbox-locked {
 /* 슬라이드 — 3:4 세로 긴 판결문 */
 .vd__slide {
   flex: 0 0 auto;
-  width: clamp(80px, 20vw, 150px);
+  width: clamp(50px, 20vw, 120px);
   aspect-ratio: 3 / 4;
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
