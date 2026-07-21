@@ -450,7 +450,13 @@
       elReview.textContent = d.review;
 
       modal.hidden = false;
-      elModalBox.scrollTop = 0;   // ★ 팝업 세로 스크롤을 맨 위로 리셋
+
+      // ★ 다음 프레임에 스크롤 리셋 (애니메이션/렌더 타이밍 이슈 회피)
+      requestAnimationFrame(function () {
+        elModalBox.scrollTop = 0;
+        elPhotos.scrollLeft = 0;
+      });
+
       modalScrollY = window.scrollY;
       document.body.style.top = '-' + modalScrollY + 'px';
       document.body.classList.add('rv-locked');
