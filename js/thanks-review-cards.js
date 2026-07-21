@@ -231,10 +231,14 @@
     return Math.max(0, slides.length - visibleCount());
   }
 
+  function slideWidth() {
+    // 슬라이드 1장의 실제 폭(px) — CSS의 flex-basis(92% 등)와 padding이 그대로 반영됨
+    return slides[0].getBoundingClientRect().width;
+  }
+
   function applyTransform(extraPx) {
-    var pct = (100 / visibleCount()) * index;
-    var px = extraPx || 0;
-    track.style.transform = 'translateX(calc(-' + pct + '% + ' + px + 'px))';
+    var px = -(slideWidth() * index) + (extraPx || 0);
+    track.style.transform = 'translateX(' + px + 'px)';
   }
 
   function goTo(i) {
@@ -253,14 +257,12 @@
   var dragMoved  = false;
   var startX = 0;
   var deltaX = 0;
-  var trackWidth = 0;
 
   function dragStart(clientX) {
     isDragging = true;
     dragMoved  = false;
     startX = clientX;
     deltaX = 0;
-    trackWidth = track.getBoundingClientRect().width;
     track.style.transition = 'none';
   }
 
@@ -276,7 +278,7 @@
     isDragging = false;
     track.style.transition = '';
 
-    var threshold = trackWidth * 0.12; // 카드 폭의 12% 이상 밀면 다음/이전으로
+    var threshold = slideWidth() * 0.15; // 카드 1장 폭의 15% 이상 밀면 다음/이전으로
     if (deltaX <= -threshold)      goTo(index + 1);
     else if (deltaX >= threshold)  goTo(index - 1);
     else                            goTo(index); // 원위치
