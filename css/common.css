@@ -695,7 +695,7 @@ body.ttl-locked { overflow: hidden; }
 .rv__body { position: relative; }
 .rv { position: relative; }
 
-.rv__viewport { overflow: hidden; }
+.rv__viewport { overflow: hidden; padding: 0 16px;}
 .rv__track {
   display: flex;
   transition: transform .45s cubic-bezier(.22,.61,.36,1);
@@ -710,7 +710,7 @@ body.ttl-locked { overflow: hidden; }
 .rv__track:active { cursor: grabbing; }
 
 .rv__slide {
-  flex: 0 0 100%;
+  flex: 0 0 92%;
   padding: 4px;
 }
 @media (min-width: 720px) {
@@ -724,7 +724,7 @@ body.ttl-locked { overflow: hidden; }
 .rv__card {
   background: #fff;
   border-radius: 18px;
-  padding: 22px 20px 20px;
+  padding: 16px 14px 14px;
   height: 100%;
   display: flex;
   flex-direction: column;
