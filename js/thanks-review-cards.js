@@ -283,14 +283,44 @@
     deltaX = 0;
   }
 
-  /* 터치 */
+  /* 터치 — 방향 잠금(axis-lock): 가로 스와이프 or 세로 스크롤 둘 중 하나만 */
+   var axisLock = null;
+  var startY = 0;
+
   track.addEventListener('touchstart', function (e) {
+    startY = e.touches[0].clientY;
+    axisLock = null;
     dragStart(e.touches[0].clientX);
   }, { passive: true });
+
   track.addEventListener('touchmove', function (e) {
-    dragMove(e.touches[0].clientX);
+    if (!isDragging) return;
+    var x = e.touches[0].clientX;
+    var y = e.touches[0].clientY;
+
+    if (axisLock === null) {
+      var dx = Math.abs(x - startX);
+      var dy = Math.abs(y - startY);
+      if (dx < 6 && dy < 6) return;
+      axisLock = dx > dy ? 'x' : 'y';
+
+      // 세로로 확정되면 캐러셀 드래그 자체를 취소 — 이후 pan-y가 스크롤을 담당
+      if (axisLock === 'y') {
+        isDragging = false;
+        track.style.transition = '';
+        applyTransform();
+        deltaX = 0;
+        return;
+      }
+    }
+
+    if (axisLock === 'x') dragMove(x);
   }, { passive: true });
-  track.addEventListener('touchend', dragEnd);
+
+  track.addEventListener('touchend', function () {
+    if (axisLock === 'x') dragEnd();
+    axisLock = null;
+  });
 
   /* 마우스 드래그 (PC) */
   track.addEventListener('mousedown', function (e) {
