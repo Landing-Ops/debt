@@ -399,7 +399,6 @@
       elPhotos.innerHTML = '';
       elPhotoDots.innerHTML = '';
       photoIndex = 0;
-      elPhotos.scrollLeft = 0;   // ★ 추가 — 스크롤 위치를 항상 맨 처음으로 리셋
 
       d.photos.forEach(function (src, i) {
         var slot = document.createElement('div');
@@ -424,6 +423,11 @@
         dot.addEventListener('click', function () { goToPhoto(i, d.photos.length); });
         elPhotoDots.appendChild(dot);
       });
+
+      // ★ 사진 다 추가된 뒤 맨 첫 사진으로 즉시 리셋 (애니메이션 없이)
+      elPhotos.scrollLeft = 0;
+      photoIndex = 0;
+      updatePhotoDots();
 
       var multi = d.photos.length > 1;
       btnPhotoPrev.hidden = !multi;
@@ -452,10 +456,11 @@
     // open modal 맨 끝
 
     function closeModal() {
-      modal.hidden = true;
+      var y = modalScrollY;                          // 위치 먼저 기억
       document.body.classList.remove('rv-locked');
       document.body.style.top = '';
-      window.scrollTo(0, modalScrollY);
+      window.scrollTo(0, y);
+      modal.hidden = true;                           // 스크롤 복원 후 맨 마지막에 숨김
     }
 
     modal.querySelectorAll('[data-review-close]').forEach(function (el) {
