@@ -19,7 +19,7 @@
       name: '김XX님',
       meta: '서울특별시',
       tags: ['직장인'],
-      photos: ['./img/th_test2.png', './img/tx-review1.png'],
+      photos: ['./img/tx_decision1.png', './img/tx-review1.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
@@ -44,7 +44,7 @@
       name: '박XX님',
       meta: '부산광역시',
       tags: ['일용직'],
-      photos: ['./img/th_test2.png', './img/tx-review2.png'],
+      photos: ['./img/tx_decision2.png', './img/tx-review2.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
@@ -68,7 +68,7 @@
       name: '이XX님',
       meta: '대구광역시',
       tags: ['프리랜서'],
-      photos: ['./img/th_test2.png', './img/tx-review3.png'],
+      photos: ['./img/tx_decision3.png', './img/tx-review3.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
@@ -94,7 +94,7 @@
       name: '정XX님',
       meta: '경기도 수원시',
       tags: ['자영업'],
-      photos: ['./img/th_test2.png', './img/tx-review4.png'],
+      photos: ['./img/tx_decision4.png', './img/tx-review4.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
@@ -117,7 +117,7 @@
       name: '최XX님',
       meta: '인천광역시',
       tags: ['사업자'],
-      photos: ['./img/th_test2.png', './img/tx-review5.png'],
+      photos: ['./img/tx_decision5.png', './img/tx-review5.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
@@ -141,7 +141,7 @@
       name: '한XX님',
       meta: '광주광역시',
       tags: ['주식·코인'],
-      photos: ['./img/th_test2.png', './img/tx-review6.png'],
+      photos: ['./img/tx_decision6.png', './img/tx-review6.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
@@ -165,7 +165,7 @@
       name: '윤XX님',
       meta: '제주특별자치도',
       tags: ['도박'],
-      photos: ['./img/th_test2.png', './img/tx-review7.png'],
+      photos: ['./img/tx_decision7.png', './img/tx-review7.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
@@ -189,7 +189,7 @@
       name: '장XX님',
       meta: '경기도 안산시',
       tags: ['사기피해'],
-      photos: ['./img/th_test2.png', './img/tx-review8.png'],
+      photos: ['./img/tx_decision8.png', './img/tx-review8.png'],
       stars: 5,
       goodLabel: '채무 조정 결과',
       good: [
