@@ -307,30 +307,25 @@
         var dy = Math.abs(y - startY);
         if (dx < 8 && dy < 8) return;        // 판정 임계치
         axisLock = dx > dy ? 'x' : 'y';
+
+        // 세로로 확정 → 캐러셀에서 완전히 손 떼고, 이후는 브라우저 네이티브 스크롤에 맡김
+        if (axisLock === 'y') {
+          isDragging = false;
+          track.style.transition = '';
+          applyTransform();                  // 살짝 밀린 것 원위치
+          deltaX = 0;
+          return;
+        }
       }
 
       if (axisLock === 'x') {
-        e.preventDefault();                  // 페이지가 세로로 따라 내려가는 것 차단
+        e.preventDefault();                  // 가로 스와이프 중 세로 이동 0으로 고정
         dragMove(x);
-      } else {
-        // 세로 확정 → 캐러셀은 손 떼고 JS가 직접 페이지를 스크롤
-        e.preventDefault();
-        var d = lastY - y;                   // 손가락 이동량만큼 페이지 이동
-        window.scrollBy(0, d);
-        lastY = y;
       }
-    }, { passive: false });   // preventDefault 하려면 반드시 false
+    }, { passive: false });   // 가로일 때 preventDefault 하려면 false
 
     track.addEventListener('touchend', function () {
-      if (axisLock === 'x') {
-        dragEnd();
-      } else {
-        // 세로였으면 캐러셀 위치 원복(살짝 밀렸을 수 있으니 정렬)
-        isDragging = false;
-        track.style.transition = '';
-        applyTransform();
-        deltaX = 0;
-      }
+      if (axisLock === 'x') dragEnd();
       axisLock = null;
     });
 
