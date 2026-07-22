@@ -1289,7 +1289,14 @@ body.rv-lightbox-locked {
   box-shadow: var(--shadow-card);
   overflow: hidden;
 }
-.vd__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vd__img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none; /* iOS 사파리 롱프레스 저장·공유 메뉴 차단 */
+  pointer-events: none;        /* 이미지가 클릭·롱프레스 이벤트를 받지 않도록 */
+}
 
 /* 원본 1세트 폭(+gap)만큼 이동하면 복제본이 정확히 이어져 무한 루프 */
 @keyframes vd-marquee {
