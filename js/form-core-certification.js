@@ -23,7 +23,7 @@
     source:   'entry.1195646871'
   };
   var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
-  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycby6d8-nomWOi8mRMTJpt8C54C4Owh8IjAlhGZ_u1eKO3-XEhGLHGKDufVSaNjko7aWc/exec';   // ★ 웹앱2 (submit/lookup)
+  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbyffJczzp9k5rod1cW9sjA2cVC-XU-bgDerEF_7-UEekcnOzXwjEm7z-uPfEtjBJNPx/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
   var THANKYOU_URL    = 'https://landing-ops.github.io/debt/result';
   var SOURCE = (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '인덱스');
 
