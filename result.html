@@ -31,7 +31,6 @@
   <!-- ============ uid 조회 중 로딩 오버레이 (흰 화면으로 가림) ============ -->
   <div id="uid-loading-overlay" style="position:fixed;inset:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;">
     <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:0 24px;text-align:center;">
-
       <!-- 자물쇠 아이콘 (비공개 자료 뉘앙스) -->
       <div style="width:80px;height:80px;border-radius:50%;background:var(--primary-bg,#eaf2ff);display:flex;align-items:center;justify-content:center;">
         <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="var(--primary-bright,#0b5bd3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -40,21 +39,18 @@
           <circle cx="12" cy="16" r="1.2"/>
         </svg>
       </div>
-
       <!-- 카피 -->
-      <p style="margin:0;font-size:18px;font-weight:700;color:#222;line-height:1.5;">
-        고객님의 새출발을 위해<br>
-        <span style="font-weight:500;color:#555;">개인회생·파산 비공개 자료를
-          <br>안전하게 불러오고 있습니다.</span>
+      <p style="margin:0;font-size:18px;font-weight:700;color:#555;line-height:1.5;">
+        고객님을 위해<br>
+        <span style="font-weight:500;color:#222;">개인회생·파산 비공개 자료를</span>
+          <br>불러오고 있습니다.
       </p>
-
       <!-- 점 3개 순차 로딩 애니메이션 -->
-      <div style="display:flex;gap:6px;">
-        <span class="uid-loading-dot" style="width:7px;height:7px;border-radius:50%;background:var(--primary-bright,#0b5bd3);animation:uid-dot-bounce 1.2s ease-in-out infinite;"></span>
-        <span class="uid-loading-dot" style="width:7px;height:7px;border-radius:50%;background:var(--primary-bright,#0b5bd3);animation:uid-dot-bounce 1.2s ease-in-out .2s infinite;"></span>
-        <span class="uid-loading-dot" style="width:7px;height:7px;border-radius:50%;background:var(--primary-bright,#0b5bd3);animation:uid-dot-bounce 1.2s ease-in-out .4s infinite;"></span>
+      <div style="display:flex;gap:8px;">
+        <span class="uid-loading-dot" style="width:10px;height:10px;border-radius:50%;background:var(--primary-bright,#0b5bd3);animation:uid-dot-bounce 1.2s ease-in-out infinite;"></span>
+        <span class="uid-loading-dot" style="width:10px;height:10px;border-radius:50%;background:var(--primary-bright,#0b5bd3);animation:uid-dot-bounce 1.2s ease-in-out .2s infinite;"></span>
+        <span class="uid-loading-dot" style="width:10px;height:10px;border-radius:50%;background:var(--primary-bright,#0b5bd3);animation:uid-dot-bounce 1.2s ease-in-out .4s infinite;"></span>
       </div>
-
     </div>
   </div>
   <style>
