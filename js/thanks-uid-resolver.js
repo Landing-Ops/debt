@@ -12,7 +12,7 @@
 (function () {
   'use strict';
 
-  var LOOKUP_URL   = 'https://script.google.com/macros/s/AKfycbyffJczzp9k5rod1cW9sjA2cVC-XU-bgDerEF_7-UEekcnOzXwjEm7z-uPfEtjBJNPx/exec';
+  var LOOKUP_URL   = 'https://script.google.com/macros/s/AKfycbwzRbMi-pFfHSWE2Y85VDK9wEKDPCXNmwvC2EIUXcI2zXPNt-Rc4Z_iOD96I-55Qv7Y/exec';
   var TIMEOUT_MS   = 3000;
   var MAX_ATTEMPTS = 2;   // 최초 시도 1 + 재시도 1
 
