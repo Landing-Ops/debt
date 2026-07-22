@@ -264,10 +264,10 @@
       return { ok: false, msg: '전화번호 입력을 확인하세요.' };
     }
     // 휴대폰 번호 인증 완료 여부 확인 (★기능 OFF시 주석처리★)
-    if (!isPhoneVerified) {
-      f.phone.classList.add('is-invalid');
-      return { ok: false, msg: '휴대폰 인증을 완료해주세요.' };
-    }
+    // if (!isPhoneVerified) {
+    //   f.phone.classList.add('is-invalid');
+    //   return { ok: false, msg: '휴대폰 인증을 완료해주세요.' };
+    // }
 
     if (!v.inco) { f.inco.classList.add('is-invalid'); return { ok: false, msg: '소득 범주를 선택하세요.' }; }
     if (v.inco === 'disallow') {
