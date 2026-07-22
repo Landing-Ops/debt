@@ -329,7 +329,7 @@
 /* =====================================================================
      전송 (웹앱2 submit — JSONP 방식, uid 발급받아 땡큐페이지로 이동)
   ======================================================================== */
-  function buildSubmitParams() {
+  function buildSubmitParams(requestId) {
     var params = {
       action: 'submit',
       name: (f.name.value || '').trim(),
@@ -342,7 +342,8 @@
       calltime: (f.calltime.value || '').trim(),
       message: (f.message.value || '').trim(),
       phoneCheck: isPhoneVerified ? '번호인증 완료' : '번호인증 미완료',
-      source: SOURCE
+      source: SOURCE,
+      requestId: requestId   // ★ 이번 제출(1차+재시도) 전체가 공유하는 고유 ID — 서버가 재시도 감지용으로 사용
     };
     return new URLSearchParams(params);
   }
@@ -363,8 +364,11 @@
     submitBtn.style.cursor = 'pointer';
   }
 
-  function submitViaJsonp() {
-    var callbackName = 'leadSubmitCb_' + Date.now();
+  var SUBMIT_TIMEOUT_MS   = 10000;   // ★ 시도당 타임아웃 (8초 → 10초)
+  var SUBMIT_MAX_ATTEMPTS = 2;        // 최초 시도 1 + 재시도 1
+
+  function attemptSubmit(attemptNo, requestId) {
+    var callbackName = 'leadSubmitCb_' + Date.now() + '_' + attemptNo;
     var script = document.createElement('script');
     var settled = false;
 
@@ -377,10 +381,15 @@
       if (settled) return;
       settled = true;
       cleanup();
-      hideLoadingOverlay();   // ★ 응답 없이 타임아웃 → 오버레이 제거 후 안내
-      alert('네트워크 지연으로 접수가 지연되고 있습니다. 잠시 후 다시 시도해주세요.');
-      resetSubmitButton();
-    }, 8000);
+
+      if (attemptNo < SUBMIT_MAX_ATTEMPTS) {
+        attemptSubmit(attemptNo + 1, requestId);   // ★ 같은 requestId로 재시도 → 서버가 중복 아닌 재시도로 인식
+      } else {
+        hideLoadingOverlay();
+        alert('네트워크 지연으로 접수가 지연되고 있습니다. 잠시 후 다시 시도해주세요.');
+        resetSubmitButton();
+      }
+    }, SUBMIT_TIMEOUT_MS);
 
     window[callbackName] = function (data) {
       if (settled) return;
@@ -402,7 +411,7 @@
       }
     };
 
-    var params = buildSubmitParams();
+    var params = buildSubmitParams(requestId);
     params.append('callback', callbackName);
 
     script.src = WEBAPP2_URL + '?' + params.toString();
@@ -411,9 +420,14 @@
       settled = true;
       clearTimeout(timeoutId);
       cleanup();
-      hideLoadingOverlay();   // ★ 네트워크 오류 → 오버레이 제거 후 안내
-      alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
-      resetSubmitButton();
+
+      if (attemptNo < SUBMIT_MAX_ATTEMPTS) {
+        attemptSubmit(attemptNo + 1, requestId);   // ★ 재시도
+      } else {
+        hideLoadingOverlay();
+        alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
+        resetSubmitButton();
+      }
     };
     document.body.appendChild(script);
   }
@@ -428,7 +442,8 @@
     submitBtn.style.background = 'var(--color-cta-disabled)';
     submitBtn.style.cursor = 'default';
 
-    showLoadingOverlay();   // ★ 클릭 즉시 오버레이 표시 (서버 응답 기다리는 동안 먹통처럼 안 보이게)
-    submitViaJsonp();
+    showLoadingOverlay();   // ★ 클릭 즉시 오버레이 표시 (재시도가 일어나도 계속 유지됨)
+    var requestId = 'req_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    attemptSubmit(1, requestId);
   });
 })();
