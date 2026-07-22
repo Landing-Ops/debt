@@ -1296,7 +1296,7 @@ body.rv-lightbox-locked {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 /* 원본 1세트 폭(+gap)만큼 이동하면 복제본이 정확히 이어져 무한 루프 */
