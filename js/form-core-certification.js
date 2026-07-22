@@ -19,6 +19,7 @@
     cause: 'entry.1097158195',
     calltime: 'entry.1437671360',
     message: 'entry.1633505487',
+    phoneCheck: 'entry.1444531095',
     source:   'entry.1195646871'
   };
   var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
@@ -332,7 +333,8 @@
     ['name', 'phone', 'inco', 'deb', 'comparison', 'impossibility', 'cause', 'calltime', 'message'].forEach(function (k) {
       data.append(ENTRY[k], (f[k].value || '').trim());
     });
-    data.append(ENTRY.source, SOURCE);
+    data.append(ENTRY.source, SOURCE);  // 유입매체 전송
+    data.append(ENTRY.phoneCheck, isPhoneVerified ? '번호인증 완료' : '번호인증 미완료');   // ★ 010번호인증 완료 값 전송
     return data.toString();
   }
 

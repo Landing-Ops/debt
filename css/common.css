@@ -1335,7 +1335,7 @@ body.rv-lightbox-locked {
 .cta__badge {
   background: rgba(255, 255, 255, .16);
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   border-radius: var(--radius-pill);
 }
