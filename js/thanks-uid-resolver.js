@@ -13,7 +13,7 @@
   'use strict';
 
   var LOOKUP_URL   = 'https://script.google.com/macros/s/AKfycbyffJczzp9k5rod1cW9sjA2cVC-XU-bgDerEF_7-UEekcnOzXwjEm7z-uPfEtjBJNPx/exec';
-  var TIMEOUT_MS   = 2000;
+  var TIMEOUT_MS   = 3000;
   var MAX_ATTEMPTS = 2;   // 최초 시도 1 + 재시도 1
 
   var overlay       = document.getElementById('uid-loading-overlay');
