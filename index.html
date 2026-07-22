@@ -29,6 +29,13 @@
 
 <body data-industry="legal" data-source="인덱스">
 
+  <!-- ============ 폼 제출 중 로딩 오버레이 (즉시 표시, 응답 오면 사라짐) ============ -->
+  <div id="submit-loading-overlay" style="position:fixed;inset:0;background:rgba(255,255,255,.92);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;">
+    <div style="width:36px;height:36px;border:3px solid #e6ecf5;border-top-color:var(--primary-bright,#0b5bd3);border-radius:50%;animation:submit-spin .8s linear infinite;"></div>
+    <p style="font-size:15px;font-weight:600;color:#333;margin:0;">잠시만 기다려 주세요</p>
+  </div>
+  <style>@keyframes submit-spin{to{transform:rotate(360deg)}}</style>
+
   <!-- ============ 헤더 / 네비 ============ -->
   <header class="site-nav" role="navigation" aria-label="주요 메뉴">
     <div class="nav__inner">

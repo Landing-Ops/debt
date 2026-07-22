@@ -347,6 +347,15 @@
     return new URLSearchParams(params);
   }
 
+  /* ---------- 폼 제출 로딩 오버레이 (index.html의 #submit-loading-overlay 제어) ---------- */
+  var submitLoadingOverlay = document.getElementById('submit-loading-overlay');
+  function showLoadingOverlay() {
+    if (submitLoadingOverlay) submitLoadingOverlay.style.display = 'flex';
+  }
+  function hideLoadingOverlay() {
+    if (submitLoadingOverlay) submitLoadingOverlay.style.display = 'none';
+  }
+
   function resetSubmitButton() {
     submitBtn.disabled = false;
     submitBtn.textContent = '무료상담 신청하기';
@@ -368,6 +377,7 @@
       if (settled) return;
       settled = true;
       cleanup();
+      hideLoadingOverlay();   // ★ 응답 없이 타임아웃 → 오버레이 제거 후 안내
       alert('네트워크 지연으로 접수가 지연되고 있습니다. 잠시 후 다시 시도해주세요.');
       resetSubmitButton();
     }, 8000);
@@ -377,6 +387,7 @@
       settled = true;
       clearTimeout(timeoutId);
       cleanup();
+      hideLoadingOverlay();   // ★ 서버 응답 도착 → 결과 안내 직전에 오버레이 제거
 
       if (data && data.ok) {
         alert('신청이 완료되었습니다.');
@@ -400,6 +411,7 @@
       settled = true;
       clearTimeout(timeoutId);
       cleanup();
+      hideLoadingOverlay();   // ★ 네트워크 오류 → 오버레이 제거 후 안내
       alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
       resetSubmitButton();
     };
@@ -416,6 +428,7 @@
     submitBtn.style.background = 'var(--color-cta-disabled)';
     submitBtn.style.cursor = 'default';
 
+    showLoadingOverlay();   // ★ 클릭 즉시 오버레이 표시 (서버 응답 기다리는 동안 먹통처럼 안 보이게)
     submitViaJsonp();
   });
 })();
