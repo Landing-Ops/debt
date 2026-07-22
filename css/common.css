@@ -1309,3 +1309,57 @@ body.rv-lightbox-locked {
 @media (prefers-reduced-motion: reduce) {
   .vd__track { animation: none; }
 }
+
+/* =====================================================================
+   섹션 5 · 최종 CTA (전화 안내) — cta
+   레이아웃 수치는 HTML Tailwind에서, 여기선 겉모습만.
+===================================================================== */
+.section.cta { padding: clamp(28px, 4vw, 44px) 0; }
+
+.cta__box {
+  background: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary-strong) 100%);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.cta__icon {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .14);
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.cta__icon svg { width: 44px; height: 44px; }
+
+.cta__badge {
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+}
+
+.cta__title {
+  font-size: clamp(30px, 2.6vw, 38px);
+  font-weight: 900;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.cta__desc {
+  font-size: clamp(24px, 1.6vw, 20px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, .85);
+}
+.cta__em { color: #ffe600; font-weight: 900; }
+
+.cta__assure {
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: var(--radius-lg);
+  color: #fff;
+  font-size: clamp(18px, 1.4vw, 24px);
+  font-weight: 500;
+}
+.cta__assure-ic { width: 18px; height: 18px; color: var(--primary-after); flex: 0 0 auto; }
