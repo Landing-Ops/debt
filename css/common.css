@@ -1296,7 +1296,7 @@ body.rv-lightbox-locked {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
-  /* pointer-events: none; */
+  /* pointer-events: none;   - 카카오 WebView에서 배경 이미지 리소스 로딩을 막는 부작용이 있음  */  
 }
 
 /* 원본 1세트 폭(+gap)만큼 이동하면 복제본이 정확히 이어져 무한 루프 */

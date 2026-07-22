@@ -36,20 +36,6 @@
 
   window.addEventListener('load', schedule);
   window.addEventListener('resize', schedule);
-  // 개별 이미지 로드마다도 갱신 (캐시 상황 대비)
-  Array.prototype.forEach.call(track.querySelectorAll('img'), function (img) {
-    if (!img.complete) img.addEventListener('load', schedule, { once: true });
-  });
 
   schedule(); // 즉시 1회 (캐시된 경우 대비)
-
-  // 3) 이미지 다운로드/저장 방지
-  //    - 우클릭(컨텍스트 메뉴) 차단: PC 우클릭 저장 방지
-  //    - dragstart 차단: 이미지를 끌어서 바탕화면/다른 창에 빼가는 것 방지
-  //    - CSS의 -webkit-touch-callout: none 과 함께 iOS 롱프레스 저장 메뉴도 차단
-  var allImgs = track.querySelectorAll('img');
-  Array.prototype.forEach.call(allImgs, function (img) {
-    img.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-    img.addEventListener('dragstart', function (e) { e.preventDefault(); });
-  });
 })();
