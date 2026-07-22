@@ -1,90 +1,87 @@
 /* =====================================================================
-   countdown.js  —  제한시간 띠배너 카운트다운 + 종료 팝업
-   - 15분(기본) 카운트다운, 스크롤 따라다니는 하단 고정 배너
-   - 시간 만료 시: 배너 숨김 + 종료 팝업 노출 + 배경 스크롤 잠금
-   - 새로고침해도 이어지도록 최초 진입 시각을 sessionStorage에 저장
-     (※ 나중에 서버 연동 시, 이 시작시각을 서버 응답값으로 대체하면 됨)
+   thanks-countdown.js — 제한시간 띠배너 카운트다운 (서버값 기반)
+   - thanks-uid-resolver.js 가 uid 조회(JSONP, 비동기)를 끝내면
+     'thanks:uid-resolved' 이벤트를 쏘고, window.__THANKS_REMAIN_MS__ 를 채워둠
+   - 이 스크립트는 그 이벤트를 기다렸다가 카운트다운을 시작함
+     (resolver는 네트워크 왕복이 필요한 비동기 작업이라, <script> 로드 순서만으론
+      값이 준비됐음을 보장 못 함 — 그래서 이벤트로 명시적으로 동기화)
+   - sessionStorage 방식은 더 이상 쓰지 않음 (최초열람시각은 서버가 기준)
+   - 20분 만료 시: 팝업이 아니라 uid 없는 결과 페이지로 리다이렉트
+     (result.html이 uid 없으면 자동으로 만료 안내 화면을 보여줌)
 ===================================================================== */
 (function () {
   'use strict';
 
-  var bar     = document.querySelector('[data-countdown-bar]');
-  var timeEl  = document.querySelector('[data-countdown-time]');
-  var modal   = document.querySelector('[data-countdown-modal]');
+  var bar    = document.querySelector('[data-countdown-bar]');
+  var timeEl = document.querySelector('[data-countdown-time]');
   if (!bar || !timeEl) return;   // 배너 없으면 아무것도 안 함 (다른 페이지 안전)
 
-  /* ---------- 설정 ---------- */
-  var LIMIT_MIN = 60;                 // ★ 제한시간(분) — 여기만 바꾸면 됨
+  var LIMIT_MIN = 20;                 // ★ 열람 제한시간(분) — 서버(EXPIRE_MIN)와 반드시 동일하게 유지
   var LIMIT_MS  = LIMIT_MIN * 60 * 1000;
-  var STORE_KEY = 'ttl_start_at';     // 시작 시각 저장 키
 
-  /* ---------- 시작 시각 결정 (새로고침 시 이어지게) ---------- */
-  var startAt;
-  try {
-    var saved = sessionStorage.getItem(STORE_KEY);
-    if (saved) {
-      startAt = parseInt(saved, 10);
-    } else {
-      startAt = Date.now();
-      sessionStorage.setItem(STORE_KEY, String(startAt));
-    }
-  } catch (e) {
-    // sessionStorage 막힌 환경(일부 인앱브라우저) → 이번 세션 기준으로만
-    startAt = Date.now();
-  }
-
-  document.body.classList.add('has-ttl-bar');
-
-  /* ---------- 남은 시간 표시 ---------- */
-  function format(ms) {
-    if (ms < 0) ms = 0;
-    var totalSec = Math.floor(ms / 1000);
-    var m = Math.floor(totalSec / 60);
-    var s = totalSec % 60;
-    return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-  }
-
-  var timer = null;
-
-  function tick() {
-    var elapsed = Date.now() - startAt;
-    var remain = LIMIT_MS - elapsed;
-
-    if (remain <= 0) {
-      timeEl.textContent = '00:00';
-      stop();
-      expire();
+  function boot() {
+    // uid-resolver가 이미 만료/미존재로 판정한 경우 → 카운트다운 자체를 시작하지 않음
+    if (window.__THANKS_EXPIRED__) {
+      bar.classList.add('is-hidden');
       return;
     }
-    timeEl.textContent = format(remain);
-  }
 
-  function start() {
-    tick();                       // 즉시 1회
-    timer = setInterval(tick, 1000);
-  }
-  function stop() {
-    if (timer) clearInterval(timer);
-    timer = null;
-  }
+    var remainMs = (typeof window.__THANKS_REMAIN_MS__ === 'number')
+      ? window.__THANKS_REMAIN_MS__
+      : LIMIT_MS;   // uid-resolver가 값을 못 준 경우(타임아웃 등) 20분으로 폴백
 
-  /* ---------- 만료 처리 ---------- */
-  function expire() {
-    // 배너 숨김
-    bar.classList.add('is-hidden');
-    document.body.classList.remove('has-ttl-bar');
+    // "남은시간"을 "시작시각 기준 경과시간 계산" 방식으로 다루기 위해 가상의 시작시각을 역산
+    var startAt = Date.now() - (LIMIT_MS - remainMs);
 
-    // 종료 팝업 노출
-    if (modal) {
-      modal.hidden = false;
-      document.body.classList.add('ttl-locked');
+    document.body.classList.add('has-ttl-bar');
+
+    function format(ms) {
+      if (ms < 0) ms = 0;
+      var totalSec = Math.floor(ms / 1000);
+      var m = Math.floor(totalSec / 60);
+      var s = totalSec % 60;
+      return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
     }
 
-    // ★ 나중에 서버 연동 지점 ★
-    // 여기서 Apps Script로 "이 UID 만료됨" 기록을 보내거나,
-    // 페이지 콘텐츠를 가리는 처리를 추가하면 됨.
-    // 예: navigator.sendBeacon(EXPIRE_URL, ...);
+    var timer = null;
+
+    function tick() {
+      var elapsed = Date.now() - startAt;
+      var remain = LIMIT_MS - elapsed;
+
+      if (remain <= 0) {
+        timeEl.textContent = '00:00';
+        stop();
+        expire();
+        return;
+      }
+      timeEl.textContent = format(remain);
+    }
+
+    function start() {
+      tick();                       // 즉시 1회
+      timer = setInterval(tick, 1000);
+    }
+    function stop() {
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    /* 만료 처리: uid 없는 결과 페이지로 리다이렉트 */
+    function expire() {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('uid');
+      window.location.href = url.toString();
+    }
+
+    start();
   }
 
-  start();
+  // resolver가 이미 처리를 끝내고 이벤트를 쐈을 수도 있으므로(레이스 방지),
+  // 플래그가 이미 서 있으면 이벤트를 기다리지 않고 바로 시작
+  if (window.__THANKS_UID_RESOLVED__) {
+    boot();
+  } else {
+    document.addEventListener('thanks:uid-resolved', boot, { once: true });
+  }
 })();

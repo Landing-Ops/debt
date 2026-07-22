@@ -28,7 +28,13 @@
 
 <body data-industry="legal" data-source="인덱스">
 
-  <main id="page">
+  <!-- ============ uid 조회 중 로딩 오버레이 (흰 화면으로 가림) ============ -->
+  <div id="uid-loading-overlay" style="position:fixed;inset:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;">
+    <div style="width:36px;height:36px;border:3px solid #e6ecf5;border-top-color:var(--primary-bright,#0b5bd3);border-radius:50%;animation:uid-spin .8s linear infinite;"></div>
+  </div>
+  <style>@keyframes uid-spin{to{transform:rotate(360deg)}}</style>
+
+  <main id="page" data-content-full>
 
 
 <!-- ============ 섹션 1 · Hero ============ -->
@@ -41,7 +47,7 @@
               <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h2 class="thanks-hero-box__title">홍길동님!</h2>
+          <h2 class="thanks-hero-box__title"><span data-name-slot>고객명</span>님!</h2>
           <h2 class="thanks-hero-box__title">상담에 들어가기 전에</h2>
           <p class="thanks-hero-box__desc--highlight m-2"><strong style="color:#ffe600">잠깐, 1분만 시간을 내어</strong></p>
           <p class="thanks-hero-box__desc">끝이 안보이는 채무의 늪에서 <br class="hidden min-[981px]:block">빚 독촉없는 평온한 일상으로 돌아간 <br class="hidden min-[981px]:block">8명의 진솔한 이야기를 잠깐 살펴보세요.</p>
@@ -68,7 +74,7 @@
               제한시간 15분 동안만 공개</strong>되며 이후 본 페이지는 자동 종료됩니다.<br><br>
               
               아래 후기를 읽어보시면 구체적인 개인회생·파산 진행 과정의 핵심을 알 수 있습니다.<br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
-              이분들도 채무의 늪에서 벗어났듯이 <span class="highlight-bg">{홍길동}님 또한 현재 겪고 계신 어려움에서 충분히 벗어나실수 있습니다.</span></span>
+              이분들도 채무의 늪에서 벗어났듯이 <span class="highlight-bg"><span data-name-slot>고객명</span>님 또한 현재 겪고 계신 어려움에서 충분히 벗어나실수 있습니다.</span></span>
           </div>
         </div>
       </div>
@@ -400,7 +406,7 @@
         채무 탕감을 위한 첫걸음
       </span>
       <h2 class="adv__title mt-3">
-        {홍길동}님의 일상 회복을 위해<br class="hidden min-[981px]:block">
+        <span data-name-slot>고객명</span>님의 일상 회복을 위해<br class="hidden min-[981px]:block">
         <strong style="color:#ffe600">개인회생·파산  20,000건 이상 노하우</strong>를 축적한<br class="hidden min-[981px]:block">
         ABC 법률사무소가 함께합니다.
       </h2>
@@ -456,7 +462,7 @@
  
     <!-- 박스 3 · 서비스 메리트 (PC 3열 / MO 2열) -->
     <div class="adv__box adv__merits p-5 min-[981px]:p-8">
-      <h3 class="adv__merits-title text-center"><strong style="color: var(--primary)">{홍길동}님께 제공되는</strong><br>ABC법률사무소의 <br class="block min-[981px]:hidden">6가지 지원사항입니다.</h3>
+      <h3 class="adv__merits-title text-center"><strong style="color: var(--primary)"><span data-name-slot>고객명</span>님께 제공되는</strong><br>ABC법률사무소의 <br class="block min-[981px]:hidden">6가지 지원사항입니다.</h3>
 
       <ul class="grid grid-cols-2 min-[981px]:grid-cols-3 gap-3 min-[981px]:gap-4 mt-5">
  
@@ -529,7 +535,7 @@
       <span class="cta__badge inline-flex items-center px-3.5 py-1.5 mb-4">이제, 빚 걱정 없는 새로운 삶이 시작됩니다.</span>
 
       <h2 class="cta__title">
-        {홍길동}님<br>
+        <span data-name-slot>고객명</span>님!<br>
         <strong class="cta__em">ABC 법률사무소에서</strong><br>
         곧 연락드릴 예정입니다
       </h2>
@@ -549,6 +555,18 @@
     </div>
   </div>
 </section>
+
+  </main>
+
+  <!-- ============ 만료 시 대체 화면 (uid 없음 / 20분 경과) — 기본은 숨김 ============ -->
+  <main id="page-expired" data-content-expired hidden>
+    <section class="hero hero--mini" id="hero-expired">
+      <div class="mx-auto w-[min(1200px,92vw)] flex flex-col items-center justify-center gap-4 py-20 text-center">
+        <h1 class="text-2xl min-[981px]:text-3xl font-bold">신청이 완료되었습니다</h1>
+        <p class="text-base min-[981px]:text-lg opacity-80">빠른 시일 내에 담당자가 연락드리겠습니다.</p>
+      </div>
+    </section>
+  </main>
 
 
 
@@ -583,7 +601,6 @@
   </footer>
 
 <!-- ============ 제한시간 띠배너 (스크롤 고정) ============ -->
-<!-- </footer> 다음, </body> 앞에 삽입 -->
 <div class="ttl-bar" data-countdown-bar aria-live="polite">
   <div class="ttl-bar__inner">
     <span class="ttl-bar__label">
@@ -621,6 +638,7 @@
 </div>
 
   <!-- ============ JS ============ -->
+  <script src="./js/thanks-uid-resolver.js"></script>
   <script src="./js/thanks-countdown.js"></script>
   <script src="./js/thanks-review-cards.js"></script>
   <script src="./js/thanks-verdicts.js"></script>

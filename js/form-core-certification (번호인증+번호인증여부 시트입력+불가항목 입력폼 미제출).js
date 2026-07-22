@@ -23,7 +23,6 @@
     source:   'entry.1195646871'
   };
   var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
-  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycby6d8-nomWOi8mRMTJpt8C54C4Owh8IjAlhGZ_u1eKO3-XEhGLHGKDufVSaNjko7aWc/exec';   // ★ 웹앱2 (submit/lookup)
   var THANKYOU_URL    = 'https://landing-ops.github.io/debt/result';
   var SOURCE = (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '인덱스');
 
@@ -326,84 +325,24 @@
   });
   updateButton(); // 초기 1회
 
-/* =====================================================================
-     전송 (웹앱2 submit — JSONP 방식, uid 발급받아 땡큐페이지로 이동)
-  ======================================================================== */
-  function buildSubmitParams() {
-    var params = {
-      action: 'submit',
-      name: (f.name.value || '').trim(),
-      phone: (f.phone.value || '').trim(),
-      inco: (f.inco.value || '').trim(),
-      deb: (f.deb.value || '').trim(),
-      comparison: (f.comparison.value || '').trim(),
-      impossibility: (f.impossibility.value || '').trim(),
-      cause: (f.cause.value || '').trim(),
-      calltime: (f.calltime.value || '').trim(),
-      message: (f.message.value || '').trim(),
-      phoneCheck: isPhoneVerified ? '번호인증 완료' : '번호인증 미완료',
-      source: SOURCE
-    };
-    return new URLSearchParams(params);
+  /* =====================================================================
+     전송 (구글폼에 보낼 항목)
+  ===================================================================== */
+  function buildBody() {
+    var data = new URLSearchParams();
+    ['name', 'phone', 'inco', 'deb', 'comparison', 'impossibility', 'cause', 'calltime', 'message'].forEach(function (k) {
+      data.append(ENTRY[k], (f[k].value || '').trim());
+    });
+    data.append(ENTRY.source, SOURCE);  // 유입매체 전송
+    data.append(ENTRY.phoneCheck, isPhoneVerified ? '번호인증 완료' : '번호인증 미완료');   // ★ 010번호인증 완료 값 전송
+    return data.toString();
   }
 
-  function resetSubmitButton() {
-    submitBtn.disabled = false;
-    submitBtn.textContent = '무료상담 신청하기';
-    submitBtn.style.background = 'var(--color-cta-main-strong)';
-    submitBtn.style.cursor = 'pointer';
-  }
-
-  function submitViaJsonp() {
-    var callbackName = 'leadSubmitCb_' + Date.now();
-    var script = document.createElement('script');
-    var settled = false;
-
-    function cleanup() {
-      if (script.parentNode) script.parentNode.removeChild(script);
-      delete window[callbackName];
-    }
-
-    var timeoutId = setTimeout(function () {
-      if (settled) return;
-      settled = true;
-      cleanup();
-      alert('네트워크 지연으로 접수가 지연되고 있습니다. 잠시 후 다시 시도해주세요.');
-      resetSubmitButton();
-    }, 8000);
-
-    window[callbackName] = function (data) {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeoutId);
-      cleanup();
-
-      if (data && data.ok) {
-        alert('신청이 완료되었습니다.');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        window.location.href = THANKYOU_URL + '?uid=' + data.uid;
-      } else if (data && data.reason === 'duplicate') {
-        alert('이미 접수된 번호입니다. 신청이 불가합니다.');
-        resetSubmitButton();
-      } else {
-        alert('접수 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
-        resetSubmitButton();
-      }
-    };
-
-    var params = buildSubmitParams();
-    params.append('callback', callbackName);
-
-    script.src = WEBAPP2_URL + '?' + params.toString();
-    script.onerror = function () {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeoutId);
-      cleanup();
-      alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
-      resetSubmitButton();
-    };
-    document.body.appendChild(script);
+  function thankyou() {
+    alert('신청이 완료되었습니다.');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    var tx = Math.random().toString(36).substr(2) + Date.now().toString(36);
+    window.location.href = THANKYOU_URL + '?tx=' + tx;
   }
 
   form.addEventListener('submit', function (e) {
@@ -416,6 +355,13 @@
     submitBtn.style.background = 'var(--color-cta-disabled)';
     submitBtn.style.cursor = 'default';
 
-    submitViaJsonp();
+    fetch(GOOGLE_FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: buildBody()
+    }).catch(function () { /* no-cors: 응답 못 읽음, 정상 */ });
+
+    setTimeout(thankyou, 700);
   });
 })();
