@@ -12,8 +12,8 @@
 (function () {
   'use strict';
 
-  var LOOKUP_URL   = 'https://script.google.com/macros/s/AKfycby6d8-nomWOi8mRMTJpt8C54C4Owh8IjAlhGZ_u1eKO3-XEhGLHGKDufVSaNjko7aWc/exec';
-  var TIMEOUT_MS   = 3000;
+  var LOOKUP_URL   = 'https://script.google.com/macros/s/AKfycbwtjoxJnrdKiQhF00uTQ-hS2IJdldryzmiBTOXgn9YKZKwpRRO5rgA8VvhKtGiADHn_/exec';
+  var TIMEOUT_MS   = 2000;
   var MAX_ATTEMPTS = 2;   // 최초 시도 1 + 재시도 1
 
   var overlay       = document.getElementById('uid-loading-overlay');
