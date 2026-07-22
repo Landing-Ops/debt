@@ -1348,7 +1348,7 @@ body.rv-lightbox-locked {
 }
 
 .cta__desc {
-  font-size: clamp(24px, 1.6vw, 20px);
+  font-size: clamp(20px, 1.6vw, 24px);
   line-height: 1.6;
   color: rgba(255, 255, 255, .85);
 }
@@ -1359,7 +1359,7 @@ body.rv-lightbox-locked {
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: var(--radius-lg);
   color: #fff;
-  font-size: clamp(18px, 1.4vw, 24px);
+  font-size: clamp(14px, 1.4vw, 24px);
   font-weight: 500;
 }
 .cta__assure-ic { width: 18px; height: 18px; color: var(--primary-after); flex: 0 0 auto; }
