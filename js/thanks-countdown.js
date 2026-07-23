@@ -16,7 +16,7 @@
   var timeEl = document.querySelector('[data-countdown-time]');
   if (!bar || !timeEl) return;   // 배너 없으면 아무것도 안 함 (다른 페이지 안전)
 
-  var LIMIT_MIN = 20;                 // ★ 열람 제한시간(분) — 서버(EXPIRE_MIN)와 반드시 동일하게 유지
+  var LIMIT_MIN = 15;                 // ★ 열람 제한시간(분) — 서버(EXPIRE_MIN)와 반드시 동일하게 유지
   var LIMIT_MS  = LIMIT_MIN * 60 * 1000;
 
   function boot() {

@@ -88,20 +88,21 @@
             생생한 리얼스토리
           </span>
           <h1 class="title mt-3.5 mb-2.5 !text-4xl">
-              딱 15분만 공개!
+              딱 15분만 공개합니다.
             </h1>
           <div class="thanks-lead mt-8 mb-4.5">
             <span class="thanks-box__desc">
-               채무탕감 길라잡이와 협약한 <strong class="highlight-strong-text">ABC 사무소</strong>에서
+               채무탕감 길라잡이와 협약한 <strong class="highlight-strong-text">ABC 사무소</strong>에
               개인회생·파산 사건을 의뢰한 <strong class="highlight-strong-text">고객분들이 직접 써주신 실제 후기</strong>를 날것 그대로 공개합니다.<br><br>
 
               어려움을 겪고 계신 분들 외에는
               <strong style="color:red">비공개 약속을 받았기에,
               제한시간 15분 동안만 공개</strong>되며 이후 본 페이지는 자동 종료됩니다.<br><br>
               
-              아래 후기를 읽어보시면 구체적인 개인회생·파산 진행 과정의 핵심을 알 수 있습니다.<br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
-              이분들도 채무의 늪에서 벗어났듯이 <span class="highlight-bg"><span data-name-slot>고객명</span>님 또한 현재 겪고 계신 어려움에서 충분히 벗어나실수 있습니다.</span></span>
-          </div>
+              아래 후기를 읽어보시면 개인회생·파산 진행 과정의 핵심을 알 수 있으며,<br class="block min-[981px]:hidden"><br class="block min-[981px]:hidden">
+              <span class="highlight-strong-text"><span data-name-slot>고객명</span>님</span> 또한 같은 고민을 안고 있던 이분들의 이야기 속에서 <span class="highlight-strong-text">"나도 새출발 할 수 있겠다"</span>는 확신을 얻으실 수 있을 겁니다.
+            </span>
+            </div>
         </div>
       </div>
 </section>
@@ -584,17 +585,32 @@
 
   </main>
 
-  <!-- ============ 만료 시 대체 화면 (uid 없음 / 20분 경과) — 기본은 숨김 ============ -->
+  <!-- ============ 만료 시 대체 화면 (uid 없음 / 15분 경과) — 기본은 숨김 ============ -->
   <main id="page-expired" data-content-expired hidden>
+
     <section class="hero hero--mini" id="hero-expired">
-      <div class="mx-auto w-[min(1200px,92vw)] flex flex-col items-center justify-center gap-4 py-20 text-center">
-        <h1 class="text-2xl min-[981px]:text-3xl font-bold">신청이 완료되었습니다</h1>
-        <p class="text-base min-[981px]:text-lg opacity-80">빠른 시일 내에 담당자가 연락드리겠습니다.</p>
+      <div class="mx-auto w-[min(1200px,92vw)] grid items-center grid-cols-1 min-[981px]:grid-cols-[1.15fr_1fr] gap-[18px] min-[981px]:gap-8 pt-7 pb-14">
+        <!-- 좌: 비주얼 -->
+        <figure class="hero-visual" style="width:100%; max-width:500px; aspect-ratio:1/1; margin-inline:auto;" aria-label="개인회생 안내 비주얼">
+          <img src="./img/hero002.png" alt="개인회생 히어로" />
+        </figure>
+        <!-- 우: 카피 -->
+        <div class="px-1 py-2">
+          <span class="kicker inline-flex items-center gap-2.5 px-3 py-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2v20M2 12h20M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+           개인회생·파산 채무 탕감제도
+          </span>
+          <h1 class="text-4xl min-[981px]:text-5xl font-bold mt-3.5 mb-2.5"><strong class="highlight-text">신청이 완료되었습니다.</strong></h1>
+
+          <div class="lead mt-8 mb-4.5">
+            <span class="text-2xl min-[981px]:text-3xl">3회 이상 부재시 상담 진행이 어려울수 있으니, 전화를 꼭 받아주세요.</span>
+          </div>
+        </div>
       </div>
     </section>
   </main>
-
-
 
   <!-- ============ 푸터 ============ -->
   <footer class="site-footer" aria-labelledby="footer-title">
