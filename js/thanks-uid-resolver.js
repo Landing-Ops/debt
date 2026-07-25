@@ -13,7 +13,7 @@
   'use strict';
 
   var LOOKUP_URL   = 'https://script.google.com/macros/s/AKfycbwdHETVwIbUkhckS7R6LfbF3boDq_HkcnEclKH_myF8T2bHcZk8NWlDYgA9PMt_JHkF/exec'; //웹앱2
-  var TIMEOUT_MS   = 3000;
+  var TIMEOUT_MS   = 10000;
   var MAX_ATTEMPTS = 2;   // 최초 시도 1 + 재시도 1
 
   var overlay       = document.getElementById('uid-loading-overlay');
@@ -117,6 +117,12 @@
     };
     document.body.appendChild(script);
   }
+
+  /* ---------- 이름 즉시 렌더 (lookup 응답 대기 없이) ---------- */
+  try {
+    var cachedName = sessionStorage.getItem('lead_name');
+    if (cachedName) replaceName(cachedName);
+  } catch (e) {}
 
   attemptLookup(1);
 })();

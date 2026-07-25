@@ -365,9 +365,27 @@
   });
   updateButton(); // 초기 1회
 
-/* =====================================================================
-     전송 (웹앱2 submit — JSONP 방식, uid 발급받아 땡큐페이지로 이동)
-  ======================================================================== */
+  /* =====================================================================
+     웜업 — 폼 첫 터치 시 웹앱2 인스턴스를 미리 깨움 (콜드스타트 완화)
+     · action=ping 은 서버에서 unknown_action 으로 즉시 리턴됨 (시트 미접근)
+     · 유저가 폼 채우는 동안 warm 상태가 유지돼 제출 체감이 줄어듦
+  ===================================================================== */
+  var warmed = false;
+  function warmUp() {
+    if (warmed) return;
+    warmed = true;
+    var cb = 'warmCb_' + Date.now();
+    window[cb] = function () { delete window[cb]; };
+    var s = document.createElement('script');
+    s.src = WEBAPP2_URL + '?action=ping&callback=' + cb;
+    s.onerror = function () { delete window[cb]; };
+    document.body.appendChild(s);
+  }
+  if (f.name) f.name.addEventListener('focus', warmUp, { once: true });
+
+  /* =====================================================================
+      전송 (웹앱2 submit — JSONP 방식, uid 발급받아 땡큐페이지로 이동)
+    ======================================================================== */
   function buildSubmitParams(requestId) {
     var params = {
       action: 'submit',
@@ -403,7 +421,7 @@
     submitBtn.style.cursor = 'pointer';
   }
 
-  var SUBMIT_TIMEOUT_MS   = 10000;   // ★ 시도당 타임아웃 (8초 → 10초)
+  var SUBMIT_TIMEOUT_MS   = 25000;   // ★ 시도당 타임아웃 (8초 → 10 -> 25초)
   var SUBMIT_MAX_ATTEMPTS = 2;        // 최초 시도 1 + 재시도 1
 
   function attemptSubmit(attemptNo, requestId) {
@@ -439,8 +457,10 @@
 
       if (data && data.ok) {
         alert('신청이 완료되었습니다.');
+        try { sessionStorage.setItem('lead_name', (f.name.value || '').trim()); } catch (e) {}
         window.scrollTo({ top: 0, behavior: 'smooth' });
         window.location.href = THANKYOU_URL + '?uid=' + data.uid;
+
       } else if (data && data.reason === 'duplicate') {
         alert('이미 접수된 번호입니다. 신청이 불가합니다.');
         resetSubmitButton();
@@ -495,7 +515,17 @@
       window.submitPartnerForm();
     }
 
-    var requestId = 'req_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+/* ★ requestId를 전화번호별로 세션에 보관 —
+       응답 유실로 수동 재시도할 때 같은 requestId를 재사용해야
+       서버가 "재시도"로 인식하고 기존 uid를 돌려줌 (중복 차단에 갇히지 않음) */
+    var phoneKey = ((f.phone1.value || '') + (f.phone2.value || '') + (f.phone3.value || '')).replace(/\D/g, '');
+    var storeKey = 'lead_req_' + phoneKey;
+    var requestId = null;
+    try { requestId = sessionStorage.getItem(storeKey); } catch (e) {}
+    if (!requestId) {
+      requestId = 'req_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      try { sessionStorage.setItem(storeKey, requestId); } catch (e) {}
+    }
     attemptSubmit(1, requestId);
   });
 })();
