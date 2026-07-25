@@ -10,7 +10,7 @@
 (function () {
   'use strict';
 
-  var TRACK_URL = 'https://script.google.com/macros/s/AKfycbz_KXl5AjOOGt3YjtHyUwvADtjrZ7mi7Vy61PADklGhVijoMBK9t6-P7GOBIrweWUYv/exec';
+  var TRACK_URL = 'https://script.google.com/macros/s/AKfycbx6OPAlxwb11YCP9b5SaQRUuuLA-gQgzpFF0g6r-Wt22wIBMFiYE4q5-uBc5Wpn1FX0/exec'; //웹앱3
   var SEND_INTERVAL_MS = 15000;  // 앱스서버로 15초마다 데이터값을 보내주는 주기
 
   /* ---------- uid 파싱 (resolver와 동일) ---------- */

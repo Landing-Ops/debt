@@ -10,25 +10,25 @@
 
   /* ---------- 구글폼 매핑 ---------- */
   var ENTRY = {
-    name:     'entry.498799052',
-    phone:    'entry.1784497319',
-    inco:     'entry.1214740303',
-    deb:      'entry.269586254',
-    comparison: 'entry.569624933',
-    impossibility: 'entry.843968427',
-    cause: 'entry.1097158195',
-    calltime: 'entry.1437671360',
-    message: 'entry.1633505487',
-    phoneCheck: 'entry.1444531095',
-    source:   'entry.1195646871'
+    name:     'entry.361593477',
+    phone:    'entry.153916989',
+    inco:     'entry.1022218715',
+    deb:      'entry.275184534',
+    comparison: 'entry.128646469',
+    impossibility: 'entry.223961785',
+    cause: 'entry.1013271769',
+    calltime: 'entry.1297879783',
+    message: 'entry.534304633',
+    phoneCheck: 'entry.826263640',
+    source:   'entry.2051749761'
   };
-  var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
-  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbw-wNmKM-oAsw_1_WucgE_Dky6CXfWnKqetgpAzh6QJj4Sb85RagetDz8WJVLzdKSX5/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
+  var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSevSgHUYWaTh3QJiLvprbc7-h_dbIrR9yeN5VaG88Fs5dNBkg/formResponse';
+  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbwdHETVwIbUkhckS7R6LfbF3boDq_HkcnEclKH_myF8T2bHcZk8NWlDYgA9PMt_JHkF/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
   var THANKYOU_URL    = 'https://hopeworkout.com/result';
   var SOURCE = (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '인덱스');
 
   /* ---------- 핸드폰 인증 OTP 설정 (구글앱스 웹앱 API)---------- */
-  var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbzxRMsIyCnbM1U8OS1fEkC44A6TNfzDZkNw3nxIxTA7jsc04pZwEfeIo9zynW8Slm8/exec';
+  var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbzt83Cb30pS1CPDJn2LR3_OO4dGP8h1ETWJ8yfDWFkfMYSubEqsP7148wzlpIDX_zVy/exec';
   var isPhoneVerified = false;  // 인증 완료 여부
 
   /* ---------- 필드 수집 (data-field) ---------- */
