@@ -1159,22 +1159,22 @@ body.rv-lightbox-locked {
 }
  
 /* =====================================================================
-   섹션 3 · 광고주(사무소) 소개  — adv
+   섹션 3 · 광고주(사무소) 소개  — office
    레이아웃 수치는 HTML의 Tailwind 유틸에서 제어. 여기선 겉모습(색·보더·라운드·그림자)만.
 ===================================================================== */
-.section.adv {
+.section.office {
   padding: clamp(28px, 4vw, 44px) 0;
 }
 
 /* A안 · 섹션 전체를 옅은 배경으로 감싸 하나의 그룹으로 묶음 */
-.adv__wrap {
+.office__wrap {
   background: var(--neutral-50);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-2xl);
 }
 
 /* 공통 박스 스킨 */
-.adv__box {
+.office__box {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-2xl);
@@ -1182,53 +1182,53 @@ body.rv-lightbox-locked {
 }
 
 /* ---------- 박스 1 · 헤더 ---------- */
-.adv__header { background: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary-strong) 100%); border-color: var(--primary-border); }
+.office__header { background: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary-strong) 100%); border-color: var(--primary-border); }
 
-.adv__title {
+.office__title {
   font-size: clamp(26px, 2.4vw, 38px);
   font-weight: 900;
   line-height: 1.35;
   color: white;
 }
-.adv__title-num { color: var(--primary-bright); font-weight: 900; }
+.office__title-num { color: var(--primary-bright); font-weight: 900; }
 
 /* ---------- 박스 2 · 바디 ---------- */
-.adv__media-main,
-.adv__media-sub {
+.office__media-main,
+.office__media-sub {
   background: var(--neutral-50);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
-.adv__media-main { aspect-ratio: 4 / 3; }
-.adv__media-sub  { aspect-ratio: 1 / 1; }
-.adv__media-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.office__media-main { aspect-ratio: 4 / 3; }
+.office__media-sub  { aspect-ratio: 1 / 1; }
+.office__media-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.adv__intro-person { display: flex; align-items: baseline; gap: 8px; margin-top: 2px; }
-.adv__intro-name { font-size: clamp(24px, 2.6vw, 36px); font-weight: 900; color: var(--neutral-900); }
-.adv__intro-role { font-size: clamp(18px, 1.4vw, 30px); font-weight: 500; color: var(--neutral-600); }
+.office__intro-person { display: flex; align-items: baseline; gap: 8px; margin-top: 2px; }
+.office__intro-name { font-size: clamp(24px, 2.6vw, 36px); font-weight: 900; color: var(--neutral-900); }
+.office__intro-role { font-size: clamp(18px, 1.4vw, 30px); font-weight: 500; color: var(--neutral-600); }
 
-.adv__intro-group { margin-top: 20px; }
-.adv__intro-label {
+.office__intro-group { margin-top: 20px; }
+.office__intro-label {
   display: inline-block;
   font-size: clamp(16px, 1.4vw, 18px); font-weight: 900; color: var(--primary-text);
   background: var(--primary-soft);
   border-radius: var(--radius-pill);
   padding: 3px 12px; margin-bottom: 10px;
 }
-.adv__intro-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-.adv__intro-list li {
+.office__intro-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.office__intro-list li {
   position: relative; padding-left: 20px;
   font-size: clamp(18px, 1.5vw, 22px); line-height: 1.5; color: var(--neutral-700);
 }
-.adv__intro-list li::before {
+.office__intro-list li::before {
   content: ""; position: absolute; left: 4px; top: .55em;
   width: 6px; height: 6px; border-radius: 50%; background: var(--primary-bright);
 }
 
 /* ---------- 박스 3 · 서비스 메리트 ---------- */
-.adv__merits-title { font-size: clamp(26px, 2vw, 38px); font-weight: 900; color: var(--neutral-900); }
-.adv__merit {
+.office__merits-title { font-size: clamp(26px, 2vw, 38px); font-weight: 900; color: var(--neutral-900); }
+.office__merit {
   list-style: none;
   background: var(--primary-bg);
   border: 1px solid var(--primary-border);
@@ -1237,15 +1237,15 @@ body.rv-lightbox-locked {
   text-align: center;
   transition: transform .15s ease, box-shadow .15s ease;
 }
-.adv__merit:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.adv__merit-ic {
+.office__merit:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.office__merit-ic {
   width: clamp(48px, 7vw, 64px);
   height: clamp(48px, 7vw, 64px);
   object-fit: contain;
   display: block;
   margin: 0 auto 12px;
 }
-.adv__merit-tt { font-size: clamp(16px, 1.6vw, 20px); font-weight: 700; color: var(--neutral-900); line-height: 1.3; }
+.office__merit-tt { font-size: clamp(16px, 1.6vw, 20px); font-weight: 700; color: var(--neutral-900); line-height: 1.3; }
 
 /* =====================================================================
    섹션 4 · 실제 면책·인가 결정문 — vd (무한 자동 마퀴)
