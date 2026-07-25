@@ -18,17 +18,20 @@
   var uid = (params.get('uid') || '').trim();
   if (!uid) return;   // uid 없으면 추적 안 함
 
-  /* ---------- resolver 동기화: 정상 판정된 유저만 추적 ---------- */
+/* ---------- resolver 동기화: 정상 판정된 유저만 추적 ---------- */
+  var started = false;
   function ready() {
+    if (started) return;
     if (window.__THANKS_EXPIRED__) return;   // 만료/미존재 → 추적 안 함
+    started = true;
     boot();
   }
-  // resolver가 이미 끝났으면 바로, 아니면 이벤트 대기 (레이스 방지 — countdown.js와 동일)
-  if (window.__THANKS_UID_RESOLVED__) {
-    ready();
-  } else {
-    document.addEventListener('thanks:uid-resolved', ready, { once: true });
-  }
+  document.addEventListener('thanks:uid-resolved', ready, { once: true });
+  if (window.__THANKS_UID_RESOLVED__) ready();      // 이미 지나간 경우
+  setTimeout(function () {                            // 안전 폴백
+    if (!started && !window.__THANKS_EXPIRED__) ready();
+  }, 2000);
+
 
   /* =====================================================================
      boot — 실제 추적 시작 (여기서부터 시간·스크롤 측정)
