@@ -28,7 +28,7 @@
   var SOURCE = (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '인덱스');
 
   /* ---------- 핸드폰 인증 OTP 설정 (구글앱스 웹앱 API)---------- */
-  var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbzt83Cb30pS1CPDJn2LR3_OO4dGP8h1ETWJ8yfDWFkfMYSubEqsP7148wzlpIDX_zVy/exec';
+  var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbwlGtyUmTd-NxnUMOj0ecmPh4Po1ATSa4i_mQtAoK8zp3lp-pJTh60BDPYf12F9p0Wm/exec';
   var isPhoneVerified = false;  // 인증 완료 여부
 
   /* ---------- 필드 수집 (data-field) ---------- */
