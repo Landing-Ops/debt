@@ -23,12 +23,12 @@
     source:   'entry.1195646871'
   };
   var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf2Od8eGVGDhTxzHl1bOHzVOgmY-vC1njarXFZBm4ZLSpssnQ/formResponse';
-  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbyEujaQvrD4XLlB5ogRX2XTFMvP1hIvjNa6eZYpArNZ8kFM4cDoPxj_xZ4r2gbv2kJa/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
-  var THANKYOU_URL    = 'https://landing-ops.github.io/debt/result';
+  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbw-wNmKM-oAsw_1_WucgE_Dky6CXfWnKqetgpAzh6QJj4Sb85RagetDz8WJVLzdKSX5/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
+  var THANKYOU_URL    = 'https://hopeworkout.com/result';
   var SOURCE = (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '인덱스');
 
   /* ---------- 핸드폰 인증 OTP 설정 (구글앱스 웹앱 API)---------- */
-  var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbz7Lsgc7QZ1bE4Zwzrk9SnOrYbSEp4kodgMgyWcr9-yjWSkhsn3uyUnH772c8DQ-Min/exec';
+  var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbzxRMsIyCnbM1U8OS1fEkC44A6TNfzDZkNw3nxIxTA7jsc04pZwEfeIo9zynW8Slm8/exec';
   var isPhoneVerified = false;  // 인증 완료 여부
 
   /* ---------- 필드 수집 (data-field) ---------- */
