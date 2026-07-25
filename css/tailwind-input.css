@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@source "../index.html";
+@source "../result.html";
+@source "../js/**/*.js";
+
+/* 기존 커스텀 CSS도 여기서 같이 불러와서 하나로 합침 */
+@import "./brand.css";
+@import "./common.css";
