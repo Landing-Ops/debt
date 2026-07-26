@@ -1234,7 +1234,7 @@ body.rv-lightbox-locked {
     /* 1겹: 하얀색(255, 255, 255) 반투명 오버레이, 0.85는 불투명도(85%)를 의미 */
     linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
     /* 2겹: 실제 배경 이미지 (경로를 수정해주세요) */
-    url('/img/background001.png') center/cover no-repeat;
+    url('../img/background001.png') center/cover no-repeat;
 }
 
 /* 3-1. 인용구 */
