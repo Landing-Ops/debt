@@ -80,10 +80,10 @@
   // item2(한줄문의) 한 칸에 우리 전용 항목들을 한 줄로 이어붙여 전달한다.
   function buildItem2() {
     var parts = [];
-    // if (val(f.inco))          parts.push('소득 ' + val(f.inco));
-    // if (val(f.deb))           parts.push('채무 ' + val(f.deb));
-    // if (val(f.comparison))    parts.push('재산대비 ' + val(f.comparison));
-    // if (val(f.impossibility)) parts.push('담보세금 ' + val(f.impossibility));
+    // if (val(f.inco))          parts.push('소득범위 ' + val(f.inco));
+    // if (val(f.deb))           parts.push('채무범위 ' + val(f.deb));
+    // if (val(f.comparison))    parts.push('재산대비 채무비중 ' + val(f.comparison));
+    // if (val(f.impossibility)) parts.push('담보·세금체납 여부 ' + val(f.impossibility));
     // if (val(f.cause))         parts.push('채무원인 ' + val(f.cause));
     // if (val(f.calltime))      parts.push('통화가능시간 ' + val(f.calltime));
     if (val(f.message))       parts.push('' + val(f.message));
