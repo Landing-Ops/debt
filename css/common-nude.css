@@ -509,7 +509,7 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 
 .thanks-hero-box__desc--highlight {
   color: #ffe600;
-  font-size: clamp(24px, 2vw, 38px);
+  font-size: clamp(28px, 2vw, 38px);
   font-weight: 800;
 }
 
