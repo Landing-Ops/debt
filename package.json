@@ -2,19 +2,17 @@
   "name": "db-landing-service",
   "version": "1.0.0",
   "private": true,
-  "type": "commonjs", 
-  "command": "전체 빌드 실행법(오른쪽만 치면됨) 암호화 한큐에 끝. 뒤졌다 → npm run build",
+  "type": "commonjs",
+  "command": "전체 빌드 실행법(오른쪽만 치면됨) 암호화 한큐에 끝 → npm run build  |  JS만 → npm run build:js  |  특정 파일만 → node obfuscate.js --only=키워드",
   "scripts": {
-    "build:css": "echo [CSS] common-nude.css → common.css && cleancss -O2 -o css/common.css css/common-nude.css && echo [CSS] brand-nude.css → brand.css && cleancss -O2 -o css/brand.css css/brand-nude.css && echo [CSS] typography-nude.css → typography.css && cleancss -O2 -o css/typography.css css/typography-nude.css && echo [CSS] premium-nude.css → premium.css && cleancss -O2 -o css/premium.css css/premium-nude.css",
-    "obfuscate:core": "node obfuscate-form.js",
+    "build:css": "cleancss -O2 -o css/common.css css/common-nude.css && cleancss -O2 -o css/brand.css css/brand-nude.css && cleancss -O2 -o css/typography.css css/typography-nude.css && cleancss -O2 -o css/premium.css css/premium-nude.css",
+    "build:js": "node obfuscate.js",
     "build:html": "node build-html.js",
-    "build": "npm run build:css && npm run obfuscate:core && npm run build:html"
+    "build": "npm run build:css && npm run build:js && npm run build:html"
   },
   "devDependencies": {
     "clean-css-cli": "^5.6.3",
-    "glob": "^13.0.0",
     "html-minifier-terser": "^7.2.0",
-    "javascript-obfuscator": "^4.1.0",
-    "terser": "^5.19.0"
+    "javascript-obfuscator": "^4.1.0"
   }
 }
