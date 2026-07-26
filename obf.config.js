@@ -92,7 +92,7 @@ module.exports = {
     },
     {
       src: 'js/partner-form-nude.js',
-      preset: 'light',
+      preset: 'minimal',
       reason: 'iframe form.submit() 미러링. 구조변형 시 전송 깨짐 → light 고정.'
     },
 
