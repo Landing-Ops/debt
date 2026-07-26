@@ -16,24 +16,24 @@ files.forEach((file) => {
   console.log(`➡️  난독화: ${file} → ${outFile}`);
 
   execSync(
-  `javascript-obfuscator ${file} --output ${outFile} \
-  --compact true \
-  --self-defending true \
-  --string-array true \
-  --string-array-threshold 1 \
-  --string-array-encoding base64 \
-  --control-flow-flattening true \
-  --control-flow-flattening-threshold 0.8 \
-  --dead-code-injection true \
-  --dead-code-injection-threshold 0.2 \
-  --numbers-to-expressions true \
-  --identifier-names-generator mangled`
-  ,
-  { stdio: "inherit" }
+`javascript-obfuscator ${file} --output ${outFile} \
+--compact true \
+--self-defending true \
+--string-array true \
+--string-array-threshold 1 \
+--string-array-encoding base64 \
+--control-flow-flattening true \
+--control-flow-flattening-threshold 0.5 \
+--dead-code-injection true \
+--dead-code-injection-threshold 0.2 \
+--numbers-to-expressions true \
+--identifier-names-generator mangled`
+,
+{ stdio: "inherit" }
 );
 });
 
-console.log("✅ 모든 form-*-nude.js 난독화 완료");
+console.log("✅ 모든 *-nude.js 난독화 완료");
 
 // --split-strings true \
 // --split-strings-chunk-length 10
