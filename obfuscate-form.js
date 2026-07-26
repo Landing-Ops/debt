@@ -12,26 +12,24 @@ if (files.length === 0) {
 
 files.forEach((file) => {
   const outFile = file.replace("-nude.js", ".js");
-
   console.log(`➡️  난독화: ${file} → ${outFile}`);
 
-  execSync(
-`javascript-obfuscator ${file} --output ${outFile} \
---compact true \
---self-defending false \
---string-array true \
---string-array-threshold 1 \
---string-array-encoding base64 \
---control-flow-flattening false \
---control-flow-flattening-threshold 0.8 \
---dead-code-injection false \
---dead-code-injection-threshold 0.2 \
---numbers-to-expressions false \
---identifier-names-generator mangled`
-,
-{ stdio: "inherit" }
-);
+  const isDynamicWindowFile = file.includes('uid-resolver') || file.includes('verdicts');
 
+  const options = isDynamicWindowFile
+    ? `--compact true`
+    : `--compact true \
+       --self-defending false \
+       --string-array true --string-array-threshold 1 --string-array-encoding base64 \
+       --control-flow-flattening false \
+       --dead-code-injection false \
+       --numbers-to-expressions false \
+       --identifier-names-generator mangled`;
+
+  execSync(
+    `javascript-obfuscator ${file} --output ${outFile} ${options}`,
+    { stdio: "inherit" }
+  );
 });
 
 console.log("✅ 모든 *-nude.js 난독화 완료");
