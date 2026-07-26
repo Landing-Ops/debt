@@ -18,19 +18,20 @@ files.forEach((file) => {
   execSync(
 `javascript-obfuscator ${file} --output ${outFile} \
 --compact true \
---self-defending true \
+--self-defending false \
 --string-array true \
 --string-array-threshold 1 \
 --string-array-encoding base64 \
---control-flow-flattening true \
---control-flow-flattening-threshold 0.5 \
---dead-code-injection true \
+--control-flow-flattening false \
+--control-flow-flattening-threshold 0.8 \
+--dead-code-injection false \
 --dead-code-injection-threshold 0.2 \
---numbers-to-expressions true \
+--numbers-to-expressions false \
 --identifier-names-generator mangled`
 ,
 { stdio: "inherit" }
 );
+
 });
 
 console.log("✅ 모든 *-nude.js 난독화 완료");
