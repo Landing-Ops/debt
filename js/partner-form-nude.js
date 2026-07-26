@@ -71,7 +71,7 @@
   var partnerForm = document.getElementById('partnerForm');
   var p = function (name) { return partnerForm.querySelector('[name="' + name + '"]'); };
 
-  /* =====================================================================
+  /* ==================================================================
      2) 우리 폼 → 제휴사 폼 실시간 값 미러링
   ===================================================================== */
   function val(el) { return (el && el.value || '').trim(); }
