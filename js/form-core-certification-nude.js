@@ -56,7 +56,7 @@
   =================================================================== */
 
   var MEDIA_MAP  = {
-    meta:'메타', insta:'인스타그램', youtube:'유튜브', kakao:'카카오톡', carrot:'당근',
+    meta:'메타', facebook:'메타', insta:'인스타그램', youtube:'유튜브', kakao:'카카오톡', carrot:'당근',
     naverda:'네이버DA', naversa:'네이버SA', tiktok:'틱톡',google:'구글', band:'밴드'
   };
   var REGION_MAP = {
