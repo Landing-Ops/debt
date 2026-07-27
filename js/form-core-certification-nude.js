@@ -8,7 +8,7 @@
   var form = document.querySelector('[data-form="lead"]');
   if (!form) return;
 
-  /* ---------- 구글폼 매핑 ---------- */
+  /* ---------- 구글폼 매핑 (죽은코드 = 실제 구글시트 전송은 웹앱2 GAS로만 되고있음---------- */
   var ENTRY = {
     name:     'entry.361593477',
     phone:    'entry.153916989',
@@ -25,7 +25,74 @@
   var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSevSgHUYWaTh3QJiLvprbc7-h_dbIrR9yeN5VaG88Fs5dNBkg/formResponse';
   var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbwdHETVwIbUkhckS7R6LfbF3boDq_HkcnEclKH_myF8T2bHcZk8NWlDYgA9PMt_JHkF/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
   var THANKYOU_URL    = 'https://hopeworkout.com/result';
-  var SOURCE = (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '인덱스');
+  
+/* ---------- 유입 URL 파라미터 (매체 × 지역 × 연령) ---------- */
+  /* =====================================================================
+   ★ 광고 유입 URL 파라미터 사용법 (매체 × 지역 × 연령)
+   -----------------------------------------------------------------
+   랜딩 URL 뒤에 아래 파라미터를 붙여서 사용. 순서 무관, 필요한 것만 붙이면 됨.
+
+   mp = 매체 (media)
+   rg = 지역 (region)
+   ag = 연령 (age)
+
+   예시)
+   https://hopeworkout.com/?mp=meta&rg=seoul&ag=30
+     → SOURCE: "메타-서울-30대"
+
+   https://hopeworkout.com/?mp=carrot&rg=all
+     → SOURCE: "당근-전국"  (연령 안 붙이면 자동 생략)
+
+   https://hopeworkout.com/?ag=25~43
+     → SOURCE: "25-43세"  (매체/지역 없이 연령만도 가능)
+
+   https://hopeworkout.com/
+     → SOURCE: "직접유입"  (파라미터 아예 없을 때)
+   -----------------------------------------------------------------
+   ★ 주의: 위 목록에 없는 값을 넣으면 화이트리스트에 안 걸려서 무시됨
+   ★ 대소문자 무관 (내부에서 소문자로 변환해서 비교함)
+  =================================================================== */
+
+  var MEDIA_MAP  = {
+    meta:'메타', insta:'인스타그램', youtube:'유튜브', kakao:'카카오톡', carrot:'당근',
+    naverda:'네이버DA', naversa:'네이버SA', tiktok:'틱톡',google:'구글', band:'밴드'
+  };
+  var REGION_MAP = {
+    all:'전국',
+    seoul:'서울', busan:'부산', daegu:'대구', incheon:'인천',
+    gwangju:'광주', daejeon:'대전', ulsan:'울산', sejong:'세종',
+    gyeonggi:'경기', gangwon:'강원', chungbuk:'충북', chungnam:'충남',
+    jeonbuk:'전북', jeonnam:'전남', gyeongbuk:'경북', gyeongnam:'경남',
+    jeju:'제주'
+  };
+  var AGE_MAP    = {
+    all:'전연령대', '20':'20대', '30':'30대', '40':'40대',
+        '50':'50대', '60':'60대', '70':'70대'
+    };
+
+  var TRAFFIC = (function () {
+    var q = new URLSearchParams(location.search);
+    var saved = {};
+    try { saved = JSON.parse(sessionStorage.getItem('traffic') || '{}'); } catch (e) {}
+
+    function pick(key, map, prev) {
+      var raw = (q.get(key) || '').trim().toLowerCase();
+      if (map[raw]) return map[raw];                    // 기존 프리셋 (20, 30, all 등)
+      if (key === 'ag' && /^\d{2}-\d{2}$/.test(raw)) return raw + '세';  // ★ 연령만 범위 수동입력 허용 (예: 25-65 → "25-65세")
+      return prev || '';
+    }
+
+    var t = {
+      media:  pick('mp', MEDIA_MAP,  saved.media),
+      region: pick('rg', REGION_MAP, saved.region),
+      age:    pick('ag', AGE_MAP,    saved.age)
+    };
+    try { sessionStorage.setItem('traffic', JSON.stringify(t)); } catch (e) {}
+    return t;
+  })();
+
+  var SOURCE = [TRAFFIC.media, TRAFFIC.region, TRAFFIC.age].filter(Boolean).join('-')
+            || (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '직접유입');
 
   /* ---------- 핸드폰 인증 OTP 설정 (구글앱스 웹앱 API)---------- */
   var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbzHfykwqSl2wmf8ZwrrFlqk33xuotQP_YVKxgABDjhm57V3ZY6w9gy37DkYtgJvWTFI/exec';
@@ -50,201 +117,201 @@
     checkOrder.forEach(function (k) { if (f[k]) f[k].classList.remove('is-invalid'); });
   }
 
-  /* =====================================================================
-     핸드폰 번호인증 OTP — 폼에 생성된 UI에 스타일 주입 (★기능 OFF시 주석처리★)
-  ===================================================================== */
-  (function injectOtpStyle() {
-    if (document.getElementById('otp-style')) return;
-    var style = document.createElement('style');
-    style.id = 'otp-style';
-    style.textContent =
-      '.otp-row{display:flex;gap:8px;margin-top:6px;align-items:stretch;}' +
-      '.otp-code-input{flex:1 1 auto;min-width:0;}' +
-      '.otp-action-btn{flex:0 0 auto;padding:0 18px;border-radius:var(--radius-lg,12px);' +
-        'font-size:.9rem;font-weight:700;white-space:nowrap;cursor:pointer;' +
-        'border:1.5px solid var(--primary);background:#fff;color:var(--primary);transition:all .15s;}' +
-      '.otp-action-btn.is-verify{background:var(--secondary);border-color:var(--secondary);color:#fff;}' +
-      '.otp-action-btn.is-done{background:var(--accent);border-color:var(--accent);color:#fff;cursor:default;}' +
-      '.otp-action-btn:disabled{opacity:.6;cursor:default;}' +
-      '.otp-msg{font-size:.8125rem;margin-top:6px;}'+
-      '.lf__input[data-field^="phone"][readonly]{background:#f1f3f5;color:#868e96;cursor:default;border-color:#dee2e6;}' +
-      '.lf__input[data-field^="phone"][readonly]:-webkit-autofill,' +
-      '.lf__input[data-field^="phone"][readonly]:-webkit-autofill:hover,' +
-      '.lf__input[data-field^="phone"][readonly]:-webkit-autofill:focus{' +
-        '-webkit-box-shadow:0 0 0 1000px #f1f3f5 inset !important;' +
-        '-webkit-text-fill-color:#868e96 !important;}';
-    document.head.appendChild(style);
-  })();
+//   /* =====================================================================
+//      핸드폰 번호인증 OTP — 폼에 생성된 UI에 스타일 주입 (★기능 OFF시 주석처리★)
+//   ===================================================================== */
+//   (function injectOtpStyle() {
+//     if (document.getElementById('otp-style')) return;
+//     var style = document.createElement('style');
+//     style.id = 'otp-style';
+//     style.textContent =
+//       '.otp-row{display:flex;gap:8px;margin-top:6px;align-items:stretch;}' +
+//       '.otp-code-input{flex:1 1 auto;min-width:0;}' +
+//       '.otp-action-btn{flex:0 0 auto;padding:0 18px;border-radius:var(--radius-lg,12px);' +
+//         'font-size:.9rem;font-weight:700;white-space:nowrap;cursor:pointer;' +
+//         'border:1.5px solid var(--primary);background:#fff;color:var(--primary);transition:all .15s;}' +
+//       '.otp-action-btn.is-verify{background:var(--secondary);border-color:var(--secondary);color:#fff;}' +
+//       '.otp-action-btn.is-done{background:var(--accent);border-color:var(--accent);color:#fff;cursor:default;}' +
+//       '.otp-action-btn:disabled{opacity:.6;cursor:default;}' +
+//       '.otp-msg{font-size:.8125rem;margin-top:6px;}'+
+//       '.lf__input[data-field^="phone"][readonly]{background:#f1f3f5;color:#868e96;cursor:default;border-color:#dee2e6;}' +
+//       '.lf__input[data-field^="phone"][readonly]:-webkit-autofill,' +
+//       '.lf__input[data-field^="phone"][readonly]:-webkit-autofill:hover,' +
+//       '.lf__input[data-field^="phone"][readonly]:-webkit-autofill:focus{' +
+//         '-webkit-box-shadow:0 0 0 1000px #f1f3f5 inset !important;' +
+//         '-webkit-text-fill-color:#868e96 !important;}';
+//     document.head.appendChild(style);
+//   })();
 
-  /* =====================================================================
-     핸드폰 번호인증 OTP — UI 주입 (연락처 입력칸 아래에 자동 삽입) / (★기능 OFF시 주석처리★)
-  ===================================================================== */
-  // ★ 전화번호 3분할 대응: 세 칸을 감싸는 .lf__field 를 기준으로 그 아래에 OTP 박스를 삽입
-  var phoneWrapEl = f.phone1 ? (f.phone1.closest('.lf__field') || f.phone1.parentNode) : null;
+//   /* =====================================================================
+//      핸드폰 번호인증 OTP — UI 주입 (연락처 입력칸 아래에 자동 삽입) / (★기능 OFF시 주석처리★)
+//   ===================================================================== */
+//   // ★ 전화번호 3분할 대응: 세 칸을 감싸는 .lf__field 를 기준으로 그 아래에 OTP 박스를 삽입
+//   var phoneWrapEl = f.phone1 ? (f.phone1.closest('.lf__field') || f.phone1.parentNode) : null;
 
-  var oldOtp = form.querySelector('[data-otp-box]');
-  if (oldOtp) oldOtp.remove();
+//   var oldOtp = form.querySelector('[data-otp-box]');
+//   if (oldOtp) oldOtp.remove();
 
-  var otpBox = null;
-  if (phoneWrapEl) {
-    otpBox = document.createElement('div');
-    otpBox.setAttribute('data-otp-box', '');  
-    otpBox.innerHTML =
-      '<p style="font-size:14px;color:#d33;margin-bottom:4px; text-align:left;"></p>' + // 번호인증 카피 ) 정확한 탕감액 산정을 위해 번호 인증을 진행해주세요.
-      '<div class="otp-row">' +
-        '<input data-otp-code type="text" maxlength="6" inputmode="numeric" ' +
-          'pattern="[0-9]*" autocomplete="off" ' +
-          'class="lf__input otp-code-input" placeholder="인증번호를 입력해주세요" />' +
-        '<button type="button" data-otp-action class="otp-action-btn">인증번호 받기</button>' +
-      '</div>' +
-      '<p data-otp-msg class="otp-msg"></p>';
-    phoneWrapEl.insertAdjacentElement('afterend', otpBox);
-  }
+//   var otpBox = null;
+//   if (phoneWrapEl) {
+//     otpBox = document.createElement('div');
+//     otpBox.setAttribute('data-otp-box', '');  
+//     otpBox.innerHTML =
+//       '<p style="font-size:14px;color:#d33;margin-bottom:4px; text-align:left;"></p>' + // 번호인증 카피 ) 정확한 탕감액 산정을 위해 번호 인증을 진행해주세요.
+//       '<div class="otp-row">' +
+//         '<input data-otp-code type="text" maxlength="6" inputmode="numeric" ' +
+//           'pattern="[0-9]*" autocomplete="off" ' +
+//           'class="lf__input otp-code-input" placeholder="인증번호를 입력해주세요" />' +
+//         '<button type="button" data-otp-action class="otp-action-btn">인증번호 받기</button>' +
+//       '</div>' +
+//       '<p data-otp-msg class="otp-msg"></p>';
+//     phoneWrapEl.insertAdjacentElement('afterend', otpBox);
+//   }
 
-  /* =====================================================================
-     핸드폰 번호인증 OTP — 요소 참조 + 로직 /  (★기능 OFF시 주석처리★)
-  ===================================================================== */
-  var otpCodeEl    = otpBox ? otpBox.querySelector('[data-otp-code]')   : null;
-  var otpActionBtn = otpBox ? otpBox.querySelector('[data-otp-action]') : null;
-  var otpMsg       = otpBox ? otpBox.querySelector('[data-otp-msg]')    : null;
+//   /* =====================================================================
+//      핸드폰 번호인증 OTP — 요소 참조 + 로직 /  (★기능 OFF시 주석처리★)
+//   ===================================================================== */
+//   var otpCodeEl    = otpBox ? otpBox.querySelector('[data-otp-code]')   : null;
+//   var otpActionBtn = otpBox ? otpBox.querySelector('[data-otp-action]') : null;
+//   var otpMsg       = otpBox ? otpBox.querySelector('[data-otp-msg]')    : null;
 
-  var codeSent = false;
+//   var codeSent = false;
 
-  function setOtpMsg(text, color) {
-    if (!otpMsg) return;
-    otpMsg.textContent = text || '';
-    otpMsg.style.color = color || '';
-  }
+//   function setOtpMsg(text, color) {
+//     if (!otpMsg) return;
+//     otpMsg.textContent = text || '';
+//     otpMsg.style.color = color || '';
+//   }
 
-  function callOtpApi(payload) {
-    return fetch(OTP_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
-    }).then(function (r) { return r.json(); });
-  }
+//   function callOtpApi(payload) {
+//     return fetch(OTP_API_URL, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+//       body: JSON.stringify(payload)
+//     }).then(function (r) { return r.json(); });
+//   }
 
-  function getValidPhoneDigits() {
-    // ★ 전화번호 3분할 대응: 세 칸을 합쳐서 11자리 유효성 검사
-    if (!f.phone1 || !f.phone2 || !f.phone3) return '';
-    var d = ((f.phone1.value || '') + (f.phone2.value || '') + (f.phone3.value || '')).replace(/\D/g, '');
-    return /^010\d{8}$/.test(d) ? d : '';
-  }
+//   function getValidPhoneDigits() {
+//     // ★ 전화번호 3분할 대응: 세 칸을 합쳐서 11자리 유효성 검사
+//     if (!f.phone1 || !f.phone2 || !f.phone3) return '';
+//     var d = ((f.phone1.value || '') + (f.phone2.value || '') + (f.phone3.value || '')).replace(/\D/g, '');
+//     return /^010\d{8}$/.test(d) ? d : '';
+//   }
 
-  function getCode() {
-    return ((otpCodeEl && otpCodeEl.value) || '').replace(/\D/g, '');
-  }
+//   function getCode() {
+//     return ((otpCodeEl && otpCodeEl.value) || '').replace(/\D/g, '');
+//   }
 
-  function refreshOtpButton() {
-    if (!otpActionBtn) return;
-    if (isPhoneVerified) {
-      otpActionBtn.textContent = '인증 완료';
-      otpActionBtn.className = 'otp-action-btn is-done';
-      otpActionBtn.disabled = true;
-      return;
-    }
-    otpActionBtn.disabled = false;
-    if (codeSent && getCode().length === 6) {
-      otpActionBtn.textContent = '인증번호 확인';
-      otpActionBtn.className = 'otp-action-btn is-verify';
-    } else {
-      otpActionBtn.textContent = codeSent ? '인증번호 재발송' : '인증번호 받기';
-      otpActionBtn.className = 'otp-action-btn';
-    }
-  }
+//   function refreshOtpButton() {
+//     if (!otpActionBtn) return;
+//     if (isPhoneVerified) {
+//       otpActionBtn.textContent = '인증 완료';
+//       otpActionBtn.className = 'otp-action-btn is-done';
+//       otpActionBtn.disabled = true;
+//       return;
+//     }
+//     otpActionBtn.disabled = false;
+//     if (codeSent && getCode().length === 6) {
+//       otpActionBtn.textContent = '인증번호 확인';
+//       otpActionBtn.className = 'otp-action-btn is-verify';
+//     } else {
+//       otpActionBtn.textContent = codeSent ? '인증번호 재발송' : '인증번호 받기';
+//       otpActionBtn.className = 'otp-action-btn';
+//     }
+//   }
 
- function doSend() {
-  var phone = getValidPhoneDigits();
-  if (!phone) { alert('휴대폰 번호를 정확히 입력해주세요.'); return; }
+//  function doSend() {
+//   var phone = getValidPhoneDigits();
+//   if (!phone) { alert('휴대폰 번호를 정확히 입력해주세요.'); return; }
 
-  otpActionBtn.disabled = true;
-  setOtpMsg('인증번호 발송 중...', '');
+//   otpActionBtn.disabled = true;
+//   setOtpMsg('인증번호 발송 중...', '');
 
-  callOtpApi({ action: 'send', phone: phone })
-    .then(function (res) {
-      if (res.ok) {
-        codeSent = true;
-        setOtpMsg('인증번호를 발송했습니다. (3분 이내 입력)', '#1a7f37');
-        alert('핸드폰 문자로 [인증번호]가 전송되었습니다.\n6자리를 입력하고 [인증번호 확인]을 눌러주세요.');
-        if (otpCodeEl) otpCodeEl.focus();
-      } else {
-        alert(res.message || '발송에 실패했습니다. 다시 시도해주세요.');
-        setOtpMsg(res.message || '발송에 실패했습니다.', '#d33');
-      }
-    })
-    .catch(function () {
-      alert('네트워크 오류로 발송에 실패했습니다.');
-      setOtpMsg('네트워크 오류로 발송에 실패했습니다.', '#d33');
-    })
-    .then(function () { refreshOtpButton(); });
-}
+//   callOtpApi({ action: 'send', phone: phone })
+//     .then(function (res) {
+//       if (res.ok) {
+//         codeSent = true;
+//         setOtpMsg('인증번호를 발송했습니다. (3분 이내 입력)', '#1a7f37');
+//         alert('핸드폰 문자로 [인증번호]가 전송되었습니다.\n6자리를 입력하고 [인증번호 확인]을 눌러주세요.');
+//         if (otpCodeEl) otpCodeEl.focus();
+//       } else {
+//         alert(res.message || '발송에 실패했습니다. 다시 시도해주세요.');
+//         setOtpMsg(res.message || '발송에 실패했습니다.', '#d33');
+//       }
+//     })
+//     .catch(function () {
+//       alert('네트워크 오류로 발송에 실패했습니다.');
+//       setOtpMsg('네트워크 오류로 발송에 실패했습니다.', '#d33');
+//     })
+//     .then(function () { refreshOtpButton(); });
+// }
 
-  function doVerify() {
-    var phone = getValidPhoneDigits();
-    var code = getCode();
-    if (code.length !== 6) { alert('인증번호 6자리를 입력해주세요.'); return; }
-    otpActionBtn.disabled = true;
-    setOtpMsg('확인 중...', '');
-    callOtpApi({ action: 'verify', phone: phone, code: code })
-      .then(function (res) {
-        if (res.ok) {
-          isPhoneVerified = true;
-          if (otpCodeEl) otpCodeEl.disabled = true;
-          // ★ 인증 완료 → 번호 입력칸 잠금
-          //   (인증받은 번호와 최종 제출되는 번호가 어긋나는 것을 원천 차단)
-          [f.phone1, f.phone2, f.phone3].forEach(function (el) {
-            if (el) el.readOnly = true;
-          });
-          setOtpMsg('', '');
-          alert('인증이 완료되었습니다.');
-          refreshOtpButton();
-          updateButton();  // 인증 완료 후 버튼 상태 갱신
-        } else {
-          alert(res.message || '인증에 실패했습니다.');
-          setOtpMsg(res.message || '인증에 실패했습니다.', '#d33');
-          refreshOtpButton();
-        }
-      })
-      .catch(function () {
-        alert('네트워크 오류로 확인에 실패했습니다.');
-        refreshOtpButton();
-      });
-  }
+//   function doVerify() {
+//     var phone = getValidPhoneDigits();
+//     var code = getCode();
+//     if (code.length !== 6) { alert('인증번호 6자리를 입력해주세요.'); return; }
+//     otpActionBtn.disabled = true;
+//     setOtpMsg('확인 중...', '');
+//     callOtpApi({ action: 'verify', phone: phone, code: code })
+//       .then(function (res) {
+//         if (res.ok) {
+//           isPhoneVerified = true;
+//           if (otpCodeEl) otpCodeEl.disabled = true;
+//           // ★ 인증 완료 → 번호 입력칸 잠금
+//           //   (인증받은 번호와 최종 제출되는 번호가 어긋나는 것을 원천 차단)
+//           [f.phone1, f.phone2, f.phone3].forEach(function (el) {
+//             if (el) el.readOnly = true;
+//           });
+//           setOtpMsg('', '');
+//           alert('인증이 완료되었습니다.');
+//           refreshOtpButton();
+//           updateButton();  // 인증 완료 후 버튼 상태 갱신
+//         } else {
+//           alert(res.message || '인증에 실패했습니다.');
+//           setOtpMsg(res.message || '인증에 실패했습니다.', '#d33');
+//           refreshOtpButton();
+//         }
+//       })
+//       .catch(function () {
+//         alert('네트워크 오류로 확인에 실패했습니다.');
+//         refreshOtpButton();
+//       });
+//   }
 
-  // 버튼 클릭 → 발송/확인 분기
-  if (otpActionBtn) {
-    otpActionBtn.addEventListener('click', function () {
-      if (isPhoneVerified) return;
-      if (codeSent && getCode().length === 6) doVerify();
-      else doSend();
-    });
-  }
+//   // 버튼 클릭 → 발송/확인 분기
+//   if (otpActionBtn) {
+//     otpActionBtn.addEventListener('click', function () {
+//       if (isPhoneVerified) return;
+//       if (codeSent && getCode().length === 6) doVerify();
+//       else doSend();
+//     });
+//   }
 
-  // 코드 입력 → 숫자 6자리 제한 + 버튼 갱신
-  if (otpCodeEl) {
-    otpCodeEl.addEventListener('input', function () {
-      otpCodeEl.value = otpCodeEl.value.replace(/\D/g, '').slice(0, 6);
-      refreshOtpButton();
-    });
-  }
+//   // 코드 입력 → 숫자 6자리 제한 + 버튼 갱신
+//   if (otpCodeEl) {
+//     otpCodeEl.addEventListener('input', function () {
+//       otpCodeEl.value = otpCodeEl.value.replace(/\D/g, '').slice(0, 6);
+//       refreshOtpButton();
+//     });
+//   }
 
-  // 전화번호 변경 시 → 인증 초기화
-  // ★ 전화번호 3분할 대응: 세 칸 중 어느 하나라도 바뀌면 인증 초기화
-  //   (숫자만 필터링/자동 포커스 이동은 아래 initPhoneInputs() 가 담당하므로 여기선 제외)
-  [f.phone1, f.phone2, f.phone3].forEach(function (el) {
-    if (!el) return;
-    el.addEventListener('input', function () {
-      if (!isPhoneVerified && !codeSent) return;
-      isPhoneVerified = false;
-      codeSent = false;
-      if (otpCodeEl) { otpCodeEl.disabled = false; otpCodeEl.value = ''; }
-      setOtpMsg('번호가 변경되어 다시 인증이 필요합니다.', '#d33');
-      refreshOtpButton();
-      updateButton();
-    });
-  });
+//   // 전화번호 변경 시 → 인증 초기화
+//   // ★ 전화번호 3분할 대응: 세 칸 중 어느 하나라도 바뀌면 인증 초기화
+//   //   (숫자만 필터링/자동 포커스 이동은 아래 initPhoneInputs() 가 담당하므로 여기선 제외)
+//   [f.phone1, f.phone2, f.phone3].forEach(function (el) {
+//     if (!el) return;
+//     el.addEventListener('input', function () {
+//       if (!isPhoneVerified && !codeSent) return;
+//       isPhoneVerified = false;
+//       codeSent = false;
+//       if (otpCodeEl) { otpCodeEl.disabled = false; otpCodeEl.value = ''; }
+//       setOtpMsg('번호가 변경되어 다시 인증이 필요합니다.', '#d33');
+//       refreshOtpButton();
+//       updateButton();
+//     });
+//   });
 
-  refreshOtpButton(); // 초기 상태
+//   refreshOtpButton(); // 초기 상태
 
   /* =====================================================================
      전화번호 3분할 입력 편의 처리
@@ -303,10 +370,10 @@
       return { ok: false, msg: '전화번호 입력을 확인하세요.' };
     }
     // 휴대폰 번호 인증 완료 여부 확인 (★기능 OFF시 주석처리★)
-    if (!isPhoneVerified) {
-      f.phone1.classList.add('is-invalid');
-      return { ok: false, msg: '휴대폰 인증을 완료해주세요.' };
-    }
+    // if (!isPhoneVerified) {
+    //   f.phone1.classList.add('is-invalid');
+    //   return { ok: false, msg: '휴대폰 인증을 완료해주세요.' };
+    // }
 
     if (!v.inco) { f.inco.classList.add('is-invalid'); return { ok: false, msg: '소득 범주를 선택하세요.' }; }
     if (v.inco === 'disallow') {
