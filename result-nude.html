@@ -26,7 +26,6 @@
   <link rel="stylesheet" href="./css/premium.css">
 
   <!--픽셀-->
-
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -44,7 +43,7 @@
 
   if (uid) {
     var firedKey = 'lead_fired_' + uid;
-    // 이 uid로 Lead를 아직 안 쐈으면 쏘고, 기록 남김
+    // 이 uid로 Lead를 아직 안 쐈으면 쏘고, 기록 남김  << ★고유한 유저ID당 딱 1번만  잠재고객 유입이 잡힘★
     if (!localStorage.getItem(firedKey)) {
       fbq('track', 'Lead');
       localStorage.setItem(firedKey, '1');
@@ -55,6 +54,38 @@
   src="https://www.facebook.com/tr?id=2253155728441697&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
+
+  <!-- Danggeun Market Code -->
+  <script>
+    (function (w, d) {
+      if (w.karrotPixel) return;
+      var k = { stub: true, queue: [] };
+      k.init = function () { k.queue.push(['init', arguments, Date.now()]); };
+      k.track = function () { k.queue.push(['track', arguments, Date.now()]); };
+      w.karrotPixel = k;
+      var s = d.createElement('script');
+      s.async = true;
+      s.src = 'https://karrot-pixel.business.daangn.com/karrot-pixel.js';
+      var f = d.getElementsByTagName('script')[0];
+      f && f.parentNode ? f.parentNode.insertBefore(s, f) : d.head.appendChild(s);
+    })(window, document);
+    window.karrotPixel.init('1785159334599355001');
+    window.karrotPixel.track('ViewPage'); // ViewPage는 매번 찍혀도 무방
+
+    // uid 추출
+    var uid = new URLSearchParams(window.location.search).get('uid');
+
+    if (uid) {
+      var karrotFiredKey = 'karrot_lead_fired_' + uid;
+      // 이 uid로 아직 Lead 안 쐈으면 쏘고, 기록 남김
+      if (!localStorage.getItem(karrotFiredKey)) {
+        window.karrotPixel.track('Lead');
+        localStorage.setItem(karrotFiredKey, '1');
+      }
+    }
+  </script>
+  <!-- End Danggeun Market Code -->
+
 </head>
 
 <body data-industry="legal" data-source="인덱스">
