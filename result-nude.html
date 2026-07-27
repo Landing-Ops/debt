@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="./css/premium.css">
 
   <!--픽셀-->
+
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -37,7 +38,18 @@
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '2253155728441697');
-  fbq('track', 'PageView');
+  fbq('track', 'PageView'); // PageView는 매번 찍혀도 무방
+  // uid 추출
+  var uid = new URLSearchParams(window.location.search).get('uid');
+
+  if (uid) {
+    var firedKey = 'lead_fired_' + uid;
+    // 이 uid로 Lead를 아직 안 쐈으면 쏘고, 기록 남김
+    if (!localStorage.getItem(firedKey)) {
+      fbq('track', 'Lead');
+      localStorage.setItem(firedKey, '1');
+    }
+  }
   </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=2253155728441697&ev=PageView&noscript=1"
