@@ -37,14 +37,16 @@
    ag = 연령 (age)
 
    예시)
-   https://hopeworkout.com/?mp=meta&rg=seoul&ag=30
-     → SOURCE: "메타-서울-30대"
 
    https://hopeworkout.com/?mp=carrot&rg=all
-     → SOURCE: "당근-전국"  (연령 안 붙이면 자동 생략)
+     → SOURCE: "당근-전국"  (매체,지역만)
 
-   https://hopeworkout.com/?ag=25~43
-     → SOURCE: "25-43세"  (매체/지역 없이 연령만도 가능)
+   https://hopeworkout.com/?ag=2543
+     → SOURCE: "25~43세"  (연령만)
+
+  https://hopeworkout.com/?mp=meta&rg=seoul&ag=4060
+     → SOURCE: "메타-서울-40~60세"  (매체,지역만)
+  
 
    https://hopeworkout.com/
      → SOURCE: "직접유입"  (파라미터 아예 없을 때)
@@ -65,10 +67,6 @@
     jeonbuk:'전북', jeonnam:'전남', gyeongbuk:'경북', gyeongnam:'경남',
     jeju:'제주'
   };
-  var AGE_MAP    = {
-    all:'전연령대', '20':'20대', '30':'30대', '40':'40대',
-        '50':'50대', '60':'60대', '70':'70대'
-    };
 
   var TRAFFIC = (function () {
     var q = new URLSearchParams(location.search);
@@ -77,15 +75,19 @@
 
     function pick(key, map, prev) {
       var raw = (q.get(key) || '').trim().toLowerCase();
-      if (map[raw]) return map[raw];                    // 기존 프리셋 (20, 30, all 등)
-      if (key === 'ag' && /^\d{2}-\d{2}$/.test(raw)) return raw + '세';  // ★ 연령만 범위 수동입력 허용 (예: 25-65 → "25-65세")
+      if (key === 'ag') {
+        if (raw === 'all') return '전연령대';
+        if (/^\d{4}$/.test(raw)) return raw.slice(0,2) + '~' + raw.slice(2,4) + '세';
+        return prev || '';
+      }
+      if (map[raw]) return map[raw];
       return prev || '';
     }
 
     var t = {
       media:  pick('mp', MEDIA_MAP,  saved.media),
       region: pick('rg', REGION_MAP, saved.region),
-      age:    pick('ag', AGE_MAP,    saved.age)
+      age:    pick('ag', null,       saved.age)   // ★ ag는 map 안 쓰므로 null
     };
     try { sessionStorage.setItem('traffic', JSON.stringify(t)); } catch (e) {}
     return t;
