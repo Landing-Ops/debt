@@ -25,7 +25,7 @@
      운영 시 ./img 로 내려받아 교체 권장.
 ===================================================================== */
 
-/* 성과: 파란 오버레이 + 사진 */
+/* 섹션4.성과: 파란 오버레이 + 사진 */
 .section.success::before{
   content:""; position:absolute; inset:0; z-index:0; opacity:.9; filter:blur(.4px);
   background:
@@ -33,7 +33,16 @@
     url('../img/background003.png') center/cover no-repeat;
 }
 
-/* 절차: 흰 오버레이 + 흐릿한 사진 */
+
+/* 섹션5: 파란 오버레이 + 사진 */
+.section.benefits::before{
+  content:""; position:absolute; inset:0; z-index:0; opacity:.9; filter:blur(.4px);
+  background:
+    linear-gradient(135deg, rgba(11,91,211,.99), rgba(31,95,174,.80)),
+    url('../img/background004.png') center/cover no-repeat;
+}
+
+/* 섹션6: 질문: 흰 오버레이 + 흐릿한 사진 */
 .section.promises .promises__bg{
   position:absolute; inset:0; z-index:-1; filter:blur(2px); opacity:.9;
   background:
@@ -41,7 +50,7 @@
     url('../img/background002.png') center/cover no-repeat;
 }
 
-/* 리드폼: 어두운 오버레이 + 사진 */
+/* 섹션7: 리드폼: 어두운 오버레이 + 사진 */
 .leadform__bg{
   position:absolute; inset:0; z-index:-1; filter:saturate(105%);
   background:
