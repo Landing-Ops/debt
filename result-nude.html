@@ -25,77 +25,112 @@
   <link rel="stylesheet" href="./css/typography.css">
   <link rel="stylesheet" href="./css/premium.css">
 
-  <!--픽셀-->
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '2253155728441697');
-  fbq('track', 'PageView'); // PageView는 매번 찍혀도 무방
-  // uid 추출
-  var uid = new URLSearchParams(window.location.search).get('uid');
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  광고 전환 픽셀 모음 (땡큐페이지 </head> 앞에 삽입)                    -->
+<!--                                                                   -->
+<!--  구조 설명:                                                        -->
+<!--  · 매체별로 <script> 블록을 완전히 분리해놓음                        -->
+<!--  · 각 블록의 uid 처리 로직은 (function(){ ... })() 로 감쌌음         -->
+<!--    → 이렇게 감싸면 블록끼리 변수가 서로 안 섞임 (진짜 격리)           -->
+<!--    → 한 매체 코드에서 에러가 나도 다른 매체 집계엔 영향 없음          -->
+<!--  · PageView/ViewPage/config = 페이지 도착 추적 → 매번 실행 (중복 OK) -->
+<!--  · Lead/conversion = 전환 → uid 1개당 딱 1번만 실행                 -->
+<!--  · localStorage 저장 키를 매체별로 다르게 줘서 서로 간섭 안 함        -->
+<!--      메타   : lead_fired_◯◯◯                                       -->
+<!--      당근   : karrot_lead_fired_◯◯◯                                -->
+<!--      구글   : google_lead_◯◯◯                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-  if (uid) {
-    var firedKey = 'lead_fired_' + uid;
-    // 이 uid로 Lead를 아직 안 쐈으면 쏘고, 기록 남김  << ★고유한 유저ID당 딱 1번만  잠재고객 유입이 잡힘★
-    if (!localStorage.getItem(firedKey)) {
-      fbq('track', 'Lead');
-      localStorage.setItem(firedKey, '1');
-    }
+
+<!-- ▼▼▼ [1] 메타(페이스북/인스타) 픽셀 ▼▼▼ -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '2253155728441697');  // 메타 픽셀 ID
+fbq('track', 'PageView');         // 페이지 도착 → 매번 찍힘 (중복 OK)
+
+// ── 전환(Lead): uid 1개당 딱 1번만 ──
+(function () {
+  var uid = new URLSearchParams(window.location.search).get('uid');  // URL에서 uid 꺼냄
+  if (!uid) return;                                                  // uid 없으면 아무것도 안 함
+  var firedKey = 'lead_fired_' + uid;                                // 이 uid 전용 저장 키
+  if (!localStorage.getItem(firedKey)) {                             // 아직 안 찍혔으면
+    fbq('track', 'Lead');                                            //   → 전환 1번 발사 ★
+    localStorage.setItem(firedKey, '1');                             //   → "찍었음" 기록 (다음엔 스킵)
   }
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=2253155728441697&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2253155728441697&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- ▲▲▲ [1] 메타 끝 ▲▲▲ -->
 
-  <!-- Danggeun Market Code -->
-  <script>
-    (function (w, d) {
-      if (w.karrotPixel) return;
-      var k = { stub: true, queue: [] };
-      k.init = function () { k.queue.push(['init', arguments, Date.now()]); };
-      k.track = function () { k.queue.push(['track', arguments, Date.now()]); };
-      w.karrotPixel = k;
-      var s = d.createElement('script');
-      s.async = true;
-      s.src = 'https://karrot-pixel.business.daangn.com/karrot-pixel.js';
-      var f = d.getElementsByTagName('script')[0];
-      f && f.parentNode ? f.parentNode.insertBefore(s, f) : d.head.appendChild(s);
-    })(window, document);
-    window.karrotPixel.init('1785159334599355001');
-    window.karrotPixel.track('ViewPage'); // ViewPage는 매번 찍혀도 무방
 
-    // uid 추출
-    var uid = new URLSearchParams(window.location.search).get('uid');
+<!-- ▼▼▼ [2] 당근마켓 픽셀 ▼▼▼ -->
+<!-- Danggeun Market Code -->
+<script>
+  (function (w, d) {
+    if (w.karrotPixel) return;
+    var k = { stub: true, queue: [] };
+    k.init = function () { k.queue.push(['init', arguments, Date.now()]); };
+    k.track = function () { k.queue.push(['track', arguments, Date.now()]); };
+    w.karrotPixel = k;
+    var s = d.createElement('script');
+    s.async = true;
+    s.src = 'https://karrot-pixel.business.daangn.com/karrot-pixel.js';
+    var f = d.getElementsByTagName('script')[0];
+    f && f.parentNode ? f.parentNode.insertBefore(s, f) : d.head.appendChild(s);
+  })(window, document);
 
-    if (uid) {
-      var karrotFiredKey = 'karrot_lead_fired_' + uid;
-      // 이 uid로 아직 Lead 안 쐈으면 쏘고, 기록 남김
-      if (!localStorage.getItem(karrotFiredKey)) {
-        window.karrotPixel.track('Lead');
-        localStorage.setItem(karrotFiredKey, '1');
-      }
+  window.karrotPixel.init('1785159334599355001');  // 당근 픽셀 ID
+  window.karrotPixel.track('ViewPage');            // 페이지 도착 → 매번 찍힘 (중복 OK)
+
+  // ── 전환(Lead): uid 1개당 딱 1번만 ──
+  (function () {
+    var uid = new URLSearchParams(window.location.search).get('uid');   // URL에서 uid 꺼냄
+    if (!uid) return;                                                   // uid 없으면 아무것도 안 함
+    var karrotFiredKey = 'karrot_lead_fired_' + uid;                    // 이 uid 전용 저장 키 (당근 전용 접두어)
+    if (!localStorage.getItem(karrotFiredKey)) {                        // 아직 안 찍혔으면
+      window.karrotPixel.track('Lead');                                 //   → 전환 1번 발사 ★
+      localStorage.setItem(karrotFiredKey, '1');                        //   → "찍었음" 기록 (다음엔 스킵)
     }
-  </script>
-  <!-- End Danggeun Market Code -->
+  })();
+</script>
+<!-- End Danggeun Market Code -->
+<!-- ▲▲▲ [2] 당근 끝 ▲▲▲ -->
 
-  <!-- Google tag (gtag.js) -->
+
+<!-- ▼▼▼ [3] 구글애즈(유튜브 포함) 전환 태그 ▼▼▼ -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-830866619"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+  gtag('config', 'AW-830866619');  // 구글 태그 ID → 페이지 로드 추적, 매번 실행 (중복 OK)
 
-  gtag('config', 'AW-830866619');
+  // ── 전환(conversion): uid 1개당 딱 1번만 ──
+  (function () {
+    var uid = new URLSearchParams(window.location.search).get('uid');   // URL에서 uid 꺼냄
+    if (!uid) return;                                                   // uid 없으면 아무것도 안 함
+    var googleFiredKey = 'google_lead_' + uid;                          // 이 uid 전용 저장 키 (구글 전용 접두어)
+    if (!localStorage.getItem(googleFiredKey)) {                        // 아직 안 찍혔으면
+      gtag('event', 'conversion', {'send_to': 'AW-830866619/uKWbCN397tccELuJmIwD'});  // → 전환 1번 발사 ★
+      localStorage.setItem(googleFiredKey, '1');                        //   → "찍었음" 기록 (다음엔 스킵)
+    }
+  })();
 </script>
-  <!--End Google tag (gtag.js) -->
+<!-- End Google tag (gtag.js) -->
+<!-- ▲▲▲ [3] 구글 끝 ▲▲▲ -->
 
 </head>
 
