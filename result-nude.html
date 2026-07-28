@@ -116,18 +116,18 @@ src="https://www.facebook.com/tr?id=2253155728441697&ev=PageView&noscript=1"
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'AW-830866619');  // 구글 태그 ID → 페이지 로드 추적, 매번 실행 (중복 OK)
+  gtag('config', 'AW-830866619');  // 페이지 로드 추적, 매번 실행 (중복 OK)
 
-  // ── 전환(conversion): uid 1개당 딱 1번만 ──
-  (function () {
-    var uid = new URLSearchParams(window.location.search).get('uid');   // URL에서 uid 꺼냄
-    if (!uid) return;                                                   // uid 없으면 아무것도 안 함
-    var googleFiredKey = 'google_lead_' + uid;                          // 이 uid 전용 저장 키 (구글 전용 접두어)
-    if (!localStorage.getItem(googleFiredKey)) {                        // 아직 안 찍혔으면
-      gtag('event', 'conversion', {'send_to': 'AW-830866619/uKWbCN397tccELuJmIwD'});  // → 전환 1번 발사 ★
-      localStorage.setItem(googleFiredKey, '1');                        //   → "찍었음" 기록 (다음엔 스킵)
+  // ── 전환(conversion): 페이지 완전히 로드된 후 발사 → uid당 1번만 ──
+  window.addEventListener('load', function () {
+    var uid = new URLSearchParams(window.location.search).get('uid');  // URL에서 uid 꺼냄
+    if (!uid) return;                                                  // uid 없으면 발사 안 함
+    var googleFiredKey = 'google_lead_' + uid;                         // 이 uid 전용 저장 키
+    if (!localStorage.getItem(googleFiredKey)) {                       // 아직 안 찍혔으면
+      gtag('event', 'conversion', {'send_to': 'AW-830866619/uKWbCN397tccELuJmIwD'});  // → 전환 발사 ★
+      localStorage.setItem(googleFiredKey, '1');                       //   → "찍었음" 기록
     }
-  })();
+  });
 </script>
 <!-- End Google tag (gtag.js) -->
 <!-- ▲▲▲ [3] 구글 끝 ▲▲▲ -->
