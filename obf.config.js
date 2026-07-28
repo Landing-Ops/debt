@@ -92,8 +92,18 @@ module.exports = {
     },
     {
       src: 'js/partner-form-nude.js',
-      preset: 'minimal',
+      preset: 'light',
       reason: 'iframe form.submit() 미러링. 구조변형 시 전송 깨짐 → light 고정.'
+    },
+    {
+      src: 'js/footer-nude.js',
+      preset: 'light',
+      reason: '-'
+    },
+    {
+      src: 'js/footer-traffic-nude.js',
+      preset: 'light',
+      reason: '-'
     },
 
     // ── result.html (땡큐페이지) ──
@@ -122,5 +132,6 @@ module.exports = {
       preset: 'heavy',
       reason: '단순 마퀴. 뭘 걸어도 안 깨져서 강도 올려도 무방.'
     },
+
   ],
 };

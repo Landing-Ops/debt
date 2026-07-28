@@ -26,7 +26,6 @@
   var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbwdHETVwIbUkhckS7R6LfbF3boDq_HkcnEclKH_myF8T2bHcZk8NWlDYgA9PMt_JHkF/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
   var THANKYOU_URL    = 'https://hopeworkout.com/result';
   
-/* ---------- 유입 URL 파라미터 (매체 × 지역 × 연령) ---------- */
   /* =====================================================================
    ★ 광고 유입 URL 파라미터 사용법 (매체 × 지역 × 연령)
    -----------------------------------------------------------------
@@ -96,6 +95,7 @@
   var SOURCE = [TRAFFIC.media, TRAFFIC.region, TRAFFIC.age].filter(Boolean).join('-')
             || (typeof LANDING_SOURCE !== 'undefined' ? LANDING_SOURCE : '직접유입');
 
+            
   /* ---------- 핸드폰 인증 OTP 설정 (구글앱스 웹앱 API)---------- */
   var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbzHfykwqSl2wmf8ZwrrFlqk33xuotQP_YVKxgABDjhm57V3ZY6w9gy37DkYtgJvWTFI/exec';
   var isPhoneVerified = false;  // 인증 완료 여부

@@ -5,8 +5,8 @@
 //
 // 사용법:
 //   node obfuscate.js                 → config 의 모든 파일
-//   node obfuscate.js --only=partner  → src 경로에 'partner' 포함된 것만
-//   node obfuscate.js --skip=verdicts → 'verdicts' 포함된 것 제외
+//   node obfuscate.js --only=(예시)partner  → src 경로에 '(예시)partner' 포함된 것만
+//   node obfuscate.js --skip=(예시)verdicts → '(예시)verdicts' 포함된 것 제외
 //   (--only / --skip 은 '포함 여부' 매칭. 정확한 파일명 전체를 칠 필요 없음)
 // ─────────────────────────────────────────────────────────────
 const fs = require('fs');
