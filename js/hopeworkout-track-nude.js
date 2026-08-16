@@ -13,7 +13,7 @@
   'use strict';
 
   // ── 전송 대상 (새 worker 라우트) ──────────────────────────────
-  var TRACK_URL = 'https://hopeworkout-track.softman007.workers.dev/track';
+  var TRACK_URL = 'https://hopeworkout.softman007.workers.dev/track';
 
   // ── sid 발급 (세션 단위, AI진단 sid와 키 분리: hw_sid) ─────────
   var SID_KEY = 'hw_sid';
