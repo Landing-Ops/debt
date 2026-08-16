@@ -82,9 +82,9 @@
     var parts = [];
     if (val(f.inco))          parts.push('소득범위-' + val(f.inco));
     if (val(f.deb))           parts.push('채무범위-' + val(f.deb));
-    if (val(f.comparison))    parts.push('재산대비 채무 비중-' + val(f.comparison));
-    if (val(f.impossibility)) parts.push('담보·세금체납 여부-' + val(f.impossibility));
-    if (val(f.cause))         parts.push('채무원인-' + val(f.cause));
+    // if (val(f.comparison))    parts.push('재산대비 채무 비중-' + val(f.comparison));
+    // if (val(f.impossibility)) parts.push('담보·세금체납 여부-' + val(f.impossibility));
+    // if (val(f.cause))         parts.push('채무원인-' + val(f.cause));
     if (val(f.calltime))      parts.push('통화가능시간-' + val(f.calltime));
     if (val(f.message))       parts.push('문의사항-' + val(f.message));
     return parts.join(' / ');  // 입력폼 항목값과 항목값 사이 구분표기
