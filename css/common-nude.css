@@ -398,7 +398,7 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 .section.success{ position:relative; padding-block:clamp(60px,7vw,100px); background:transparent; text-align:center; overflow:hidden; color:#fff; }
 .section.success > *{ position:relative; z-index:1; }
 .section.success .section__title{ font-size:clamp(28px,4vw,42px); margin-bottom:12px; }
-.section.success .section__desc{ font-size:clamp(18px,1.6vw,18px); margin-bottom:40px; opacity:.9; }
+.section.success .section__desc{ font-size:clamp(18px,1.6vw,18px); padding: 10px; margin-bottom:40px; opacity:.9; }
 .success__grid { display: flex; justify-content: center; gap: clamp(16px, 3vw, 40px); margin-bottom: 40px; flex-wrap: wrap; }
 .success__card { background: #fff; border-radius: var(--radius-lg); padding: 24px 32px; width: 240px; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .15); color:var(--primary-bright); }
 .success__num{ display:block; font-size:clamp(28px,4vw,40px); font-weight:900; margin-bottom:8px; }
