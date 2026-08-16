@@ -462,12 +462,12 @@
       phone: ((f.phone1.value || '').trim() + (f.phone2.value || '').trim() + (f.phone3.value || '').trim()),   // ★ 3분할 입력값을 11자리로 합쳐서 전송 (시트 저장·중복체크 형식 유지)
       inco: (f.inco.value || '').trim(),
       deb: (f.deb.value || '').trim(),
-      comparison: (f.comparison.value || '').trim(),
-      impossibility: (f.impossibility.value || '').trim(),
-      cause: (f.cause.value || '').trim(),
+      // comparison: (f.comparison.value || '').trim(),
+      // impossibility: (f.impossibility.value || '').trim(),
+      // cause: (f.cause.value || '').trim(),
       calltime: (f.calltime.value || '').trim(),
-      message: (f.message.value || '').trim(),
-      phoneCheck: isPhoneVerified ? '번호인증 완료' : '번호인증 미완료',
+      // message: (f.message.value || '').trim(),
+      // phoneCheck: isPhoneVerified ? '번호인증 완료' : '번호인증 미완료',
       source: SOURCE,
       requestId: requestId   // ★ 이번 제출(1차+재시도) 전체가 공유하는 고유 ID — 서버가 재시도 감지용으로 사용
     };
