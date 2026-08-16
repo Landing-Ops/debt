@@ -83,7 +83,7 @@
         }
       }
     });
-  }, { threshold: 0.35 });   // 섹션 35% 이상 보이면 '봤다'로 간주
+  }, { threshold: [0, 0.01, 0.25, 0.5] });   // 1px이라도 보이면 도달로 잡음(긴 섹션 대응)
 
   SECTION_DEFS.forEach(function (def) {
     var el = resolveEl(def.sel);
