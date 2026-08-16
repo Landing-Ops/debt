@@ -105,6 +105,11 @@ module.exports = {
       preset: 'minimal',
       reason: '-'
     },
+    {
+      src: 'js/hopeworkout-track-nude.js',
+      preset: 'minimal',
+      reason: '-'
+    },
 
     // ── result.html (땡큐페이지) ──
     {
