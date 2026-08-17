@@ -96,9 +96,9 @@ body.is-modal-open{ overflow:hidden; }     /* 모달 열릴 때 본문 스크롤
 .hero-visual img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 
 /* Hero 텍스트 타이포 */
-.hero .title{ color:var(--primary); font-weight:900; font-size:clamp(36px,4.5vw,52px); line-height:1.05; letter-spacing:-.01em; }
+.hero .title{ color:var(--primary); font-weight:900; font-size:clamp(40px,4.5vw,52px); line-height:1.05; letter-spacing:-.01em; }
 .hero .lead{ color:var(--neutral-600); font-weight:400; font-size:clamp(16px,1.6vw,18px); line-height:1.7; }
-.hero-lead-lg     { font-size:24px; }
+.hero-lead-lg     { font-size:20px; }
 .hero-lead-accent { font-size:24px; color:var(--primary); font-weight:700; }
 .bullet strong    { color:var(--neutral-900); }
 
