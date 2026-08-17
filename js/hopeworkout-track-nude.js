@@ -34,14 +34,12 @@
   var device = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'Mobile' : 'PC';
 
   // ── 섹션 정의 (순서 = 퍼널 순서) ──────────────────────────────
+  // ★ 2026-08-18 최신 index-nude 반영: 활성 섹션 3개 + 순서 hero→form→testimonial
+  //   (기존 counter/qualify/benefits/cta는 HTML에서 주석처리됨 → 제거)
   var SECTION_DEFS = [
     { key: 'hero',        sel: '#hero' },
-    { key: 'testimonial', sel: '#testimonial' },
-    { key: 'counter',     sel: '.section.success' },
-    { key: 'qualify',     sel: '.section.industries' },
-    { key: 'benefits',    sel: '.section.benefits' },
-    { key: 'cta',         sel: '.leadform, #contact, [data-form="lead"]' },
-    { key: 'form',        sel: '[data-form="lead"]' }
+    { key: 'form',        sel: '#contact, .section.leadform, [data-form="lead"]' },
+    { key: 'testimonial', sel: '#testimonial' }
   ];
   var SECTION_ORDER = SECTION_DEFS.map(function (d) { return d.key; });
 
@@ -54,7 +52,7 @@
   var lastVisibleKey = '';       // 이탈 직전 마지막으로 보인 섹션
   var pageEnterMs = Date.now();
 
-  // sel로 실제 엘리먼트 찾기(cta/form은 같은 섹션이라 중복 가능 — 첫 매치)
+  // sel로 실제 엘리먼트 찾기(콤마 구분 후보 중 첫 매치)
   function resolveEl(sel) {
     var parts = sel.split(',');
     for (var i = 0; i < parts.length; i++) {
@@ -88,7 +86,7 @@
   SECTION_DEFS.forEach(function (def) {
     var el = resolveEl(def.sel);
     if (!el) return;
-    // 같은 엘리먼트에 두 key(cta/form)가 걸리면 뒤엣것이 덮어씀 → form 우선순위 위해 첫 등록만 유지
+    // 한 엘리먼트에 여러 key가 걸리면 첫 등록만 유지(중복 observe 방지)
     if (!keyByEl.has(el)) {
       keyByEl.set(el, def.key);
       secObserver.observe(el);

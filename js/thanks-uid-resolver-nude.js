@@ -12,7 +12,7 @@
 (function () {
   'use strict';
 
-  var LOOKUP_URL   = 'https://script.google.com/macros/s/AKfycbwdHETVwIbUkhckS7R6LfbF3boDq_HkcnEclKH_myF8T2bHcZk8NWlDYgA9PMt_JHkF/exec'; //웹앱2
+  var LOOKUP_URL   = 'https://hopeworkout.softman007.workers.dev/lookup'; // 구 GAS 웹앱2 lookup → 워커 이전 (2026-08-18). ★JSONP 구조 그대로 — 워커가 callback 파라미터 지원함
   var TIMEOUT_MS   = 10000;
   var MAX_ATTEMPTS = 2;   // 최초 시도 1 + 재시도 1
 

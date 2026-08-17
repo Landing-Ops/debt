@@ -8,22 +8,18 @@
   var form = document.querySelector('[data-form="lead"]');
   if (!form) return;
 
-  /* ---------- 구글폼 매핑 (죽은코드 = 실제 구글시트 전송은 웹앱2 GAS로만 되고있음)---------- */
-  var ENTRY = {
-    name:     'entry.361593477',
-    phone:    'entry.153916989',
-    inco:     'entry.1022218715',
-    deb:      'entry.275184534',
-    comparison: 'entry.128646469',
-    impossibility: 'entry.223961785',
-    cause: 'entry.1013271769',
-    calltime: 'entry.1297879783',
-    message: 'entry.534304633',
-    phoneCheck: 'entry.826263640',
-    source:   'entry.2051749761'
-  };
-  var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSevSgHUYWaTh3QJiLvprbc7-h_dbIrR9yeN5VaG88Fs5dNBkg/formResponse';
-  var WEBAPP2_URL      = 'https://script.google.com/macros/s/AKfycbwdHETVwIbUkhckS7R6LfbF3boDq_HkcnEclKH_myF8T2bHcZk8NWlDYgA9PMt_JHkF/exec';   // ★ 구글앱스스크립트 웹앱2 (submit/lookup)
+  /* ---------- 구글폼 매핑 (죽은 코드) ----------
+     ★ 원래도 실제 전송에 안 쓰이던 구글폼 entry 매핑. 워커 이전(2026-08-18)으로
+        구글폼 URL 자체를 제거했으므로 이 매핑도 완전히 무의미. 참고용으로만 남김.
+  // var ENTRY = {
+  //   name:'entry.361593477', phone:'entry.153916989', inco:'entry.1022218715',
+  //   deb:'entry.275184534', comparison:'entry.128646469', impossibility:'entry.223961785',
+  //   cause:'entry.1013271769', calltime:'entry.1297879783', message:'entry.534304633',
+  //   phoneCheck:'entry.826263640', source:'entry.2051749761'
+  // };
+  */
+  // ★ 구글폼(GOOGLE_FORM_URL)은 원래도 죽은 코드였음(실제 전송은 웹앱2로만) → 이전하며 제거
+  var WEBAPP2_URL      = 'https://hopeworkout.softman007.workers.dev/submit';   // 구 GAS 웹앱2 submit → 워커 이전 (2026-08-18). ★JSONP 구조 그대로 — 워커가 callback 지원
   var THANKYOU_URL    = 'https://hopeworkout.com/result';
   
   /* =====================================================================
@@ -97,7 +93,7 @@
 
             
   /* ---------- 핸드폰 인증 OTP 설정 (구글앱스 웹앱 API)---------- */
-  var OTP_API_URL = 'https://script.google.com/macros/s/AKfycbzHfykwqSl2wmf8ZwrrFlqk33xuotQP_YVKxgABDjhm57V3ZY6w9gy37DkYtgJvWTFI/exec';
+  var OTP_API_URL = 'https://hopeworkout.softman007.workers.dev/otp';   // 구 GAS 웹앱1(OTP) → 워커 이전 (2026-08-18). ★현재 OTP 블록 전체 주석=OFF 상태. 켤 때 워커 KV·시크릿 세팅 필요
   var isPhoneVerified = false;  // 인증 완료 여부
 
   /* ---------- 필드 수집 (data-field) ---------- */
@@ -446,7 +442,9 @@
     var cb = 'warmCb_' + Date.now();
     window[cb] = function () { delete window[cb]; };
     var s = document.createElement('script');
-    s.src = WEBAPP2_URL + '?action=ping&callback=' + cb;
+    // ★ 워커에선 웜업 전용 라우트 /ping 사용. (WEBAPP2_URL은 /submit이라, 여기에 ping을 태우면
+    //   action 무시하고 submit 로직을 타서 빈 리드가 저장될 수 있음 → 반드시 /ping 으로 분리)
+    s.src = 'https://hopeworkout.softman007.workers.dev/ping?callback=' + cb;
     s.onerror = function () { delete window[cb]; };
     document.body.appendChild(s);
   }
