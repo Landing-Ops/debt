@@ -7,33 +7,33 @@
   'use strict';
 
   /* ---------- 모바일) 네비: body 패딩 보정 + 스크롤 그림자 + 햄버거 토글 ---------- */
-  var nav = document.querySelector('.site-nav');
-  if (nav) {
-    var setPT = function () { document.body.style.paddingTop = nav.offsetHeight + 'px'; };
-    setPT();
-    window.addEventListener('resize', setPT);
+  // var nav = document.querySelector('.site-nav');
+  // if (nav) {
+  //   var setPT = function () { document.body.style.paddingTop = nav.offsetHeight + 'px'; };
+  //   setPT();
+  //   window.addEventListener('resize', setPT);
 
-    var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 6); };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
+  //   var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 6); };
+  //   onScroll();
+  //   window.addEventListener('scroll', onScroll, { passive: true });
+  // }
 
-  var toggle = document.querySelector('.nav__toggle');
-  var menu   = document.getElementById('nav-menu');
-  if (toggle && menu) {
-    var setOpen = function (open) {
-      toggle.setAttribute('aria-expanded', open);
-      menu.classList.toggle('is-open', open);
-      document.body.classList.toggle('nav-open', open);
-    };
-    toggle.addEventListener('click', function () {
-      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-    });
-    menu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { setOpen(false); });
-    });
-    window.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
-  }
+  // var toggle = document.querySelector('.nav__toggle');
+  // var menu   = document.getElementById('nav-menu');
+  // if (toggle && menu) {
+  //   var setOpen = function (open) {
+  //     toggle.setAttribute('aria-expanded', open);
+  //     menu.classList.toggle('is-open', open);
+  //     document.body.classList.toggle('nav-open', open);
+  //   };
+  //   toggle.addEventListener('click', function () {
+  //     setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  //   });
+  //   menu.querySelectorAll('a').forEach(function (a) {
+  //     a.addEventListener('click', function () { setOpen(false); });
+  //   });
+  //   window.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+  // }
 
   /* ---------- 개인정보 모달 (data-evt 기반) ---------- */
   var modal = document.querySelector('[data-modal="privacy"]');
