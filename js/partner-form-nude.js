@@ -96,7 +96,7 @@
     p('hp2').value  = val(f.phone2);
     p('hp3').value  = val(f.phone3);
     p('item2').value = buildItem2();
-    // contents(궁금하신점)는 제휴사 자체 랜딩에도 노출되지 않는 필드라 미사용
+    // contents(궁금하신점)는 제휴사 자체 랜딩에도 노출되지 않는 필드라 미사용 ddd
   }
 
   // 우리 폼의 모든 입력 요소에 변경 감지를 걸어둠
