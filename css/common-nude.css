@@ -1735,7 +1735,7 @@ body.rv-lightbox-locked {
 
 /* 질문·고지문 */
 .wz__q{ font-size:clamp(24px,5.2vw,30px); font-weight:900; line-height:1.35; color:var(--neutral-900,#0b2540); margin:0 0 8px; text-align:left; letter-spacing:-.02em; }
-.wz__notice{ font-size:clamp(14px,3.4vw,16px); color:var(--neutral-400,#9aa7b6); margin:0 0 clamp(16px,4.5vw,20px); text-align:left; line-height:1.5; }
+.wz__notice{ font-size:clamp(16px,3.4vw,18px); color:var(--neutral-600); margin:0 0 clamp(16px,4.5vw,20px); text-align:left; line-height:1.5; }
 
 /* ===== 선택 칩 ===== */
 .wz__choices{ display:flex; flex-direction:column; gap:clamp(8px,2.5vw,10px); }
@@ -1810,7 +1810,7 @@ body.rv-lightbox-locked {
 /* 이전 버튼 */
 .wz__back{
   display:block; margin:14px auto 0; background:none; border:0;
-  color:var(--neutral-400,#9aa7b6); font-size:clamp(13px,3.6vw,14px); font-weight:600; cursor:pointer; padding:6px 10px;
+  color:var(--neutral-400,#9aa7b6); font-size:clamp(18px,3.6vw,20px); font-weight:600; cursor:pointer; padding:6px 10px;
 }
 .wz__back:hover{ color:var(--color-cta-main,#0b5bd3); }
 
