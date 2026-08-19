@@ -1693,7 +1693,7 @@ body.rv-lightbox-locked {
   font-size:clamp(17px,3.2vw,23px); font-weight:800; letter-spacing:-.01em;
 }
 .wz__intro-title{
-  font-size:clamp(32px, 7vw, 46px); font-weight:900; line-height:1.35;
+  font-size:clamp(32px, 7vw, 42px); font-weight:900; line-height:1.35;
   color:var(--neutral-900,#0b2540); margin:0 0 clamp(10px,3vw,16px); letter-spacing:-.02em;
 }
 .wz__intro-title b{ color:var(--color-cta-main,#0b5bd3); }
@@ -1750,7 +1750,7 @@ body.rv-lightbox-locked {
 .wz__choices--grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(7px,2vw,9px); }
 .wz__choice{
   appearance:none; border:1.5px solid var(--border-default,#e6ecf5); background:#fff;
-  color:var(--neutral-800,#233043); font-size:clamp(14px,3.8vw,16px); font-weight:700;
+  color:var(--neutral-800,#233043); font-size:clamp(16px,3.8vw,20px); font-weight:700;
   padding:clamp(14px,3.8vw,17px) 14px; border-radius:var(--radius-md,12px); cursor:pointer;
   transition:border-color .14s ease, background .14s ease, box-shadow .14s ease, transform .08s ease;
   text-align:center;

@@ -413,7 +413,7 @@
     var r = validate();
     if (r.ok) {
       submitBtn.disabled = false;
-      submitBtn.textContent = '예상탕감액 진단 신청하기';
+      submitBtn.textContent = '최대 예상탕감액 안내받기';
       submitBtn.style.background = 'var(--color-cta-main-strong)';
       submitBtn.style.cursor = 'pointer';
     } else {
