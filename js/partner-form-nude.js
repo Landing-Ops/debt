@@ -40,6 +40,7 @@
   var f = {
     name: $('name'),
     phone1: $('phone1'), phone2: $('phone2'), phone3: $('phone3'),
+    region: $('region'), marital: $('marital'), dependents: $('dependents'),   // ★ 위저드 신규 3항목
     inco: $('inco'), deb: $('deb'),
     comparison: $('comparison'), impossibility: $('impossibility'),
     cause: $('cause'), calltime: $('calltime'), message: $('message')
@@ -76,18 +77,20 @@
   ===================================================================== */
   function val(el) { return (el && el.value || '').trim(); }
 
-  // 제휴사 폼에는 소득/채무/채무원인 등을 받을 칸이 없으므로,
-  // item2(한줄문의) 한 칸에 우리 전용 항목들을 한 줄로 이어붙여 전달한다.
+  // 제휴사 폼에는 소득/채무/거주지역 등을 받을 칸이 없으므로,
+  // item2(한줄문의) 한 칸에 우리 진단 항목들을 한 줄로 이어붙여 전달한다.
+  // ★ 위저드(AI 정밀진단) 도입으로 항목 변경: 거주지역·혼인여부·부양가족 추가,
+  //   소득·채무는 만원 단위 숫자 입력값이라 '만원'을 붙여 표기.
   function buildItem2() {
     var parts = [];
-    if (val(f.inco))          parts.push('소득범위-' + val(f.inco));
-    if (val(f.deb))           parts.push('채무범위-' + val(f.deb));
-    // if (val(f.comparison))    parts.push('재산대비 채무 비중-' + val(f.comparison));
-    // if (val(f.impossibility)) parts.push('담보·세금체납 여부-' + val(f.impossibility));
-    // if (val(f.cause))         parts.push('채무원인-' + val(f.cause));
-    if (val(f.calltime))      parts.push('통화가능시간-' + val(f.calltime));
-    if (val(f.message))       parts.push('문의사항-' + val(f.message));
-    return parts.join(' / ');  // 입력폼 항목값과 항목값 사이 구분표기
+    if (val(f.region))     parts.push('거주지역-' + val(f.region));
+    if (val(f.marital))    parts.push('혼인여부-' + val(f.marital));
+    if (val(f.dependents)) parts.push('부양가족-' + val(f.dependents));
+    if (val(f.inco))       parts.push('월소득-' + val(f.inco) + '만원');
+    if (val(f.deb))        parts.push('총채무액-' + val(f.deb) + '만원');
+    if (val(f.calltime))   parts.push('통화가능시간-' + val(f.calltime));
+    // if (val(f.message))    parts.push('문의사항-' + val(f.message));  // 문의사항 없음
+    return parts.join(' / ');  // 항목값 사이 구분표기
   }
 
   function syncToPartnerForm() {
