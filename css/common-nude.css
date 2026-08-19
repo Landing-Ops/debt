@@ -1628,90 +1628,205 @@ body.rv-lightbox-locked {
 }
 .cta__assure-ic { width: 18px; height: 18px; color: var(--primary-after); flex: 0 0 auto; }
 /* =====================================================================
-   AI 정밀진단 인라인 위저드 (.wz__*)  — 2026-08-18 통합
+   AI 정밀진단 위저드 v2 (.wz*)  — 폰 목업 + 인트로 + 가로바 진행
    ---------------------------------------------------------------------
-   기존 .leadform__card 폼을 6스텝 위저드로 교체할 때 쓰는 스타일.
-   ★ 색·라운드·포커스는 이 사이트 기존 변수 그대로 사용:
-      --color-cta-main(파란 CTA) / --border-default / --neutral-900·400
-      / --color-form-focus-border / --ring / --radius-md·lg
-      (변수 미정의 환경 대비 폴백값 병기)
+   색·라운드·포커스는 기존 brand.css 토큰 사용(폴백 병기):
+     --color-cta-main(#0b5bd3) / --primary-strong(#0e3b64) / --primary-bg(#eaf2ff)
+     / --border-default(#e6ecf5) / --neutral-900(#0b2540) / --neutral-400(#9aa7b6)
    ===================================================================== */
 
-.wz{ position:relative; }
+.wz{ position:relative; width:100%; }
 
-/* ---------- 진행 표시(도트 + n/6) ---------- */
-.wz__progress{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-.wz__dots{ display:flex; gap:7px; }
-.wz__dot{
-  width:9px; height:9px; border-radius:var(--radius-pill,999px);
-  background:var(--border-default,#e6ecf5);
-  transition:background .25s ease, transform .25s ease;
+/* ===== 폰 목업 프레임 ===== */
+.wz__device{
+  position:relative;
+  width:min(400px, 92vw);
+  margin:0 auto;
+  padding:14px 12px 16px;
+  background:linear-gradient(160deg,#0b2540 0%, #16324f 100%);  /* 진한 남색 바디 */
+  border-radius:44px;
+  box-shadow:
+    0 2px 0 2px rgba(255,255,255,.04) inset,
+    0 30px 70px rgba(11,37,64,.45),
+    0 8px 20px rgba(0,0,0,.30);
 }
-.wz__dot.is-active{ background:var(--color-cta-main,#0b5bd3); transform:scale(1.05); }
-.wz__stepinfo{ font-size:13px; font-weight:700; color:var(--color-cta-main,#0b5bd3); margin:0; }
+/* 전면 카메라(펀치홀) */
+.wz__cam{
+  position:absolute; top:26px; left:50%; transform:translateX(-50%);
+  width:9px; height:9px; border-radius:50%;
+  background:#05101d; box-shadow:0 0 0 2px rgba(255,255,255,.06);
+  z-index:3;
+}
+/* 측면 버튼 */
+.wz__btn{ position:absolute; background:#0a1f37; border-radius:3px; }
+.wz__btn--power  { right:-3px; top:150px; width:3px; height:64px; }
+.wz__btn--vol-up { left:-3px;  top:120px; width:3px; height:42px; }
+.wz__btn--vol-dn { left:-3px;  top:172px; width:3px; height:42px; }
 
-/* ---------- 슬라이드 뷰포트 + 트랙 ---------- */
-.wz__viewport{ position:relative; overflow:hidden; transition:height .28s ease; }
+/* 스크린(흰 화면) */
+.wz__screen{
+  position:relative;
+  background:#fff;
+  border-radius:32px;
+  padding:34px 20px 22px;
+  min-height:520px;
+  overflow:hidden;
+}
+
+/* ===== 인트로(스텝 0) ===== */
+.wz__intro{ text-align:center; padding:14px 6px 6px; }
+.wz__intro-badge{
+  display:inline-block; margin-bottom:16px;
+  padding:6px 14px; border-radius:var(--radius-pill,999px);
+  background:var(--primary-bg,#eaf2ff); color:var(--color-cta-main,#0b5bd3);
+  font-size:13px; font-weight:800; letter-spacing:-.01em;
+}
+.wz__intro-title{
+  font-size:26px; font-weight:900; line-height:1.35;
+  color:var(--neutral-900,#0b2540); margin:0 0 14px; letter-spacing:-.02em;
+}
+.wz__intro-title b{ color:var(--color-cta-main,#0b5bd3); }
+.wz__intro-sub{
+  font-size:15px; line-height:1.6; color:var(--neutral-600,#5d6b7a); margin:0 0 22px;
+}
+.wz__intro-sub b{ color:var(--neutral-900,#0b2540); font-weight:700; }
+.wz__intro-points{
+  list-style:none; margin:0 0 26px; padding:0;
+  display:flex; flex-direction:column; gap:10px;
+}
+.wz__intro-points li{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  font-size:15px; font-weight:600; color:var(--neutral-800,#233043);
+}
+.wz__intro-points li::before{
+  content:"✓"; color:var(--color-cta-main,#0b5bd3); font-weight:900; font-size:15px;
+}
+.wz__intro-points b{ color:var(--color-cta-main,#0b5bd3); font-weight:900; }
+.wz__start{
+  width:100%; padding:17px; border:0; border-radius:var(--radius-lg,14px);
+  background:var(--color-cta-main,#0b5bd3); color:#fff;
+  font-size:17px; font-weight:800; cursor:pointer; letter-spacing:-.01em;
+  box-shadow:0 10px 24px rgba(11,91,211,.30);
+  transition:transform .12s ease, box-shadow .15s ease;
+}
+.wz__start:hover{ transform:translateY(-1px); box-shadow:0 14px 30px rgba(11,91,211,.38); }
+.wz__start:active{ transform:translateY(0); }
+.wz__intro-foot{ margin:16px 0 0; font-size:13px; color:var(--neutral-400,#9aa7b6); }
+.wz__intro-foot strong{ color:var(--color-cta-main,#0b5bd3); font-weight:800; }
+
+/* ===== 진행 바 ===== */
+.wz__bar-wrap{ margin-bottom:20px; }
+.wz__bar-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.wz__bar-label{ font-size:13px; font-weight:700; color:var(--neutral-600,#5d6b7a); }
+.wz__bar-count{ font-size:13px; font-weight:800; color:var(--color-cta-main,#0b5bd3); }
+.wz__bar-track{
+  height:8px; border-radius:var(--radius-pill,999px);
+  background:var(--neutral-100,#eef3fa); overflow:hidden;
+}
+.wz__bar-fill{
+  height:100%; width:16.6%;
+  border-radius:var(--radius-pill,999px);
+  background:linear-gradient(90deg, var(--color-cta-main,#0b5bd3), var(--primary-after,#5da1ff));
+  transition:width .4s cubic-bezier(.4,0,.2,1);
+}
+
+/* ===== 슬라이드 뷰포트 + 트랙 ===== */
+.wz__viewport{ position:relative; overflow:hidden; }
 .wz__track{ display:flex; width:100%; transition:transform .32s cubic-bezier(.4,0,.2,1); will-change:transform; }
 .wz__slide{ flex:0 0 100%; width:100%; min-width:100%; box-sizing:border-box; padding:2px; align-self:flex-start; }
 
-/* ---------- 질문·고지문 ---------- */
-.wz__q{ font-size:19px; font-weight:800; line-height:1.4; color:var(--neutral-900,#0b2540); margin:0 0 8px; text-align:left; }
-.wz__notice{ font-size:13px; color:var(--neutral-400,#9aa7b6); margin:0 0 18px; text-align:left; line-height:1.5; }
+/* 질문·고지문 */
+.wz__q{ font-size:21px; font-weight:900; line-height:1.35; color:var(--neutral-900,#0b2540); margin:0 0 8px; text-align:left; letter-spacing:-.02em; }
+.wz__notice{ font-size:13px; color:var(--neutral-400,#9aa7b6); margin:0 0 20px; text-align:left; line-height:1.5; }
 
-/* ---------- 선택 칩 ---------- */
+/* ===== 선택 칩 ===== */
 .wz__choices{ display:flex; flex-direction:column; gap:10px; }
-.wz__choices--grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+.wz__choices--grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
 .wz__choice{
   appearance:none; border:1.5px solid var(--border-default,#e6ecf5); background:#fff;
-  color:var(--neutral-900,#0b2540); font-size:15px; font-weight:600;
-  padding:15px 14px; border-radius:var(--radius-md,10px); cursor:pointer;
-  transition:border-color .15s ease, background .15s ease, transform .08s ease; text-align:center;
+  color:var(--neutral-800,#233043); font-size:15px; font-weight:700;
+  padding:16px 14px; border-radius:var(--radius-md,12px); cursor:pointer;
+  transition:border-color .14s ease, background .14s ease, box-shadow .14s ease, transform .08s ease;
+  text-align:center;
 }
-.wz__choices--grid .wz__choice{ padding:13px 6px; font-size:14px; }
-.wz__choice:hover{ border-color:var(--color-cta-main,#0b5bd3); }
-.wz__choice:active{ transform:scale(.97); }
+.wz__choices--grid .wz__choice{ padding:14px 6px; font-size:14px; }
+.wz__choice:hover{ border-color:var(--color-cta-main,#0b5bd3); background:#fafcff; }
+.wz__choice:active{ transform:scale(.96); }
 .wz__choice.is-selected{
   border-color:var(--color-cta-main,#0b5bd3);
   background:var(--primary-bg,#eaf2ff);
   color:var(--color-cta-main,#0b5bd3);
+  box-shadow:0 0 0 3px rgba(11,91,211,.12);
 }
 
-/* ---------- 만원 단위 입력 ---------- */
-.wz__inputwrap{ position:relative; display:flex; align-items:center; margin-bottom:18px; }
+/* ===== 만원 입력 ===== */
+.wz__inputwrap{ position:relative; display:flex; align-items:center; margin-bottom:20px; }
 .wz__num{
   flex:1 1 auto; width:100%; box-sizing:border-box;
-  font-size:22px; font-weight:700; text-align:right;
-  padding:16px 58px 16px 16px;
-  border:1.5px solid var(--border-default,#e6ecf5); border-radius:var(--radius-md,10px);
+  font-size:26px; font-weight:800; text-align:right;
+  padding:16px 64px 16px 16px;
+  border:1.5px solid var(--border-default,#e6ecf5); border-radius:var(--radius-md,12px);
   color:var(--neutral-900,#0b2540);
 }
-.wz__num:focus{ outline:none; border-color:var(--color-form-focus-border,#bcd5ff); box-shadow:var(--ring,0 0 0 4px rgba(11,91,211,.15)); }
-.wz__unit{ position:absolute; right:18px; font-size:16px; font-weight:700; color:var(--neutral-400,#9aa7b6); pointer-events:none; }
+.wz__num:focus{ outline:none; border-color:var(--color-cta-main,#0b5bd3); box-shadow:0 0 0 3px rgba(11,91,211,.15); }
+.wz__unit{ position:absolute; right:18px; font-size:17px; font-weight:800; color:var(--neutral-400,#9aa7b6); pointer-events:none; }
 
-/* ---------- '다음' 버튼 ---------- */
+/* ===== '다음' 버튼 ===== */
 .wz__next{
-  width:100%; padding:15px; border:0; border-radius:var(--radius-md,10px);
-  background:var(--color-cta-main,#0b5bd3); color:#fff; font-size:16px; font-weight:700; cursor:pointer;
-  transition:opacity .15s ease;
+  width:100%; padding:16px; border:0; border-radius:var(--radius-md,12px);
+  background:var(--color-cta-main,#0b5bd3); color:#fff; font-size:16px; font-weight:800; cursor:pointer;
+  transition:opacity .15s ease, transform .12s ease;
 }
-.wz__next:disabled{ background:var(--color-cta-disabled,#595959); cursor:default; }
+.wz__next:hover:not(:disabled){ transform:translateY(-1px); }
+.wz__next:disabled{ background:var(--color-cta-disabled,#595959); opacity:.45; cursor:default; }
 
-/* ---------- 마지막 스텝 입력 필드(기존 .lf__ 재사용, 배치만) ---------- */
+/* ===== 마지막 스텝 입력 필드 ===== */
 .wz__field{ margin-bottom:14px; text-align:left; }
-.wz__phone{ display:flex; align-items:center; gap:8px; }
-.wz__phone input:first-child{ flex:0 0 22%; text-align:center; }
-.wz__phone input:not(:first-child){ flex:1 1 0; text-align:center; }
-.wz__dash{ flex:0 0 auto; color:#999; }
+.wz__flabel{ display:block; font-size:14px; font-weight:700; color:var(--neutral-700,#33415a); margin:0 0 6px; }
+.wz__finput, .wz__fselect{
+  width:100%; box-sizing:border-box;
+  border:1.5px solid var(--border-default,#e6ecf5); border-radius:var(--radius-md,12px);
+  padding:13px 14px; font-size:15px; background:#fff; color:var(--neutral-900,#0b2540);
+  transition:border-color .14s ease, box-shadow .14s ease;
+}
+.wz__finput:focus, .wz__fselect:focus{ outline:none; border-color:var(--color-cta-main,#0b5bd3); box-shadow:0 0 0 3px rgba(11,91,211,.13); }
+.wz__finput.is-invalid, .wz__fselect.is-invalid{ border-color:var(--color-form-error,#c53030); }
+.wz__phone-row{ display:flex; align-items:center; gap:8px; }
+.wz__phone-row input:first-child{ flex:0 0 24%; text-align:center; }
+.wz__phone-row input:not(:first-child){ flex:1 1 0; text-align:center; }
+.wz__dash{ flex:0 0 auto; color:var(--neutral-400,#9aa7b6); }
 
-/* ---------- 이전 버튼 ---------- */
+/* 동의 + 정책 */
+.wz__agree{ display:flex; align-items:center; gap:8px; margin:16px 0 14px; flex-wrap:wrap; }
+.wz__check{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--neutral-700,#33415a); cursor:pointer; }
+.wz__policy{ background:none; border:0; padding:0; cursor:pointer; color:var(--neutral-500,#66768a); font-size:12px; text-decoration:underline; }
+
+/* 제출 버튼 */
+.wz__submit{
+  width:100%; padding:17px; border:0; border-radius:var(--radius-lg,14px);
+  background:var(--color-cta-main,#0b5bd3); color:#fff; font-size:17px; font-weight:800; cursor:pointer;
+  box-shadow:0 10px 24px rgba(11,91,211,.30);
+  transition:background .15s ease, transform .12s ease;
+}
+.wz__submit:hover{ transform:translateY(-1px); }
+.wz__submit:disabled{ background:var(--color-cta-disabled,#595959); opacity:.55; cursor:default; box-shadow:none; }
+
+/* 이전 버튼 */
 .wz__back{
-  margin-top:14px; background:none; border:0; color:var(--neutral-400,#9aa7b6);
-  font-size:14px; font-weight:600; cursor:pointer; padding:6px 4px;
+  display:block; margin:14px auto 0; background:none; border:0;
+  color:var(--neutral-400,#9aa7b6); font-size:14px; font-weight:600; cursor:pointer; padding:6px 10px;
 }
 .wz__back:hover{ color:var(--color-cta-main,#0b5bd3); }
 
-/* ---------- 모션 최소화 선호 ---------- */
+/* 반응형: 작은 화면 */
+@media (max-width:420px){
+  .wz__device{ padding:12px 10px 14px; border-radius:38px; }
+  .wz__screen{ border-radius:28px; padding:28px 16px 20px; min-height:480px; }
+  .wz__intro-title{ font-size:23px; }
+}
+
+/* 모션 최소화 */
 @media (prefers-reduced-motion: reduce){
-  .wz__track, .wz__viewport{ transition:none; }
+  .wz__track, .wz__bar-fill{ transition:none; }
+  .wz__start, .wz__next, .wz__submit{ transition:none; }
 }
