@@ -1643,33 +1643,44 @@ body.rv-lightbox-locked {
   width:min(400px, 92vw);
   margin:0 auto;
   padding:14px 12px 16px;
-  background:linear-gradient(160deg,#0b2540 0%, #16324f 100%);  /* 진한 남색 바디 */
+  background:linear-gradient(160deg,#1a1a1e 0%, #050507 100%);  /* 진한 검정 바디 */
   border-radius:44px;
   box-shadow:
-    0 2px 0 2px rgba(255,255,255,.04) inset,
-    0 30px 70px rgba(11,37,64,.45),
-    0 8px 20px rgba(0,0,0,.30);
+    0 0 0 2px #000 inset,
+    0 2px 0 2px rgba(255,255,255,.05) inset,
+    0 30px 70px rgba(0,0,0,.55),
+    0 8px 20px rgba(0,0,0,.40);
+}
+/* ★ PC에서 목업 크게 (히어로 대비 작아보이는 문제) — 모바일은 그대로 */
+@media (min-width:768px){
+  .wz__device{ width:440px; padding:16px 14px 18px; }
+  .wz__screen{ min-height:600px; padding:40px 26px 26px; }
+  .wz__intro-title{ font-size:30px; }
+  .wz__intro-sub{ font-size:16px; }
+  .wz__q{ font-size:23px; }
+  .wz__choice{ font-size:16px; padding:17px 14px; }
+  .wz__choices--grid .wz__choice{ font-size:15px; padding:15px 6px; }
 }
 /* 전면 카메라(펀치홀) */
 .wz__cam{
   position:absolute; top:26px; left:50%; transform:translateX(-50%);
   width:9px; height:9px; border-radius:50%;
-  background:#05101d; box-shadow:0 0 0 2px rgba(255,255,255,.06);
+  background:#000; box-shadow:0 0 0 2px rgba(255,255,255,.08);
   z-index:3;
 }
 /* 측면 버튼 */
-.wz__btn{ position:absolute; background:#0a1f37; border-radius:3px; }
+.wz__btn{ position:absolute; background:#000; border-radius:3px; }
 .wz__btn--power  { right:-3px; top:150px; width:3px; height:64px; }
 .wz__btn--vol-up { left:-3px;  top:120px; width:3px; height:42px; }
 .wz__btn--vol-dn { left:-3px;  top:172px; width:3px; height:42px; }
 
-/* 스크린(흰 화면) */
+/* 스크린(흰 화면) — ★ 높이 고정(가장 긴 지역 스텝 기준). 짧은 스텝도 이 높이 유지 */
 .wz__screen{
   position:relative;
   background:#fff;
   border-radius:32px;
   padding:34px 20px 22px;
-  min-height:520px;
+  min-height:540px;
   overflow:hidden;
 }
 
@@ -1730,9 +1741,12 @@ body.rv-lightbox-locked {
   transition:width .4s cubic-bezier(.4,0,.2,1);
 }
 
-/* ===== 슬라이드 뷰포트 + 트랙 ===== */
-.wz__viewport{ position:relative; overflow:hidden; }
-.wz__track{ display:flex; width:100%; transition:transform .32s cubic-bezier(.4,0,.2,1); will-change:transform; }
+/* ===== 슬라이드 뷰포트 + 트랙 =====
+   ★ 높이 고정: 가장 긴 스텝(지역 17개=6행 그리드) 기준. 짧은 스텝도 이 높이 유지→튐 없음.
+     JS lockHeight가 실측으로 덮어쓰지만, CSS 고정값이 기본 안전망(전환 중 튐 방지). */
+.wz__viewport{ position:relative; overflow:hidden; min-height:360px; }
+@media (min-width:768px){ .wz__viewport{ min-height:400px; } }
+.wz__track{ display:flex; width:100%; height:100%; transition:transform .32s cubic-bezier(.4,0,.2,1); will-change:transform; }
 .wz__slide{ flex:0 0 100%; width:100%; min-width:100%; box-sizing:border-box; padding:2px; align-self:flex-start; }
 
 /* 질문·고지문 */

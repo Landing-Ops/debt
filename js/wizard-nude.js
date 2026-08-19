@@ -48,7 +48,7 @@
   function goTo(i) {
     index = Math.max(0, Math.min(LAST, i));
     track.style.transform = 'translateX(' + (-index * 100) + '%)';
-    if (backBtn) backBtn.hidden = (index === 0);
+    if (backBtn) backBtn.hidden = false;   // 스텝1 포함 항상 노출(스텝1의 이전=인트로 복귀)
     paintBar();
 
     // 입력형 스텝이면 포커스(모바일 키보드)
@@ -56,13 +56,25 @@
     if (numInput) { try { numInput.focus({ preventScroll: true }); } catch (e) {} }
   }
   function next() { if (index < LAST) goTo(index + 1); }
-  function prev() { if (index > 0) goTo(index - 1); }
+  function prev() {
+    if (index > 0) { goTo(index - 1); return; }
+    backToIntro();   // 스텝1(첫 항목)에서 뒤로가기 → 인트로로 복귀
+  }
 
-  /* ---------- 뷰포트 높이 '고정' (가장 긴 슬라이드 기준, 1회) ----------
-     스텝마다 높이 재계산하면 튀므로, 최초에 제일 큰 높이로 고정해버림. */
+  /* ---------- 인트로로 복귀 (첫 항목에서 뒤로가기) ---------- */
+  function backToIntro() {
+    if (intro) intro.hidden = false;
+    if (barWrap) barWrap.hidden = true;
+    if (viewport) viewport.hidden = true;
+    if (backBtn) backBtn.hidden = true;
+    index = 0;
+  }
+
+  /* ---------- 뷰포트 높이 '고정' (가장 긴 지역 스텝 기준, 1회) ----------
+     ★ 지역 스텝(17개)이 항상 가장 큼 → 그 높이로 뷰포트 고정.
+       CSS min-height가 안전망, JS가 실측으로 정확히 덮어씀. 스텝 전환 중 안 튐. */
   function lockHeight() {
     if (!viewport) return;
-    // 모든 슬라이드를 잠깐 보이게 해서 최대 높이 측정
     var max = 0;
     slides.forEach(function (s) {
       var h = s.scrollHeight;
