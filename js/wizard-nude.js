@@ -48,7 +48,7 @@
   function goTo(i) {
     index = Math.max(0, Math.min(LAST, i));
     track.style.transform = 'translateX(' + (-index * 100) + '%)';
-    if (backBtn) backBtn.hidden = false;   // 스텝1 포함 항상 노출(스텝1의 이전=인트로 복귀)
+    if (backBtn) backBtn.hidden = (index === LAST);   // 스텝1~5 노출(스텝1의 이전=인트로), 마지막 스텝(결과)에선 숨김
     paintBar();
 
     // 입력형 스텝이면 포커스(모바일 키보드)
