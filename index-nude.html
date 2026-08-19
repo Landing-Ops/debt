@@ -22,7 +22,7 @@
 
   <!-- 역할별 CSS: 토큰 → 컴포넌트 스킨 → 타이포 → 효과 -->
   <link rel="stylesheet" href="./css/brand.css">
-  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/common-nude.css">
   <link rel="stylesheet" href="./css/typography.css">
   <link rel="stylesheet" href="./css/premium.css">
 
@@ -498,18 +498,18 @@
 
           <!-- ===== 인트로(스텝 0) ===== -->
           <div class="wz__intro" data-wz-intro>
-            <div class="wz__intro-badge">정부지원 개인회생</div>
+            <div class="wz__intro-badge">정부 지원제도 개인회생</div>
             <h3 class="wz__intro-title">
               내 빚, 얼마나<br><b>탕감</b>받을 수 있을까?
             </h3>
             <p class="wz__intro-sub">
-              6개 항목만 간단히 체크하면<br>예상 탕감액을 진단해드려요.
+              6개 항목만 간단히 체크하면<br>예상 탕감액을 진단해드립니다.
             </p>
             <ul class="wz__intro-points">
               <li>원금 최대 <b>95%</b> 탕감</li>
               <li>이자 <b>100%</b> 면제</li>
             </ul>
-            <button type="button" class="wz__start" data-wz-start>예상 탕감액 30초 진단 시작하기</button>
+            <button type="button" class="wz__start" data-wz-start>30초 진단 시작하기</button>
             <p class="wz__intro-foot">오늘 <strong id="today-count">0</strong>명이 진단받았어요</p>
           </div>
 
@@ -528,8 +528,8 @@
 
               <!-- 스텝 1 · 거주지역 -->
               <div class="wz__slide" data-wz-step="1">
-                <h3 class="wz__q">현재 거주지역이<br>어디신가요?</h3>
-                <p class="wz__notice">거주지역에 따라 예상 탕감액이 달라질 수 있어요.</p>
+                <h3 class="wz__q">거주 지역을<br> 선택해주세요.</h3>
+                <!-- <p class="wz__notice">거주지역에 따라 예상 탕감액이 달라질 수 있어요.</p> -->
                 <div class="wz__choices wz__choices--grid" data-wz-group="region">
                   <button type="button" class="wz__choice" data-value="서울">서울</button>
                   <button type="button" class="wz__choice" data-value="경기">경기</button>
@@ -554,7 +554,7 @@
               <!-- 스텝 2 · 혼인여부 -->
               <div class="wz__slide" data-wz-step="2">
                 <h3 class="wz__q">혼인여부를<br>선택해주세요.</h3>
-                <p class="wz__notice">가구 상황에 맞는 정확한 진단을 위해 필요해요.</p>
+                <!-- <p class="wz__notice">가구 상황에 맞는 정확한 진단을 위해 필요해요.</p> -->
                 <div class="wz__choices" data-wz-group="marital">
                   <button type="button" class="wz__choice" data-value="기혼">기혼</button>
                   <button type="button" class="wz__choice" data-value="미혼">미혼</button>
@@ -565,7 +565,7 @@
               <!-- 스텝 3 · 부양가족수 -->
               <div class="wz__slide" data-wz-step="3">
                 <h3 class="wz__q">등본상 부양가족은<br>몇 명인가요?</h3>
-                <p class="wz__notice">본인을 제외한 가족 수예요. 생계비 기준에 반영돼요.</p>
+                <p class="wz__notice">*본인을 제외하고 선택해주세요.</p>
                 <div class="wz__choices" data-wz-group="dependents">
                   <button type="button" class="wz__choice" data-value="0명">없음</button>
                   <button type="button" class="wz__choice" data-value="1명">1명</button>
@@ -577,8 +577,8 @@
 
               <!-- 스텝 4 · 월평균 소득 -->
               <div class="wz__slide" data-wz-step="4">
-                <h3 class="wz__q">월평균 소득이<br>어떻게 되세요?</h3>
-                <p class="wz__notice">세금 공제 전, 대략적인 월 소득을 만원 단위로 입력해주세요.</p>
+                <h3 class="wz__q">월평균 소득을<br>입력해주세요.</h3>
+                <p class="wz__notice">*무직자/기초생활 수급자는 진단이 불가합니다.</p>
                 <div class="wz__inputwrap">
                   <input class="wz__num" data-wz-num="inco" type="tel" inputmode="numeric" placeholder="0" autocomplete="off">
                   <span class="wz__unit">만원</span>
@@ -588,8 +588,8 @@
 
               <!-- 스텝 5 · 총 채무액 -->
               <div class="wz__slide" data-wz-step="5">
-                <h3 class="wz__q">총 채무액은<br>얼마인가요?</h3>
-                <p class="wz__notice">카드·대출·미납 등 모든 빚을 합친 금액을 만원 단위로 입력해주세요.</p>
+                <h3 class="wz__q">총 채무액은<br>대략 얼마인가요?</h3>
+                <p class="wz__notice">*채무액 2,000만원 미만은 진단이 불가합니다.</p>
                 <div class="wz__inputwrap">
                   <input class="wz__num" data-wz-num="deb" type="tel" inputmode="numeric" placeholder="0" autocomplete="off">
                   <span class="wz__unit">만원</span>
@@ -600,7 +600,7 @@
               <!-- 스텝 6 · 이름·연락처·통화시간 + 제출 -->
               <div class="wz__slide" data-wz-step="6">
                 <h3 class="wz__q">거의 다 왔어요!<br>결과 안내 받을 곳을 남겨주세요.</h3>
-                <p class="wz__notice">채무조정 전문가가 높은 탕감률을 받을 수 있는 서류 및 추가 감면 제도를 일러드리고, 정확한 탕감액 안내를 도와드립니다.</p>
+                <p class="wz__notice">전문가가 높은 탕감률을 받을 수 있는 추가 감면 제도를 일러드리고, 정확한 예상 탕감액 안내를 도와드립니다.</p>
 
                 <div class="wz__field">
                   <label class="wz__flabel" for="lf-name">이름</label>
@@ -641,7 +641,7 @@
                   <button type="button" class="wz__policy" data-evt="open_privacy">[자세히 보기]</button>
                 </div>
 
-                <button type="submit" data-field="submit" class="wz__submit">예상 탕감액 진단받기</button>
+                <button type="submit" data-field="submit" class="wz__submit">상세 결과 안내받기</button>
               </div>
 
             </div><!-- /.wz__track -->
