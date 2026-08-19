@@ -110,6 +110,11 @@ module.exports = {
       preset: 'minimal',
       reason: '-'
     },
+    {
+      src: 'js/wizard-nude.js',
+      preset: 'minimal',
+      reason: '-'
+    },
 
     // ── result.html (땡큐페이지) ──
     {

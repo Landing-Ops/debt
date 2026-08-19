@@ -1,0 +1,174 @@
+<!-- =====================================================================
+     AI 정밀진단 인라인 위저드 — 기존 .leadform__card 폼을 이걸로 교체
+     ---------------------------------------------------------------------
+     ★ 카드 프레임(.leadform__wrap)은 그대로, 안쪽 .leadform__card만 위저드로.
+     ★ 값 수집 방식: 각 항목마다 hidden input에 data-field를 두고,
+        위저드 JS(wizard.js)가 선택/입력 시 그 hidden input에 값을 넣는다.
+        → form-core-certification.js 는 기존처럼 f.xxx.value 로 읽으면 됨.
+        data-field(기존 유지 + 신규): name·phone1·phone2·phone3·
+        inco(월소득)·deb(총채무)·calltime + region·marital·dependents
+     ★ 거절조건 없음 — 모든 선택지 그냥 받음. 항목별 고지문(.wz__notice)만.
+     ★ 계산 없음 — 6스텝 값 모아 기존 제출(submit 버튼)로 → 땡큐페이지.
+     ===================================================================== -->
+
+<section class="section leadform" id="contact" aria-labelledby="leadform-title">
+  <div class="leadform__bg" aria-hidden="true"></div>
+  <div class="leadform__wrap">
+    <header class="leadform__head">
+      <p class="leadform__count">오늘 예상 탕감액<br>진단 신청하신분 <strong id="today-count">0</strong>명</p>
+      <h2 id="leadform-title" class="leadform__title">
+        <b class="leadform__hl">원금 최대 95%, 이자 100% 탕감</b><br>
+        정부지원 개인회생제도<br>내 빚 예상 탕감액<br>진단 신청하기
+      </h2>
+    </header>
+    <br>
+
+    <form class="leadform__card wz" data-form="lead" novalidate>
+
+      <!-- 값 수집용 hidden input (위저드 JS가 채움 → form-core가 .value로 읽음) -->
+      <input type="hidden" data-field="region">
+      <input type="hidden" data-field="marital">
+      <input type="hidden" data-field="dependents">
+      <input type="hidden" data-field="inco">
+      <input type="hidden" data-field="deb">
+
+      <!-- 진행 표시 -->
+      <div class="wz__progress" aria-hidden="true">
+        <div class="wz__dots">
+          <span class="wz__dot is-active"></span><span class="wz__dot"></span>
+          <span class="wz__dot"></span><span class="wz__dot"></span>
+          <span class="wz__dot"></span><span class="wz__dot"></span>
+        </div>
+        <p class="wz__stepinfo"><span data-wz-cur>1</span> / <span data-wz-total>6</span></p>
+      </div>
+
+      <!-- 슬라이드 뷰포트 + 트랙 -->
+      <div class="wz__viewport">
+        <div class="wz__track" data-wz-track>
+
+          <!-- 스텝 1 · 거주지역 (선택→자동전진) -->
+          <div class="wz__slide" data-wz-step="1">
+            <h3 class="wz__q">현재 거주지역이 어디신가요?</h3>
+            <p class="wz__notice">거주지역에 따라 예상 탕감액이 달라질 수 있어요.</p>
+            <div class="wz__choices wz__choices--grid" data-wz-group="region">
+              <button type="button" class="wz__choice" data-value="서울">서울</button>
+              <button type="button" class="wz__choice" data-value="경기">경기</button>
+              <button type="button" class="wz__choice" data-value="인천">인천</button>
+              <button type="button" class="wz__choice" data-value="부산">부산</button>
+              <button type="button" class="wz__choice" data-value="대구">대구</button>
+              <button type="button" class="wz__choice" data-value="광주">광주</button>
+              <button type="button" class="wz__choice" data-value="대전">대전</button>
+              <button type="button" class="wz__choice" data-value="울산">울산</button>
+              <button type="button" class="wz__choice" data-value="세종">세종</button>
+              <button type="button" class="wz__choice" data-value="강원">강원</button>
+              <button type="button" class="wz__choice" data-value="충북">충북</button>
+              <button type="button" class="wz__choice" data-value="충남">충남</button>
+              <button type="button" class="wz__choice" data-value="전북">전북</button>
+              <button type="button" class="wz__choice" data-value="전남">전남</button>
+              <button type="button" class="wz__choice" data-value="경북">경북</button>
+              <button type="button" class="wz__choice" data-value="경남">경남</button>
+              <button type="button" class="wz__choice" data-value="제주">제주</button>
+            </div>
+          </div>
+
+          <!-- 스텝 2 · 혼인여부 -->
+          <div class="wz__slide" data-wz-step="2">
+            <h3 class="wz__q">혼인여부를 선택해주세요.</h3>
+            <p class="wz__notice">가구 상황에 맞는 정확한 진단을 위해 필요해요.</p>
+            <div class="wz__choices" data-wz-group="marital">
+              <button type="button" class="wz__choice" data-value="기혼">기혼</button>
+              <button type="button" class="wz__choice" data-value="미혼">미혼</button>
+              <button type="button" class="wz__choice" data-value="이혼">이혼</button>
+            </div>
+          </div>
+
+          <!-- 스텝 3 · 부양가족수 -->
+          <div class="wz__slide" data-wz-step="3">
+            <h3 class="wz__q">등본상 부양가족은 몇 명인가요?</h3>
+            <p class="wz__notice">본인을 제외한 가족 수예요. 생계비 기준에 반영돼요.</p>
+            <div class="wz__choices" data-wz-group="dependents">
+              <button type="button" class="wz__choice" data-value="0명">없음</button>
+              <button type="button" class="wz__choice" data-value="1명">1명</button>
+              <button type="button" class="wz__choice" data-value="2명">2명</button>
+              <button type="button" class="wz__choice" data-value="3명">3명</button>
+              <button type="button" class="wz__choice" data-value="4명+">4명 이상</button>
+            </div>
+          </div>
+
+          <!-- 스텝 4 · 월평균 소득 (만원 단위) -->
+          <div class="wz__slide" data-wz-step="4">
+            <h3 class="wz__q">월평균 소득이 어떻게 되세요?</h3>
+            <p class="wz__notice">세금 공제 전, 대략적인 월 소득을 만원 단위로 입력해주세요.</p>
+            <div class="wz__inputwrap">
+              <input class="wz__num" data-wz-num="inco" type="tel" inputmode="numeric" placeholder="예: 250" autocomplete="off">
+              <span class="wz__unit">만원</span>
+            </div>
+            <button type="button" class="wz__next" data-wz-next disabled>다음</button>
+          </div>
+
+          <!-- 스텝 5 · 총 채무액 (만원 단위) -->
+          <div class="wz__slide" data-wz-step="5">
+            <h3 class="wz__q">총 채무액은 얼마인가요?</h3>
+            <p class="wz__notice">카드·대출·미납 등 모든 빚을 합친 금액을 만원 단위로 입력해주세요.</p>
+            <div class="wz__inputwrap">
+              <input class="wz__num" data-wz-num="deb" type="tel" inputmode="numeric" placeholder="예: 3000" autocomplete="off">
+              <span class="wz__unit">만원</span>
+            </div>
+            <button type="button" class="wz__next" data-wz-next disabled>다음</button>
+          </div>
+
+          <!-- 스텝 6 · 이름·연락처·통화시간 + 제출 -->
+          <div class="wz__slide" data-wz-step="6">
+            <h3 class="wz__q">마지막이에요! 결과를 받을 연락처를 남겨주세요.</h3>
+            <p class="wz__notice">입력하신 정보로 전문가가 정확한 진단 결과를 안내드려요.</p>
+
+            <div class="wz__field">
+              <label class="lf__label" for="lf-name">이름</label>
+              <input id="lf-name" data-field="name" class="lf__input" type="text" placeholder="이름" maxlength="4" autocomplete="name">
+            </div>
+
+            <div class="wz__field">
+              <label class="lf__label">연락처</label>
+              <div class="wz__phone">
+                <input data-field="phone1" class="lf__input" type="tel" inputmode="numeric" value="010" maxlength="3">
+                <span class="wz__dash">-</span>
+                <input data-field="phone2" class="lf__input" type="tel" inputmode="numeric" placeholder="1234" maxlength="4">
+                <span class="wz__dash">-</span>
+                <input data-field="phone3" class="lf__input" type="tel" inputmode="numeric" placeholder="5678" maxlength="4">
+              </div>
+            </div>
+
+            <div class="wz__field">
+              <label class="lf__label" for="calltime">통화가능 시간</label>
+              <select id="calltime" data-field="calltime" class="lf__select">
+                <option value="" selected disabled>통화가능 시간을 선택해주세요</option>
+                <option>오전 10~11시</option>
+                <option>오전 11시~12시</option>
+                <option>오후 12~1시</option>
+                <option>오후 1~2시</option>
+                <option>오후 2~3시</option>
+                <option>오후 3~4시</option>
+                <option>오후 4~5시</option>
+                <option>오후 5~6시</option>
+              </select>
+            </div>
+
+            <div class="lf__agree">
+              <label class="lf__check" for="lf-agree">
+                <input id="lf-agree" data-field="agree" type="checkbox" checked>
+                <span>개인정보처리방침에 동의합니다.</span>
+              </label>
+              <button type="button" class="lf__policy" data-evt="open_privacy">[자세히 보기]</button>
+            </div>
+
+            <button type="submit" data-field="submit" class="lf__submit btn-cta-main">예상 탕감액 진단 신청하기</button>
+          </div>
+
+        </div><!-- /.wz__track -->
+      </div><!-- /.wz__viewport -->
+
+      <button type="button" class="wz__back" data-wz-back hidden>← 이전</button>
+
+    </form>
+  </div>
+</section>

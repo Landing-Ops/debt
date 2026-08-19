@@ -101,6 +101,7 @@
   var f = {
     name: $('name'), phone1: $('phone1'), phone2: $('phone2'), phone3: $('phone3'),
     deb: $('deb'), inco: $('inco'),
+    region: $('region'), marital: $('marital'), dependents: $('dependents'),   // ★ 위저드 신규 3항목(hidden input)
     comparison: $('comparison'), impossibility: $('impossibility'),
     cause: $('cause'),
     calltime: $('calltime'), message: $('message'), agree: $('agree') 
@@ -110,7 +111,7 @@
 
   var nameRegex  = /^[가-힣]+$/;
   var phoneRegex = /^[0-9]+$/;
-  var checkOrder = ['name', 'phone1', 'phone2', 'phone3', 'deb', 'inco', 'comparison', 'impossibility', 'cause', 'calltime', 'message', 'agree'];
+  var checkOrder = ['name', 'phone1', 'phone2', 'phone3', 'region', 'marital', 'dependents', 'deb', 'inco', 'comparison', 'impossibility', 'cause', 'calltime', 'message', 'agree'];
   function clearErrors() {
     checkOrder.forEach(function (k) { if (f[k]) f[k].classList.remove('is-invalid'); });
   }
@@ -373,13 +374,13 @@
     //   return { ok: false, msg: '휴대폰 인증을 완료해주세요.' };
     // }
 
-    if (!v.inco) { f.inco.classList.add('is-invalid'); return { ok: false, msg: '소득 범주를 선택하세요.' }; }
+    if (!v.inco) { f.inco.classList.add('is-invalid'); return { ok: false, msg: '월평균 소득을 입력하세요.' }; }
     if (v.inco === 'disallow') {
       f.inco.classList.add('is-invalid');
       return { ok: false, msg: '개인회생 신청이 불가합니다.' };
     }
 
-    if (!v.deb) { f.deb.classList.add('is-invalid'); return { ok: false, msg: '채무 범주를 선택하세요.' }; }
+    if (!v.deb) { f.deb.classList.add('is-invalid'); return { ok: false, msg: '총 채무액을 입력하세요.' }; }
     if (v.deb === 'disallow') {
       f.deb.classList.add('is-invalid');
       return { ok: false, msg: '개인회생 신청이 불가합니다.' };
@@ -458,14 +459,12 @@
       action: 'submit',
       name: (f.name.value || '').trim(),
       phone: ((f.phone1.value || '').trim() + (f.phone2.value || '').trim() + (f.phone3.value || '').trim()),   // ★ 3분할 입력값을 11자리로 합쳐서 전송 (시트 저장·중복체크 형식 유지)
-      inco: (f.inco.value || '').trim(),
-      deb: (f.deb.value || '').trim(),
-      // comparison: (f.comparison.value || '').trim(),
-      // impossibility: (f.impossibility.value || '').trim(),
-      // cause: (f.cause.value || '').trim(),
+      region: (f.region && f.region.value || '').trim(),          // ★ 위저드 신규: 거주지역
+      marital: (f.marital && f.marital.value || '').trim(),        // ★ 위저드 신규: 혼인여부
+      dependents: (f.dependents && f.dependents.value || '').trim(), // ★ 위저드 신규: 부양가족수
+      inco: (f.inco.value || '').trim(),                          // ★ 이제 만원 단위 숫자 (구 범위선택 아님)
+      deb: (f.deb.value || '').trim(),                            // ★ 이제 만원 단위 숫자
       calltime: (f.calltime.value || '').trim(),
-      // message: (f.message.value || '').trim(),
-      // phoneCheck: isPhoneVerified ? '번호인증 완료' : '번호인증 미완료',
       source: SOURCE,
       requestId: requestId   // ★ 이번 제출(1차+재시도) 전체가 공유하는 고유 ID — 서버가 재시도 감지용으로 사용
     };

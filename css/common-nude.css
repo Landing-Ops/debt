@@ -1627,3 +1627,91 @@ body.rv-lightbox-locked {
   font-weight: 500;
 }
 .cta__assure-ic { width: 18px; height: 18px; color: var(--primary-after); flex: 0 0 auto; }
+/* =====================================================================
+   AI 정밀진단 인라인 위저드 (.wz__*)  — 2026-08-18 통합
+   ---------------------------------------------------------------------
+   기존 .leadform__card 폼을 6스텝 위저드로 교체할 때 쓰는 스타일.
+   ★ 색·라운드·포커스는 이 사이트 기존 변수 그대로 사용:
+      --color-cta-main(파란 CTA) / --border-default / --neutral-900·400
+      / --color-form-focus-border / --ring / --radius-md·lg
+      (변수 미정의 환경 대비 폴백값 병기)
+   ===================================================================== */
+
+.wz{ position:relative; }
+
+/* ---------- 진행 표시(도트 + n/6) ---------- */
+.wz__progress{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.wz__dots{ display:flex; gap:7px; }
+.wz__dot{
+  width:9px; height:9px; border-radius:var(--radius-pill,999px);
+  background:var(--border-default,#e6ecf5);
+  transition:background .25s ease, transform .25s ease;
+}
+.wz__dot.is-active{ background:var(--color-cta-main,#0b5bd3); transform:scale(1.05); }
+.wz__stepinfo{ font-size:13px; font-weight:700; color:var(--color-cta-main,#0b5bd3); margin:0; }
+
+/* ---------- 슬라이드 뷰포트 + 트랙 ---------- */
+.wz__viewport{ position:relative; overflow:hidden; transition:height .28s ease; }
+.wz__track{ display:flex; width:100%; transition:transform .32s cubic-bezier(.4,0,.2,1); will-change:transform; }
+.wz__slide{ flex:0 0 100%; width:100%; min-width:100%; box-sizing:border-box; padding:2px; align-self:flex-start; }
+
+/* ---------- 질문·고지문 ---------- */
+.wz__q{ font-size:19px; font-weight:800; line-height:1.4; color:var(--neutral-900,#0b2540); margin:0 0 8px; text-align:left; }
+.wz__notice{ font-size:13px; color:var(--neutral-400,#9aa7b6); margin:0 0 18px; text-align:left; line-height:1.5; }
+
+/* ---------- 선택 칩 ---------- */
+.wz__choices{ display:flex; flex-direction:column; gap:10px; }
+.wz__choices--grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+.wz__choice{
+  appearance:none; border:1.5px solid var(--border-default,#e6ecf5); background:#fff;
+  color:var(--neutral-900,#0b2540); font-size:15px; font-weight:600;
+  padding:15px 14px; border-radius:var(--radius-md,10px); cursor:pointer;
+  transition:border-color .15s ease, background .15s ease, transform .08s ease; text-align:center;
+}
+.wz__choices--grid .wz__choice{ padding:13px 6px; font-size:14px; }
+.wz__choice:hover{ border-color:var(--color-cta-main,#0b5bd3); }
+.wz__choice:active{ transform:scale(.97); }
+.wz__choice.is-selected{
+  border-color:var(--color-cta-main,#0b5bd3);
+  background:var(--primary-bg,#eaf2ff);
+  color:var(--color-cta-main,#0b5bd3);
+}
+
+/* ---------- 만원 단위 입력 ---------- */
+.wz__inputwrap{ position:relative; display:flex; align-items:center; margin-bottom:18px; }
+.wz__num{
+  flex:1 1 auto; width:100%; box-sizing:border-box;
+  font-size:22px; font-weight:700; text-align:right;
+  padding:16px 58px 16px 16px;
+  border:1.5px solid var(--border-default,#e6ecf5); border-radius:var(--radius-md,10px);
+  color:var(--neutral-900,#0b2540);
+}
+.wz__num:focus{ outline:none; border-color:var(--color-form-focus-border,#bcd5ff); box-shadow:var(--ring,0 0 0 4px rgba(11,91,211,.15)); }
+.wz__unit{ position:absolute; right:18px; font-size:16px; font-weight:700; color:var(--neutral-400,#9aa7b6); pointer-events:none; }
+
+/* ---------- '다음' 버튼 ---------- */
+.wz__next{
+  width:100%; padding:15px; border:0; border-radius:var(--radius-md,10px);
+  background:var(--color-cta-main,#0b5bd3); color:#fff; font-size:16px; font-weight:700; cursor:pointer;
+  transition:opacity .15s ease;
+}
+.wz__next:disabled{ background:var(--color-cta-disabled,#595959); cursor:default; }
+
+/* ---------- 마지막 스텝 입력 필드(기존 .lf__ 재사용, 배치만) ---------- */
+.wz__field{ margin-bottom:14px; text-align:left; }
+.wz__phone{ display:flex; align-items:center; gap:8px; }
+.wz__phone input:first-child{ flex:0 0 22%; text-align:center; }
+.wz__phone input:not(:first-child){ flex:1 1 0; text-align:center; }
+.wz__dash{ flex:0 0 auto; color:#999; }
+
+/* ---------- 이전 버튼 ---------- */
+.wz__back{
+  margin-top:14px; background:none; border:0; color:var(--neutral-400,#9aa7b6);
+  font-size:14px; font-weight:600; cursor:pointer; padding:6px 4px;
+}
+.wz__back:hover{ color:var(--color-cta-main,#0b5bd3); }
+
+/* ---------- 모션 최소화 선호 ---------- */
+@media (prefers-reduced-motion: reduce){
+  .wz__track, .wz__viewport{ transition:none; }
+}
